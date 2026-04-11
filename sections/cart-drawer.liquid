@@ -1,0 +1,79 @@
+{% comment %}
+  filename: sections/cart-drawer.liquid
+  purpose: AJAX-ready slide-out cart drawer with line items, order note, discount helper, trust messaging, and upsell products.
+  key variables: cart, settings.cart_upsell_products, settings.free_shipping_threshold
+  ai_agent_edit_guide: Edit cart drawer layout, upsell placement, or helper forms here. Keep line item markup inside the cart-drawer-item snippet.
+{% endcomment %}
+<div id="CartDrawer" class="drawer" aria-hidden="true">
+  <div class="drawer__overlay" data-drawer-overlay></div>
+  <div class="drawer__panel scheme-dark text-light" data-drawer-panel>
+    <div class="drawer__header">
+      <h2 class="drawer__title">{{ 'cart.drawer_heading' | t }}</h2>
+      <button class="icon-button" type="button" data-drawer-close="CartDrawer" aria-label="{{ 'accessibility.close_cart' | t }}">
+        {% render 'icon-close' %}
+      </button>
+    </div>
+
+    <div class="drawer__body">
+      <div class="cart-drawer">
+        {% if cart.item_count > 0 %}
+          {% for item in cart.items %}
+            {% render 'cart-drawer-item', item: item %}
+          {% endfor %}
+        {% else %}
+          <div class="empty-state">
+            <p>{{ 'cart.empty' | t }}</p>
+            <a class="button button--secondary" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+          </div>
+        {% endif %}
+      </div>
+
+      {% if cart.item_count > 0 %}
+        <form class="search-form" data-cart-note-form>
+          <label for="CartDrawerNote">{{ 'cart.note' | t }}</label>
+          <input class="form-field" id="CartDrawerNote" type="text" name="note" value="{{ cart.note }}" placeholder="{{ 'cart.note_placeholder' | t }}">
+          <button class="button button--secondary" type="submit">{{ 'cart.update' | t }}</button>
+        </form>
+
+        <form class="search-form" data-discount-form>
+          <label for="CartDrawerDiscount">{{ 'cart.discount' | t }}</label>
+          <input class="form-field" id="CartDrawerDiscount" type="text" name="discount" placeholder="{{ 'cart.discount_placeholder' | t }}">
+          <button class="button button--secondary" type="submit">{{ 'cart.discount_apply' | t }}</button>
+        </form>
+
+        {% if settings.cart_upsell_products != blank %}
+          <div>
+            <p class="section-intro__eyebrow">{{ 'cart.upsell_heading' | t }}</p>
+            <div class="carousel__viewport">
+              {% for product in settings.cart_upsell_products limit: 4 %}
+                <div class="carousel__slide">
+                  {% render 'product-card', product: product, show_quick_add: true %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="cart-drawer__footer">
+      <p>{{ 'cart.free_shipping_progress' | t: threshold: settings.free_shipping_threshold }}</p>
+      {% render 'trust-badges' %}
+      {% if cart.item_count > 0 %}
+        <div class="price">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          <strong>{{ cart.total_price | money }}</strong>
+        </div>
+        <a class="button button--primary" href="{{ routes.checkout_url }}">{{ 'general.checkout' | t }}</a>
+        <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'header.view_cart' | t }}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": []
+}
+{% endschema %}

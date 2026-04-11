@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_section": true,
+        "heading": "Collection",
+        "subheading": "A measured view of every silhouette.",
+        "button_label": "Load more",
+        "background_scheme": "scheme-light",
+        "text_scheme": "text-dark",
+        "padding_top": "space-lg",
+        "padding_bottom": "space-xl",
+        "pagination_mode": "load-more"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

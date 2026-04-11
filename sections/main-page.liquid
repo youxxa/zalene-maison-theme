@@ -1,0 +1,25 @@
+{% comment %}
+  filename: sections/main-page.liquid
+  purpose: Default page presentation for editorial content such as about, care guide, contact, or journal landing pages.
+  key variables: page.title, page.content
+  ai_agent_edit_guide: Edit the standard page layout or typography wrapper here. Keep actual editorial content in Shopify page resources.
+{% endcomment %}
+<section class="section-shell scheme-light text-dark section-spacing--top-space-lg section-spacing--bottom-space-xl">
+  <div class="page-width page-content">
+    <div>
+      <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
+      <h1 class="section-intro__heading">{{ page.title }}</h1>
+      <div class="section-intro__divider"></div>
+    </div>
+    <div class="page-content__body rich-copy">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main page",
+  "settings": []
+}
+{% endschema %}

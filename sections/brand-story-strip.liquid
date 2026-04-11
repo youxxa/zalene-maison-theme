@@ -1,0 +1,110 @@
+{% comment %}
+  filename: sections/brand-story-strip.liquid
+  purpose: Split editorial brand story strip with image, rich copy, and refined divider-led storytelling.
+  key variables: section.settings.image, section.settings.heading, section.settings.body, section.settings.layout_direction
+  ai_agent_edit_guide: Edit the brand story composition or layout ordering here. Keep typography and spacing systems centralized in CSS.
+{% endcomment %}
+{% if section.settings.show_section %}
+  <section class="section-shell {{ section.settings.background_scheme }} {{ section.settings.text_scheme }} section-spacing--top-{{ section.settings.padding_top }} section-spacing--bottom-{{ section.settings.padding_bottom }}">
+    <div class="page-width">
+      <div class="story-strip__layout {% if section.settings.layout_direction == 'image-right' %}story-strip__layout--reverse{% endif %}">
+        <div class="story-strip__media">
+          {% if section.settings.image != blank %}
+            {% render 'responsive-image',
+              image: section.settings.image,
+              class: 'story-strip__image',
+              alt: section.settings.heading,
+              sizes: '(min-width: 750px) 50vw, 92vw',
+              width: 1200
+            %}
+          {% endif %}
+        </div>
+        <div class="story-strip__content">
+          {% render 'section-intro',
+            eyebrow: section.settings.eyebrow,
+            heading: section.settings.heading,
+            subheading: section.settings.subheading
+          %}
+          <div class="rich-copy">{{ section.settings.body }}</div>
+          {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+            <a class="button button--secondary" href="{{ section.settings.button_url }}">{{ section.settings.button_label }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Brand story strip",
+  "settings": [
+    { "type": "checkbox", "id": "show_section", "label": "Show section", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Elegance Redefined" },
+    { "type": "text", "id": "heading", "label": "Heading text", "default": "A House of Intentional Luxury" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading text", "default": "French discipline, Arabic grace, and craftsmanship without excess." },
+    { "type": "richtext", "id": "body", "label": "Body copy", "default": "<p>Zalene Maison is built around precision, restraint, and beauty that unfolds in texture rather than noise. Every silhouette is considered for movement, modesty, and presence. Fabrics are selected for softness, depth, and longevity, while each finish is refined to feel discreetly exceptional.</p><p>We design for women who value quiet confidence and garments that honour both occasion and everyday ritual. The result is a wardrobe shaped by calm structure, gentle light, and details that reveal themselves slowly.</p>" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Read the story" },
+    { "type": "url", "id": "button_url", "label": "Button URL" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Image placement",
+      "default": "image-left",
+      "options": [
+        { "value": "image-left", "label": "Image left" },
+        { "value": "image-right", "label": "Image right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "background_scheme",
+      "label": "Background color",
+      "default": "scheme-light",
+      "options": [
+        { "value": "scheme-light", "label": "Light" },
+        { "value": "scheme-dark", "label": "Dark" },
+        { "value": "scheme-mid", "label": "Mid" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_scheme",
+      "label": "Text color",
+      "default": "text-dark",
+      "options": [
+        { "value": "text-dark", "label": "Dark text" },
+        { "value": "text-light", "label": "Light text" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": "space-lg",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": "space-lg",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Brand story strip" }
+  ]
+}
+{% endschema %}

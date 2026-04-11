@@ -1,0 +1,26 @@
+{% comment %}
+  filename: sections/main-404.liquid
+  purpose: Not-found state with restrained luxury messaging and a route back to the storefront.
+  key variables: section.settings.*
+  ai_agent_edit_guide: Edit the 404 presentation or recovery CTA here. Keep copy localized and reusable.
+{% endcomment %}
+<section class="section-shell scheme-light text-dark section-spacing--top-space-xl section-spacing--bottom-space-xl">
+  <div class="page-width">
+    <div class="not-found">
+      <div class="section-intro">
+        <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
+        <h1 class="section-intro__heading">{{ 'page_404.heading' | t }}</h1>
+        <div class="section-intro__divider"></div>
+        <p class="section-intro__subheading">{{ 'page_404.subheading' | t }}</p>
+        <a class="button button--primary" href="{{ routes.root_url }}">{{ 'page_404.button_label' | t }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main 404",
+  "settings": []
+}
+{% endschema %}

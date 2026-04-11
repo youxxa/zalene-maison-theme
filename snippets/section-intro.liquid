@@ -1,0 +1,18 @@
+{% comment %}
+  filename: snippets/section-intro.liquid
+  purpose: Shared section heading stack for consistent eyebrow, title, subtitle, and divider output.
+  key variables: eyebrow, heading, subheading, alignment_class
+  ai_agent_edit_guide: Edit shared intro structure here if multiple sections need a coordinated heading system update.
+{% endcomment %}
+<div class="section-intro {{ alignment_class }}">
+  {% if eyebrow != blank %}
+    <p class="section-intro__eyebrow">{{ eyebrow }}</p>
+  {% endif %}
+  {% if heading != blank %}
+    <h2 class="section-intro__heading">{{ heading }}</h2>
+  {% endif %}
+  <div class="section-intro__divider"></div>
+  {% if subheading != blank %}
+    <p class="section-intro__subheading">{{ subheading }}</p>
+  {% endif %}
+</div>

@@ -1,0 +1,226 @@
+{% comment %}
+  filename: sections/main-product.liquid
+  purpose: Main product template with swipeable gallery, purchase form, sticky mobile add-to-cart bar, size guide, accordions, and trust badges.
+  key variables: product, product.media, product.selected_or_first_available_variant, section.settings.size_guide_content
+  ai_agent_edit_guide: Edit gallery structure, form fields, or product content hierarchy here. Keep AJAX add-to-cart behavior in theme.js and repeated trust output in snippets.
+{% endcomment %}
+{% if section.settings.show_section %}
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  {% assign product_form_id = 'ProductForm-' | append: section.id %}
+  {% assign product_button_label = section.settings.button_label %}
+  {% if product_button_label == blank %}
+    {% assign product_button_label = 'product.add_to_cart' | t %}
+  {% endif %}
+  <section class="section-shell {{ section.settings.background_scheme }} {{ section.settings.text_scheme }} section-spacing--top-{{ section.settings.padding_top }} section-spacing--bottom-{{ section.settings.padding_bottom }}">
+    <div class="page-width">
+      <div class="product-page">
+        <div class="product-gallery" data-product-gallery>
+          <div class="product-gallery__strip" data-product-gallery-strip>
+            {% for media in product.media %}
+              <div class="product-gallery__slide">
+                <div class="product-gallery__featured">
+                  {% if media.media_type == 'image' %}
+                    {% render 'responsive-image',
+                      image: media,
+                      class: 'product-gallery__image',
+                      alt: product.title,
+                      sizes: '(min-width: 990px) 52vw, 100vw',
+                      width: 1400
+                    %}
+                  {% else %}
+                    {% render 'responsive-image',
+                      image: media.preview_image,
+                      class: 'product-gallery__image',
+                      alt: product.title,
+                      sizes: '(min-width: 990px) 52vw, 100vw',
+                      width: 1400
+                    %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          {% if product.media.size > 1 %}
+            <div class="product-gallery__thumbs">
+              {% for media in product.media %}
+                <button class="icon-button" type="button" data-product-thumb aria-label="{{ 'accessibility.image' | t }} {{ forloop.index }}">
+                  {% if media.preview_image != blank %}
+                    {{
+                      media.preview_image
+                      | image_url: width: 120
+                      | image_tag:
+                        widths: '60, 120',
+                        width: 72,
+                        loading: 'lazy',
+                        class: 'product-card__image',
+                        alt: product.title
+                    }}
+                  {% endif %}
+                </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="product-page__details">
+          <p class="section-intro__eyebrow">{{ section.settings.eyebrow }}</p>
+          <h1 class="product-page__title">{{ product.title }}</h1>
+          {% render 'product-price', product: product, variant: current_variant %}
+          {% if product.description != blank %}
+            <p>{{ product.description | strip_html | truncate: 180 }}</p>
+          {% endif %}
+
+          {% form 'product', product, id: product_form_id, class: 'product-form', data-ajax-add-to-cart: '' %}
+            {% if product.has_only_default_variant %}
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+            {% else %}
+              <label for="VariantSelect-{{ section.id }}">{{ 'general.quick_add' | t }}</label>
+              <select class="quick-add__select" id="VariantSelect-{{ section.id }}" name="id">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant.id == current_variant.id %}selected{% endif %}>
+                    {{ variant.title }} - {{ variant.price | money }}
+                  </option>
+                {% endfor %}
+              </select>
+            {% endif %}
+            <label for="Quantity-{{ section.id }}">{{ 'accessibility.quantity' | t }}</label>
+            <input class="form-field" id="Quantity-{{ section.id }}" type="number" name="quantity" min="1" value="1">
+            <div class="price">
+              <button class="button button--primary" type="submit" {% unless current_variant.available %}disabled{% endunless %}>
+                {% if current_variant.available %}
+                  {{ product_button_label }}
+                {% else %}
+                  {{ 'general.sold_out' | t }}
+                {% endif %}
+              </button>
+              <button class="button button--secondary" type="button" data-size-guide-trigger="SizeGuideDrawer-{{ section.id }}">
+                {{ 'general.size_guide' | t }}
+              </button>
+            </div>
+          {% endform %}
+
+          {% render 'trust-badges' %}
+
+          <div class="accordion is-open" data-accordion>
+            <button class="accordion__button" type="button" data-accordion-button aria-expanded="true">
+              <span>{{ 'product.description' | t }}</span>
+              {% render 'icon-chevron' %}
+            </button>
+            <div class="accordion__panel">
+              <div class="rich-copy">{{ product.description }}</div>
+            </div>
+          </div>
+
+          <div class="accordion" data-accordion>
+            <button class="accordion__button" type="button" data-accordion-button aria-expanded="false">
+              <span>{{ 'product.details' | t }}</span>
+              {% render 'icon-chevron' %}
+            </button>
+            <div class="accordion__panel">
+              <div class="rich-copy">{{ section.settings.details_content }}</div>
+            </div>
+          </div>
+
+          <div class="accordion" data-accordion>
+            <button class="accordion__button" type="button" data-accordion-button aria-expanded="false">
+              <span>{{ 'product.shipping' | t }}</span>
+              {% render 'icon-chevron' %}
+            </button>
+            <div class="accordion__panel">
+              <div class="rich-copy">{{ section.settings.shipping_content }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sticky-atc">
+      <div>
+        <strong>{{ product.title }}</strong>
+        <div>{% render 'product-price', product: product, variant: current_variant %}</div>
+      </div>
+      <button class="button button--primary" type="button" data-sticky-submit="{{ product_form_id }}">
+        {{ product_button_label }}
+      </button>
+    </div>
+
+    <div id="SizeGuideDrawer-{{ section.id }}" class="drawer" aria-hidden="true">
+      <div class="drawer__overlay" data-drawer-overlay></div>
+      <div class="drawer__panel drawer__panel--left scheme-light text-dark" data-drawer-panel>
+        <div class="drawer__header">
+          <h2 class="drawer__title">{{ 'general.size_guide' | t }}</h2>
+          <button class="icon-button" type="button" data-drawer-close="SizeGuideDrawer-{{ section.id }}" aria-label="{{ 'general.close' | t }}">
+            {% render 'icon-close' %}
+          </button>
+        </div>
+        <div class="drawer__body">
+          <div class="rich-copy">{{ section.settings.size_guide_content }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": [
+    { "type": "checkbox", "id": "show_section", "label": "Show section", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Elegance Redefined" },
+    { "type": "text", "id": "heading", "label": "Heading text", "default": "Product" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading text", "default": "Considered detail and a calm silhouette." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to cart" },
+    { "type": "url", "id": "button_url", "label": "Button URL" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "video", "id": "video", "label": "Video" },
+    { "type": "richtext", "id": "details_content", "label": "Details content", "default": "<p>Use this area for composition, fit guidance, and care information that belongs beside the product description.</p>" },
+    { "type": "richtext", "id": "shipping_content", "label": "Shipping content", "default": "<p>Share delivery timelines, return expectations, and any service notes that should accompany every product.</p>" },
+    { "type": "richtext", "id": "size_guide_content", "label": "Size guide content", "default": "<p>Add your garment measurements, fit notes, and sizing advice here.</p>" },
+    {
+      "type": "select",
+      "id": "background_scheme",
+      "label": "Background color",
+      "default": "scheme-light",
+      "options": [
+        { "value": "scheme-light", "label": "Light" },
+        { "value": "scheme-dark", "label": "Dark" },
+        { "value": "scheme-mid", "label": "Mid" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_scheme",
+      "label": "Text color",
+      "default": "text-dark",
+      "options": [
+        { "value": "text-dark", "label": "Dark text" },
+        { "value": "text-light", "label": "Light text" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": "space-lg",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": "space-lg",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+{% comment %}
+  filename: snippets/social-links.liquid
+  purpose: Reusable social media icon link list for footer and future brand touchpoints.
+  key variables: settings.social_instagram, settings.social_pinterest, settings.social_tiktok, settings.social_facebook, settings.social_youtube
+  ai_agent_edit_guide: Edit social platform list or icon output here. Keep platform URLs managed in theme settings.
+{% endcomment %}
+<div class="social-links">
+  {% if settings.social_instagram != blank %}
+    <a class="icon-button" href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="{{ 'social.instagram' | t }}">
+      <img src="{{ 'icon-instagram.svg' | asset_url }}" width="20" height="20" loading="lazy" alt="{{ 'social.instagram' | t }}">
+    </a>
+  {% endif %}
+  {% if settings.social_pinterest != blank %}
+    <a class="icon-button" href="{{ settings.social_pinterest }}" target="_blank" rel="noopener" aria-label="{{ 'social.pinterest' | t }}">
+      <img src="{{ 'icon-pinterest.svg' | asset_url }}" width="20" height="20" loading="lazy" alt="{{ 'social.pinterest' | t }}">
+    </a>
+  {% endif %}
+  {% if settings.social_tiktok != blank %}
+    <a class="icon-button" href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="{{ 'social.tiktok' | t }}">
+      <img src="{{ 'icon-tiktok.svg' | asset_url }}" width="20" height="20" loading="lazy" alt="{{ 'social.tiktok' | t }}">
+    </a>
+  {% endif %}
+  {% if settings.social_facebook != blank %}
+    <a class="icon-button" href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="{{ 'social.facebook' | t }}">
+      <img src="{{ 'icon-facebook.svg' | asset_url }}" width="20" height="20" loading="lazy" alt="{{ 'social.facebook' | t }}">
+    </a>
+  {% endif %}
+  {% if settings.social_youtube != blank %}
+    <a class="icon-button" href="{{ settings.social_youtube }}" target="_blank" rel="noopener" aria-label="{{ 'social.youtube' | t }}">
+      <img src="{{ 'icon-youtube.svg' | asset_url }}" width="20" height="20" loading="lazy" alt="{{ 'social.youtube' | t }}">
+    </a>
+  {% endif %}
+</div>

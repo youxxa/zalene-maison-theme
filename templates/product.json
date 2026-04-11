@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_section": true,
+        "heading": "Product",
+        "subheading": "Considered detail and a calm silhouette.",
+        "button_label": "Add to cart",
+        "background_scheme": "scheme-light",
+        "text_scheme": "text-dark",
+        "padding_top": "space-lg",
+        "padding_bottom": "space-lg"
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "show_section": true,
+        "heading": "You May Also Appreciate",
+        "subheading": "A continuation of the edit.",
+        "background_scheme": "scheme-light",
+        "text_scheme": "text-dark",
+        "padding_top": "space-md",
+        "padding_bottom": "space-xl"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related"
+  ]
+}

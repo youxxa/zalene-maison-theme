@@ -1,0 +1,25 @@
+{% comment %}
+  filename: snippets/brand-logo.liquid
+  purpose: Renders the uploaded logo when available or falls back to the tracked brand wordmark.
+  key variables: settings.logo, settings.logo_inverted, settings.brand_display_name, inverted
+  ai_agent_edit_guide: Edit fallback brand markup or image behavior here. Change global sizing in settings or CSS, not inline.
+{% endcomment %}
+{% assign logo_image = settings.logo %}
+{% if inverted and settings.logo_inverted != blank %}
+  {% assign logo_image = settings.logo_inverted %}
+{% endif %}
+
+{% if logo_image != blank %}
+  {{
+    logo_image
+    | image_url: width: settings.logo_width
+    | image_tag:
+      widths: '120, 160, 220, 320',
+      width: settings.logo_width,
+      loading: 'eager',
+      class: 'brand-logo__image',
+      alt: settings.brand_display_name
+  }}
+{% else %}
+  <span class="brand-mark">{{ settings.brand_display_name | default: 'Zalene Maison' }}</span>
+{% endif %}

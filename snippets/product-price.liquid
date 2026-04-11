@@ -1,0 +1,15 @@
+{% comment %}
+  filename: snippets/product-price.liquid
+  purpose: Outputs comparable current and compare-at prices for products and line items.
+  key variables: product, variant, money_price
+  ai_agent_edit_guide: Edit pricing markup and sale presentation here. Keep currency formatting delegated to Shopify money filters.
+{% endcomment %}
+{% assign current_variant = variant | default: product.selected_or_first_available_variant %}
+{% if current_variant != blank %}
+  <div class="price">
+    <span class="price__current">{{ current_variant.price | money }}</span>
+    {% if current_variant.compare_at_price > current_variant.price %}
+      <span class="price__compare">{{ current_variant.compare_at_price | money }}</span>
+    {% endif %}
+  </div>
+{% endif %}

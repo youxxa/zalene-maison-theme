@@ -1,0 +1,51 @@
+{% comment %}
+  filename: snippets/product-card.liquid
+  purpose: Reusable product card for collection grids, bestsellers, related products, and upsell slots.
+  key variables: product, show_quick_add, card_scheme
+  ai_agent_edit_guide: Edit catalog card structure, metadata, and quick-add behavior here. Keep section layout decisions outside this snippet.
+{% endcomment %}
+{% assign selected_variant = product.selected_or_first_available_variant %}
+<article class="product-card {{ card_scheme }}">
+  <a class="product-card__media-link" href="{{ product.url }}">
+    {% if product.featured_image != blank %}
+      {% render 'responsive-image',
+        image: product.featured_image,
+        class: 'product-card__image',
+        alt: product.title,
+        sizes: '(min-width: 990px) 25vw, (min-width: 750px) 45vw, 88vw',
+        width: 900
+      %}
+    {% endif %}
+  </a>
+  <div class="product-card__content">
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    {% render 'product-price', product: product, variant: selected_variant %}
+    {% if show_quick_add %}
+      <form class="quick-add" method="post" action="{{ routes.cart_add_url }}" data-ajax-add-to-cart>
+        {% if product.has_only_default_variant %}
+          <input type="hidden" name="id" value="{{ selected_variant.id }}">
+        {% else %}
+          <label class="visually-hidden" for="quick-add-{{ section.id }}-{{ product.id }}">
+            {{ 'general.quick_add' | t }}
+          </label>
+          <select class="quick-add__select" id="quick-add-{{ section.id }}-{{ product.id }}" name="id">
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %}>
+                {{ variant.title }}{% unless variant.available %} - {{ 'general.sold_out' | t }}{% endunless %}
+              </option>
+            {% endfor %}
+          </select>
+        {% endif %}
+        <button class="button button--secondary" type="submit" {% unless selected_variant.available %}disabled{% endunless %}>
+          {% if selected_variant.available %}
+            {{ 'general.quick_add' | t }}
+          {% else %}
+            {{ 'general.sold_out' | t }}
+          {% endif %}
+        </button>
+      </form>
+    {% endif %}
+  </div>
+</article>

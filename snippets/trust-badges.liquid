@@ -1,0 +1,20 @@
+{% comment %}
+  filename: snippets/trust-badges.liquid
+  purpose: Reusable trust badge list for product and cart contexts.
+  key variables: settings.free_shipping_threshold
+  ai_agent_edit_guide: Edit badge composition or icon treatment here if trust messaging changes globally.
+{% endcomment %}
+<div class="trust-badges">
+  <div class="trust-badges__item">
+    <span class="values-grid__icon" aria-hidden="true"></span>
+    <span>{{ 'product.trust_shipping' | t: threshold: settings.free_shipping_threshold }}</span>
+  </div>
+  <div class="trust-badges__item">
+    <span class="values-grid__icon" aria-hidden="true"></span>
+    <span>{{ 'product.trust_returns' | t }}</span>
+  </div>
+  <div class="trust-badges__item">
+    <span class="values-grid__icon" aria-hidden="true"></span>
+    <span>{{ 'product.trust_payment' | t }}</span>
+  </div>
+</div>

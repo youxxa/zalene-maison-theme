@@ -1,0 +1,108 @@
+{% comment %}
+  filename: sections/homepage-hero.liquid
+  purpose: Homepage hero with editable image or video background, minimal editorial copy, and primary call to action.
+  key variables: section.settings.heading, section.settings.subheading, section.settings.button_label, section.settings.hero_image, section.settings.hero_video
+  ai_agent_edit_guide: Edit hero structure, background media logic, or CTA placement here. Keep shared button styling and typography in CSS.
+{% endcomment %}
+{% if section.settings.show_section %}
+  <section class="hero section-shell {{ section.settings.background_scheme }} {{ section.settings.text_scheme }} section-spacing--top-{{ section.settings.padding_top }} section-spacing--bottom-{{ section.settings.padding_bottom }}">
+    <div class="hero__media">
+      {% if section.settings.hero_video != blank %}
+        {{
+          section.settings.hero_video
+          | video_tag:
+            autoplay: true,
+            loop: true,
+            muted: true,
+            controls: false,
+            image_size: '1600x',
+            class: 'hero__asset'
+        }}
+      {% elsif section.settings.hero_image != blank %}
+        {% render 'responsive-image',
+          image: section.settings.hero_image,
+          class: 'hero__asset',
+          alt: section.settings.heading,
+          sizes: '100vw',
+          loading: 'eager',
+          width: 1920
+        %}
+      {% endif %}
+    </div>
+    <div class="page-width">
+      <div class="hero__content">
+        <p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>
+        <div class="section-intro__divider"></div>
+        <h1 class="section-intro__heading">{{ section.settings.heading }}</h1>
+        <p class="section-intro__subheading">{{ section.settings.subheading }}</p>
+        {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+          <a class="button button--primary" href="{{ section.settings.button_url }}">{{ section.settings.button_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Homepage hero",
+  "settings": [
+    { "type": "checkbox", "id": "show_section", "label": "Show section", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Elegance Redefined" },
+    { "type": "text", "id": "heading", "label": "Heading text", "default": "The New Season of Quiet Luxury" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading text", "default": "Precision drape, luminous detail, and silhouettes shaped for modern modest dressing." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Explore the collection" },
+    { "type": "url", "id": "button_url", "label": "Button URL" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image" },
+    { "type": "video", "id": "hero_video", "label": "Video" },
+    {
+      "type": "select",
+      "id": "background_scheme",
+      "label": "Background color",
+      "default": "scheme-dark",
+      "options": [
+        { "value": "scheme-light", "label": "Light" },
+        { "value": "scheme-dark", "label": "Dark" },
+        { "value": "scheme-mid", "label": "Mid" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_scheme",
+      "label": "Text color",
+      "default": "text-light",
+      "options": [
+        { "value": "text-dark", "label": "Dark text" },
+        { "value": "text-light", "label": "Light text" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": "space-xl",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": "space-xl",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Homepage hero" }
+  ]
+}
+{% endschema %}

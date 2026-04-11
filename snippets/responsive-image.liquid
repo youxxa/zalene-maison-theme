@@ -1,0 +1,18 @@
+{% comment %}
+  filename: snippets/responsive-image.liquid
+  purpose: Shared responsive image renderer with srcset-friendly Shopify image output and controlled classes.
+  key variables: image, alt, class, widths, sizes, loading, width
+  ai_agent_edit_guide: Edit image output defaults or loading strategy here if multiple sections need a coordinated media update.
+{% endcomment %}
+{% if image != blank %}
+  {{
+    image
+    | image_url: width: width | default: 1200
+    | image_tag:
+      widths: widths | default: '360, 540, 720, 960, 1200, 1600',
+      sizes: sizes | default: '(min-width: 990px) 33vw, 100vw',
+      loading: loading | default: 'lazy',
+      class: class,
+      alt: alt | default: image.alt | escape
+  }}
+{% endif %}

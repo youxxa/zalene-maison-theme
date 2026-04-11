@@ -1,0 +1,134 @@
+{% comment %}
+  filename: layout/theme.liquid
+  purpose: Primary document shell for every storefront page, including global assets, design tokens, accessibility helpers, and persistent sections.
+  key variables: settings.*, request.page_type, content_for_header, content_for_layout, cart.item_count
+  ai_agent_edit_guide: Edit global asset loading, root CSS variables, document metadata, or persistent section placement here. Keep page-specific UI in sections/snippets.
+{% endcomment %}
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_primary }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {% if settings.google_fonts_url != blank %}
+      <link rel="stylesheet" href="{{ settings.google_fonts_url }}">
+    {% endif %}
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+    <title>
+      {{ page_title }}
+      {% if current_tags %}
+        {% assign meta_tags = current_tags | join: ', ' %}
+        - {{ meta_tags }}
+      {% endif %}
+      {% if current_page != 1 %}
+        - {{ 'general.page' | t: number: current_page }}
+      {% endif %}
+      {% unless page_title contains shop.name %}
+        - {{ shop.name }}
+      {% endunless %}
+    </title>
+    <style>
+      :root {
+        --color-primary-dark: {{ settings.color_primary }};
+        --color-primary-accent: {{ settings.color_accent }};
+        --color-primary-light: {{ settings.color_background }};
+        --color-background-dark: {{ settings.color_background_dark }};
+        --color-background-mid: {{ settings.color_secondary }};
+        --color-gold-overlay: {{ settings.color_gold_overlay }};
+        --color-text-primary: {{ settings.color_text }};
+        --color-announcement-background: {{ settings.announcement_background }};
+        --color-announcement-text: {{ settings.announcement_text_color }};
+        --font-heading: {{ settings.heading_font_family }};
+        --font-body: {{ settings.body_font_family }};
+        --button-radius: {% case settings.button_radius %}{% when 'pill' %}999px{% when 'rounded' %}8px{% else %}0px{% endcase %};
+        --logo-width: {{ settings.logo_width }}px;
+        --space-1: 8px;
+        --space-2: 16px;
+        --space-3: 24px;
+        --space-4: 32px;
+        --space-5: 48px;
+        --space-6: 64px;
+        --border-thin: 0.75px;
+        --border-medium: 1.5px;
+        --header-height: 76px;
+        --container-width: 1440px;
+        --copy-max-width: 720px;
+        --transition-slow: 320ms ease;
+        --transition-medium: 220ms ease;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--color-primary-light);
+        color: var(--color-text-primary);
+      }
+
+      .theme-shell {
+        min-height: 100vh;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        inline-size: 1px;
+        block-size: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+      }
+
+      .skip-link {
+        position: absolute;
+        inset-inline-start: var(--space-2);
+        inset-block-start: calc(var(--space-2) * -3);
+        z-index: 50;
+        padding: var(--space-2);
+        background: var(--color-primary-accent);
+        color: var(--color-primary-dark);
+        text-decoration: none;
+        transition: inset-block-start var(--transition-medium);
+      }
+
+      .skip-link:focus {
+        inset-block-start: var(--space-2);
+      }
+    </style>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    <script>
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
+      window.themeStrings = {
+        addedToCart: {{ 'product.added_to_cart' | t | json }},
+        freeShippingProgress: {{ 'cart.free_shipping_progress' | t: threshold: settings.free_shipping_threshold | json }},
+        loading: {{ 'general.loading' | t | json }},
+        emptyCart: {{ 'cart.empty' | t | json }},
+        searchEmpty: {{ 'header.search_empty' | t | json }}
+      };
+    </script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
+  </head>
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+    <div class="theme-shell">
+      {% if settings.announcement_enabled %}
+        {% section 'announcement-bar' %}
+      {% endif %}
+      {% section 'header' %}
+      {% section 'cart-drawer' %}
+      <main id="MainContent" class="main-content" role="main" tabindex="-1">
+        {{ content_for_layout }}
+      </main>
+      {% section 'footer' %}
+    </div>
+  </body>
+</html>

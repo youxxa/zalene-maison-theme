@@ -1,0 +1,1215 @@
+/*
+ * filename: assets/base.css
+ * purpose: Global stylesheet for the Zalene Maison Shopify theme, including design tokens, layout systems, and section-specific presentation.
+ * key variables: CSS custom properties declared in layout/theme.liquid, scheme classes, section spacing classes, component BEM classes.
+ * ai_agent_edit_guide: Edit visual styling, component states, responsive rules, and new section styles here. Keep dynamic values connected to root CSS variables and section classes.
+ */
+
+/* Base document styling and typography rhythm */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Base element defaults for a calm, premium canvas */
+html,
+body {
+  min-height: 100%;
+}
+
+/* Body typography, background, and rendering behavior */
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus states use gold for clear accessibility without heavy shadows */
+:focus-visible {
+  outline: 1px solid var(--color-primary-accent);
+  outline-offset: 3px;
+}
+
+/* Links inherit a restrained visual treatment */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Media scales gracefully and reserves visual structure */
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form controls preserve mobile readability and tactile sizing */
+input,
+button,
+select,
+textarea {
+  font: inherit;
+  font-size: 16px;
+}
+
+/* Buttons share the same luxury minimal baseline */
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* Generic container constrains content without crowding */
+.page-width {
+  width: min(calc(100% - 32px), var(--container-width));
+  margin-inline: auto;
+}
+
+/* Main content offset keeps sticky header overlap controlled */
+.main-content {
+  display: block;
+}
+
+/* Reusable section shell handles padding and relative positioning */
+.section-shell {
+  position: relative;
+  overflow: clip;
+}
+
+/* Announcement bar uses its own configurable theme settings */
+.announcement-bar {
+  background: var(--color-announcement-background);
+  color: var(--color-announcement-text);
+}
+
+/* Color schemes map section settings to root tokens */
+.scheme-light {
+  background: var(--color-primary-light);
+}
+
+/* Secondary dark scheme for premium contrast sections */
+.scheme-dark {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 22%),
+    var(--color-background-dark);
+}
+
+/* Mid-dark scheme allows softer alternation between sections */
+.scheme-mid {
+  background: var(--color-background-mid);
+}
+
+/* Text scheme classes avoid inline style usage in Liquid */
+.text-dark {
+  color: var(--color-primary-dark);
+}
+
+/* Light text styling for charcoal sections */
+.text-light {
+  color: var(--color-primary-light);
+}
+
+/* Spacing tokens exposed through section schema select inputs */
+.section-spacing--top-space-sm {
+  padding-top: var(--space-3);
+}
+
+/* Medium top spacing for balanced vertical rhythm */
+.section-spacing--top-space-md {
+  padding-top: var(--space-4);
+}
+
+/* Large top spacing for luxurious breathing room */
+.section-spacing--top-space-lg {
+  padding-top: var(--space-5);
+}
+
+/* Extra large top spacing for hero-style sections */
+.section-spacing--top-space-xl {
+  padding-top: var(--space-6);
+}
+
+/* Small bottom spacing for compact utility sections */
+.section-spacing--bottom-space-sm {
+  padding-bottom: var(--space-3);
+}
+
+/* Medium bottom spacing for editorial sections */
+.section-spacing--bottom-space-md {
+  padding-bottom: var(--space-4);
+}
+
+/* Large bottom spacing for premium catalog rhythm */
+.section-spacing--bottom-space-lg {
+  padding-bottom: var(--space-5);
+}
+
+/* Extra large bottom spacing for hero and landing transitions */
+.section-spacing--bottom-space-xl {
+  padding-bottom: var(--space-6);
+}
+
+/* Section intro stack unifies headings, subtitles, and accent lines */
+.section-intro {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+/* Eyebrow text carries the brand's spaced uppercase accent language */
+.section-intro__eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+  color: var(--color-primary-accent);
+}
+
+/* Headings lean on Playfair for dramatic but restrained contrast */
+.section-intro__heading {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 8vw, 4.75rem);
+  line-height: 1.08;
+  font-weight: 400;
+}
+
+/* Subheadings stay readable and elegantly narrow */
+.section-intro__subheading {
+  margin: 0;
+  max-width: var(--copy-max-width);
+  font-size: 1rem;
+}
+
+/* Gold divider line acts as the primary decorative motif */
+.section-intro__divider {
+  width: 88px;
+  height: var(--border-medium);
+  background: var(--color-primary-accent);
+}
+
+/* Button treatment keeps gold reserved and tactile */
+.button,
+.shopify-payment-button__button,
+.shopify-challenge__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 14px 24px;
+  border: var(--border-thin) solid var(--color-primary-accent);
+  border-radius: var(--button-radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.32rem;
+  text-transform: uppercase;
+  transition:
+    background-color var(--transition-medium),
+    color var(--transition-medium),
+    border-color var(--transition-medium),
+    transform var(--transition-medium);
+}
+
+/* Primary button uses the gold accent sparingly but decisively */
+.button--primary {
+  background: var(--color-primary-accent);
+  color: var(--color-primary-dark);
+}
+
+/* Secondary button preserves whitespace and border definition */
+.button--secondary {
+  background: transparent;
+  color: inherit;
+}
+
+/* Button hover adds a subtle lift without theatrical motion */
+.button:hover,
+.button:focus-visible,
+.shopify-payment-button__button:hover,
+.shopify-payment-button__button:focus-visible {
+  transform: translateY(-1px);
+}
+
+/* Icon buttons meet tap target requirements across the theme */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 48px;
+  block-size: 48px;
+  border: var(--border-thin) solid transparent;
+  color: inherit;
+  transition: border-color var(--transition-medium), color var(--transition-medium);
+}
+
+/* Text links use an understated gold underline cue */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.26rem;
+  text-transform: uppercase;
+}
+
+/* The custom underline scales in gracefully rather than flashing */
+.text-link::after {
+  content: "";
+  width: 36px;
+  height: var(--border-thin);
+  background: var(--color-primary-accent);
+  transition: width var(--transition-medium);
+}
+
+/* Gold underline expands slightly on hover or focus */
+.text-link:hover::after,
+.text-link:focus-visible::after {
+  width: 48px;
+}
+
+/* Header structure supports sticky behavior and color inversion */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 40;
+  transition:
+    background-color var(--transition-medium),
+    padding var(--transition-medium),
+    border-color var(--transition-medium);
+}
+
+/* Shrunk state tightens the header once the user scrolls */
+.site-header.is-condensed .site-header__inner {
+  min-height: 64px;
+}
+
+/* Header shell sets border and translucent backdrop */
+.site-header__inner {
+  min-height: var(--header-height);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  width: min(calc(100% - 24px), var(--container-width));
+  margin-inline: auto;
+  transition: min-height var(--transition-medium);
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.24);
+  backdrop-filter: blur(12px);
+}
+
+/* Brand mark keeps spacing refined even without an uploaded image */
+.site-header__brand {
+  display: inline-flex;
+  align-items: center;
+  max-width: var(--logo-width);
+}
+
+/* Brand text fallback uses the same premium tracking everywhere */
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  letter-spacing: 0.42rem;
+  text-transform: uppercase;
+}
+
+/* Gold rule beside the wordmark reinforces brand identity */
+.brand-mark::before {
+  content: "";
+  width: 18px;
+  height: var(--border-medium);
+  background: var(--color-primary-accent);
+}
+
+/* Navigation list remains centered with precise spacing */
+.site-header__nav {
+  display: none;
+}
+
+/* Header utilities align menu, search, and cart actions */
+.site-header__utilities {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+/* Cart badge is subtle but clearly readable */
+.site-header__cart-count {
+  position: absolute;
+  inset-inline-end: 5px;
+  inset-block-start: 5px;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 4px;
+  border-radius: 999px;
+  background: var(--color-primary-accent);
+  color: var(--color-primary-dark);
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+/* Desktop navigation keeps links airy and highly legible */
+.mega-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Top-level nav items carry the brand's uppercase cadence */
+.mega-menu__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.38rem;
+  text-transform: uppercase;
+}
+
+/* Gold active line stays delicate and intentional */
+.mega-menu__link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 10px;
+  transform: scaleX(0);
+  transform-origin: center;
+  height: var(--border-thin);
+  background: var(--color-primary-accent);
+  transition: transform var(--transition-medium);
+}
+
+/* Active and interactive states share the same underline system */
+.mega-menu__link:hover::after,
+.mega-menu__link:focus-visible::after,
+.mega-menu__link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* Desktop dropdown panel behaves like a lightweight mega menu */
+.mega-menu__panel {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: calc(100% - 1px);
+  transform: translateX(-50%);
+  width: min(92vw, 860px);
+  padding: 28px;
+  display: none;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  background: rgba(13, 13, 13, 0.98);
+  color: var(--color-primary-light);
+  border: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+}
+
+/* Hover and keyboard access reveal the mega menu panel */
+.mega-menu__item:hover .mega-menu__panel,
+.mega-menu__item:focus-within .mega-menu__panel {
+  display: grid;
+}
+
+/* Drawer foundation powers mobile menu, search, cart, and filters */
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Open drawers restore interactivity and visibility */
+.drawer.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Drawer backdrop darkens the viewport without heavy opacity */
+.drawer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 13, 0.72);
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+/* Drawer panel is the actual interactive content surface */
+.drawer__panel {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
+  width: min(100%, 440px);
+  padding: 24px 16px 32px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 20px;
+  background: var(--color-background-dark);
+  color: var(--color-primary-light);
+  border-inline-start: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+  transform: translateX(100%);
+  transition: transform var(--transition-medium);
+}
+
+/* Menu and filter drawers can also slide from the left edge */
+.drawer__panel--left {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  transform: translateX(-100%);
+  border-inline-end: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+  border-inline-start: 0;
+}
+
+/* Fullscreen drawer variant supports immersive mobile navigation */
+.drawer__panel--fullscreen {
+  width: 100%;
+  transform: translateY(-100%);
+  border-inline: 0;
+  border-block-end: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+}
+
+/* Drawers animate as a coordinated backdrop and panel system */
+.drawer.is-open .drawer__overlay {
+  opacity: 1;
+}
+
+/* Open drawer panel returns to its resting position */
+.drawer.is-open .drawer__panel {
+  transform: translateX(0);
+}
+
+/* Fullscreen drawer opens vertically for a softer motion profile */
+.drawer.is-open .drawer__panel--fullscreen {
+  transform: translateY(0);
+}
+
+/* Drawer headings follow the same type hierarchy as sections */
+.drawer__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Drawer top row handles close button spacing */
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Drawer body can scroll independently from the panel chrome */
+.drawer__body {
+  overflow-y: auto;
+}
+
+/* Drawer footer keeps actions and add-ons visually grouped */
+.drawer__footer {
+  display: grid;
+  gap: 16px;
+}
+
+/* Drawer navigation list is oversized for mobile ease */
+.drawer-nav {
+  display: grid;
+  gap: 8px;
+}
+
+/* Mobile drawer links echo editorial navigation spacing */
+.drawer-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  padding-block: 6px;
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.34rem;
+  text-transform: uppercase;
+}
+
+/* Nested drawer links reduce scale but keep the same discipline */
+.drawer-nav__child-list {
+  display: grid;
+  gap: 6px;
+  padding: 4px 0 12px 12px;
+}
+
+/* Search input treatment uses gold borders in place of shadows */
+.search-form {
+  display: grid;
+  gap: 12px;
+}
+
+/* Search field line height and spacing preserve premium readability */
+.search-form__field,
+.form-field {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 16px;
+  border: var(--border-thin) solid rgba(212, 175, 55, 0.55);
+  background: transparent;
+  color: inherit;
+}
+
+/* Search results list supports live predictive updates */
+.predictive-search__results {
+  display: grid;
+  gap: 8px;
+}
+
+/* Each predictive result row balances image, title, and price */
+.predictive-search__item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+}
+
+/* Hero section establishes the visual identity immediately */
+.hero {
+  min-height: calc(100vh - var(--header-height));
+  display: grid;
+  align-items: end;
+}
+
+/* Hero media fills the available canvas with reserved contrast */
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Hero media asset preserves full-bleed impact on all screens */
+.hero__asset {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Hero overlay keeps text readable while staying subtle */
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(13, 13, 13, 0.18), rgba(13, 13, 13, 0.62)),
+    linear-gradient(130deg, var(--color-gold-overlay), transparent 42%);
+}
+
+/* Hero content stack creates generous breathing room */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 16px;
+  max-width: 680px;
+  padding: 112px 0 56px;
+}
+
+/* Hero subtitle uses italic display styling for softness */
+.hero__eyebrow {
+  margin: 0;
+  color: var(--color-primary-accent);
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 5vw, 1.5rem);
+  font-style: italic;
+}
+
+/* Editorial grid for featured collections adapts from one to three columns */
+.collection-cards {
+  display: grid;
+  gap: 24px;
+}
+
+/* Featured collection card flips between light and dark surfaces */
+.collection-cards__item {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: var(--border-thin) solid rgba(212, 175, 55, 0.28);
+}
+
+/* Dark collection card variant reinforces the alternating luxury rhythm */
+.collection-cards__item--dark {
+  background: var(--color-background-dark);
+  color: var(--color-primary-light);
+}
+
+/* Light collection card variant keeps the layout airy */
+.collection-cards__item--light {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+/* Collection card media uses consistent ratios to avoid layout shift */
+.collection-cards__media,
+.product-card__media-link,
+.instagram-grid__media,
+.story-strip__media,
+.product-gallery__featured {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* Media images transition subtly for high-end polish */
+.collection-cards__image,
+.product-card__image,
+.instagram-grid__image,
+.story-strip__image,
+.product-gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+/* Hover is additive only and never required for understanding */
+.collection-cards__item:hover .collection-cards__image,
+.product-card:hover .product-card__image {
+  transform: scale(1.03);
+}
+
+/* Story strip uses a quiet split editorial layout */
+.story-strip__layout {
+  display: grid;
+  gap: 24px;
+}
+
+/* Story copy block is intentionally narrow and breathable */
+.story-strip__content {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+
+/* Reverse story layouts swap image and content order when selected */
+.story-strip__layout--reverse .story-strip__media {
+  order: 2;
+}
+
+/* Reverse story layouts move text back to the leading edge */
+.story-strip__layout--reverse .story-strip__content {
+  order: 1;
+}
+
+/* Body copy stays soft and premium without shrinking below mobile-safe size */
+.story-strip__body,
+.page-content__body,
+.rich-copy {
+  margin: 0;
+  max-width: 56ch;
+}
+
+/* Carousel track uses native horizontal scrolling for touch performance */
+.carousel {
+  display: grid;
+  gap: 20px;
+}
+
+/* Carousel viewport leverages scroll snap for graceful swiping */
+.carousel__viewport {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(78%, 1fr);
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+/* Webkit scrollbar is hidden to keep the interface minimal */
+.carousel__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each carousel item locks into the snap points */
+.carousel__slide {
+  scroll-snap-align: start;
+}
+
+/* Carousel controls align with the restrained gold utility system */
+.carousel__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Product cards are reused across collection, carousel, and cart upsell */
+.product-card {
+  display: grid;
+  gap: 16px;
+}
+
+/* Product card metadata keeps spacing tight and refined */
+.product-card__content {
+  display: grid;
+  gap: 8px;
+}
+
+/* Product titles lean into Playfair italics for softness */
+.product-card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Price stack separates original and sale values elegantly */
+.price {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Current price remains calm and prominent */
+.price__current {
+  font-weight: 600;
+  letter-spacing: 0.12rem;
+}
+
+/* Compare-at price is de-emphasized without losing clarity */
+.price__compare {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* Quick add form stacks variant picker and action naturally */
+.quick-add {
+  display: grid;
+  gap: 10px;
+}
+
+/* Select styling mirrors all other form surfaces */
+.quick-add__select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: var(--border-thin) solid rgba(212, 175, 55, 0.35);
+  background: transparent;
+  color: inherit;
+}
+
+/* Values section presents three concise pillars in equal columns */
+.values-grid {
+  display: grid;
+  gap: 16px;
+}
+
+/* Each value card relies on border and spacing instead of shadow */
+.values-grid__item {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: var(--border-thin) solid rgba(212, 175, 55, 0.35);
+}
+
+/* Minimal geometric icons are drawn with borders only */
+.values-grid__icon {
+  width: 34px;
+  height: 34px;
+  border: var(--border-thin) solid var(--color-primary-accent);
+  transform: rotate(45deg);
+}
+
+/* Instagram grid shifts from two to three columns cleanly */
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Newsletter strip centers copy and form without crowding */
+.newsletter-strip__layout {
+  display: grid;
+  gap: 24px;
+}
+
+/* Newsletter form balances field and button on small screens */
+.newsletter-strip__form {
+  display: grid;
+  gap: 12px;
+}
+
+/* Collection template layout keeps filters and results coordinated */
+.collection-layout {
+  display: grid;
+  gap: 24px;
+}
+
+/* Desktop filter sidebar is hidden on smaller viewports */
+.collection-layout__sidebar {
+  display: none;
+}
+
+/* Collection utility bar holds result count, sort, and filter controls */
+.collection-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Filter list spacing prioritizes touch and legibility */
+.filter-group {
+  display: grid;
+  gap: 10px;
+  padding: 16px 0;
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+}
+
+/* Collection grid starts from a single mobile column */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px 20px;
+}
+
+/* Hidden products support progressive reveal modes */
+.product-grid__item.is-hidden {
+  display: none;
+}
+
+/* Product page layout prioritizes gallery first on mobile */
+.product-page {
+  display: grid;
+  gap: 24px;
+}
+
+/* Gallery viewport allows swipe interactions and snapping */
+.product-gallery {
+  display: grid;
+  gap: 12px;
+}
+
+/* Mobile gallery strip uses a horizontal swipable stack */
+.product-gallery__strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+/* Scrollbar is hidden for gallery immersion */
+.product-gallery__strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gallery images snap cleanly for touch navigation */
+.product-gallery__slide {
+  scroll-snap-align: start;
+}
+
+/* Thumbnail row remains available on larger screens */
+.product-gallery__thumbs {
+  display: none;
+  gap: 8px;
+}
+
+/* Product details stack follows editorial spacing rather than dense forms */
+.product-page__details {
+  display: grid;
+  gap: 18px;
+}
+
+/* Product title carries the same elegant type scale as hero copy */
+.product-page__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 7vw, 3.75rem);
+  font-weight: 400;
+}
+
+/* Product form grid contains variant selectors and action buttons */
+.product-form {
+  display: grid;
+  gap: 14px;
+}
+
+/* Sticky add-to-cart bar appears only when helpful on mobile */
+.sticky-atc {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: 35;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(13, 13, 13, 0.96);
+  color: var(--color-primary-light);
+  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+}
+
+/* Accordion items separate product content cleanly */
+.accordion {
+  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.2);
+}
+
+/* Accordion button remains generous and touch-friendly */
+.accordion__button {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  color: inherit;
+  text-align: left;
+}
+
+/* Accordion panel is hidden until expanded for clarity */
+.accordion__panel {
+  display: none;
+  padding: 0 0 16px;
+}
+
+/* Expanded accordion reveals the content panel */
+.accordion.is-open .accordion__panel {
+  display: block;
+}
+
+/* Trust badges are concise, bordered assurances */
+.trust-badges {
+  display: grid;
+  gap: 10px;
+}
+
+/* Each trust badge uses border definition instead of shadow */
+.trust-badges__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: var(--border-thin) solid rgba(212, 175, 55, 0.26);
+}
+
+/* Cart drawer list keeps line items and controls clearly separated */
+.cart-drawer {
+  display: grid;
+  gap: 20px;
+}
+
+/* Cart item rows balance product media and content tightly */
+.cart-item {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.16);
+}
+
+/* Cart footer keeps subtotal and actions pinned together */
+.cart-drawer__footer,
+.cart-page__summary {
+  display: grid;
+  gap: 14px;
+}
+
+/* Empty states preserve tone with spacious, measured messaging */
+.empty-state {
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* Footer uses structured columns and quiet gold separators */
+.site-footer {
+  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.25);
+}
+
+/* Footer layout stacks naturally on small screens */
+.site-footer__layout {
+  display: grid;
+  gap: 24px;
+}
+
+/* Footer navigation group keeps editorial spacing compact */
+.footer-nav {
+  display: grid;
+  gap: 10px;
+}
+
+/* Social list uses icon-only links with gold stroke assets */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Footer meta line sits quietly beneath main navigation */
+.site-footer__meta {
+  display: grid;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+}
+
+/* Utility rotation class supports directional icon reuse */
+.is-rotated {
+  transform: rotate(90deg);
+}
+
+/* Right-facing chevrons reuse the same base icon with rotation */
+.is-rotated-negative {
+  transform: rotate(-90deg);
+}
+
+/* Mobile-only helpers hide elements from tablet and desktop */
+@media screen and (min-width: 750px) {
+  .small-hide,
+  .medium-hide {
+    display: none !important;
+  }
+}
+
+/* Page template content remains highly readable for editorial pages */
+.page-content {
+  display: grid;
+  gap: 24px;
+}
+
+/* 404 state mirrors the brand's spacious, reflective tone */
+.not-found {
+  min-height: 56vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+/* Utility class supports no-scroll state for drawers and modals */
+.is-locked {
+  overflow: hidden;
+}
+
+/* Larger screens unlock the desktop navigation and richer grids */
+@media screen and (min-width: 750px) {
+  /* Page container gains more outer breathing room on tablet and up */
+  .page-width {
+    width: min(calc(100% - 48px), var(--container-width));
+  }
+
+  /* Desktop header dedicates separate columns to brand, nav, and utilities */
+  .site-header__inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+  }
+
+  /* Desktop nav replaces the mobile-only menu trigger */
+  .site-header__nav {
+    display: block;
+  }
+
+  /* Collection and editorial grids expand into multiple columns */
+  .collection-cards,
+  .values-grid,
+  .site-footer__layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Story strip becomes a polished split layout */
+  .story-strip__layout,
+  .newsletter-strip__layout,
+  .collection-layout,
+  .product-page,
+  .page-content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  /* Carousel tiles shrink slightly as more space becomes available */
+  .carousel__viewport {
+    grid-auto-columns: minmax(32%, 1fr);
+  }
+
+  /* Product grid becomes a clean two-column catalog on tablet */
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Instagram placeholder grid becomes more gallery-like */
+  .instagram-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Newsletter form aligns field and button on wider screens */
+  .newsletter-strip__form {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+
+  /* Product gallery reveals thumbnail navigation on larger viewports */
+  .product-gallery__thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Desktop storefront layouts refine into three-column systems where needed */
+@media screen and (min-width: 990px) {
+  /* Featured collection cards expand to a three-column edit */
+  .collection-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Values section gains a third card for balanced presentation */
+  .values-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Collection page separates filters and grid for desktop efficiency */
+  .collection-layout {
+    grid-template-columns: 280px 1fr;
+    align-items: start;
+  }
+
+  /* Product grid becomes a three-column merchandising wall */
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Desktop collection pages reveal a fixed refinement sidebar */
+  .collection-layout__sidebar {
+    display: block;
+  }
+
+  /* Product page gains a stronger gallery-to-details ratio */
+  .product-page {
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  }
+
+  /* Sticky add-to-cart bar is less necessary on desktop */
+  .sticky-atc {
+    display: none;
+  }
+
+  /* Footer opens into a four-column structure at desktop scale */
+  .site-footer__layout {
+    grid-template-columns: 1.35fr repeat(3, minmax(0, 1fr));
+  }
+}

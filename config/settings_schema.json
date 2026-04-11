@@ -1,0 +1,216 @@
+[
+  {
+    "name": "Theme information",
+    "theme_name": "Zalene Maison",
+    "theme_version": "1.0.0",
+    "theme_author": "OpenAI Codex",
+    "theme_documentation_url": "https://shopify.dev/docs/themes",
+    "theme_support_url": "https://shopify.dev/docs/themes"
+  },
+  {
+    "name": "Brand identity",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Primary logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_inverted",
+        "label": "Inverted logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 96,
+        "max": 260,
+        "step": 4,
+        "unit": "px",
+        "default": 168
+      },
+      {
+        "type": "text",
+        "id": "brand_display_name",
+        "label": "Brand display name",
+        "default": "Zalene Maison"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary dark",
+        "default": "#2C2C2C"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary background",
+        "default": "#141414"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent gold",
+        "default": "#D4AF37"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Primary background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Primary text",
+        "default": "#2C2C2C"
+      },
+      {
+        "type": "color",
+        "id": "color_background_dark",
+        "label": "Dark section background",
+        "default": "#0D0D0D"
+      },
+      {
+        "type": "text",
+        "id": "color_gold_overlay",
+        "label": "Gold overlay RGBA",
+        "default": "rgba(212,175,55,0.15)"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "url",
+        "id": "google_fonts_url",
+        "label": "Google Fonts stylesheet URL",
+        "default": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+      },
+      {
+        "type": "text",
+        "id": "heading_font_family",
+        "label": "Heading font family",
+        "default": "'Playfair Display', serif"
+      },
+      {
+        "type": "text",
+        "id": "body_font_family",
+        "label": "Body font family",
+        "default": "'Cinzel', serif"
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "select",
+        "id": "button_radius",
+        "label": "Button shape",
+        "default": "sharp",
+        "options": [
+          {
+            "value": "sharp",
+            "label": "Sharp"
+          },
+          {
+            "value": "rounded",
+            "label": "Rounded"
+          },
+          {
+            "value": "pill",
+            "label": "Pill"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Announcement bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "announcement_enabled",
+        "label": "Enable announcement bar",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "Announcement text",
+        "default": "Worldwide delivery for refined wardrobes."
+      },
+      {
+        "type": "url",
+        "id": "announcement_link",
+        "label": "Announcement link"
+      },
+      {
+        "type": "color",
+        "id": "announcement_background",
+        "label": "Announcement background",
+        "default": "#0D0D0D"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Announcement text color",
+        "default": "#FFFFFF"
+      }
+    ]
+  },
+  {
+    "name": "Commerce",
+    "settings": [
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": "250"
+      },
+      {
+        "type": "product_list",
+        "id": "cart_upsell_products",
+        "label": "Cart upsell products"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest",
+        "label": "Pinterest URL"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      }
+    ]
+  }
+]

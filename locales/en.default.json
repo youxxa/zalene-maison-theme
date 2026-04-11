@@ -1,0 +1,155 @@
+{
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "open_search": "Open search",
+    "close_search": "Close search",
+    "open_cart": "Open cart",
+    "close_cart": "Close cart",
+    "next_slide": "Next slide",
+    "previous_slide": "Previous slide",
+    "open_filters": "Open filters",
+    "close_filters": "Close filters",
+    "quantity": "Quantity",
+    "size_guide": "Open size guide",
+    "image": "Image",
+    "search": "Search products, collections, stories"
+  },
+  "general": {
+    "brand_name": "Zalene Maison",
+    "continue_shopping": "Continue shopping",
+    "learn_more": "Learn more",
+    "shop_now": "Shop now",
+    "view_all": "View all",
+    "close": "Close",
+    "email": "Email address",
+    "subscribe": "Subscribe",
+    "currency": "Currency",
+    "language": "Language",
+    "loading": "Loading",
+    "empty": "No items available.",
+    "read_more": "Read more",
+    "apply": "Apply",
+    "checkout": "Checkout",
+    "save": "Save",
+    "discover_more": "Discover more",
+    "quick_add": "Quick add",
+    "size_guide": "Size guide",
+    "sold_out": "Sold out",
+    "page": "Page {{ number }}"
+  },
+  "announcement": {
+    "default_text": "Worldwide delivery for refined wardrobes."
+  },
+  "header": {
+    "menu": "Menu",
+    "search": "Search",
+    "cart": "Cart",
+    "view_cart": "View cart",
+    "badge": "{{ count }} items",
+    "search_empty": "No matching results were found."
+  },
+  "hero": {
+    "tagline": "Elegance Redefined",
+    "heading": "The New Season of Quiet Luxury",
+    "subheading": "Precision drape, luminous detail, and silhouettes shaped for modern modest dressing.",
+    "button_label": "Explore the collection"
+  },
+  "featured_collections": {
+    "heading": "Featured Collections",
+    "subheading": "A measured edit of signature silhouettes.",
+    "button_label": "Shop the edit"
+  },
+  "brand_story": {
+    "heading": "A House of Intentional Luxury",
+    "subheading": "French discipline, Arabic grace, and craftsmanship without excess.",
+    "body": "Zalene Maison is built around precision, restraint, and beauty that unfolds in texture rather than noise. Every silhouette is considered for movement, modesty, and presence. Fabrics are selected for softness, depth, and longevity, while each finish is refined to feel discreetly exceptional. We design for women who value quiet confidence and garments that honour both occasion and everyday ritual. The result is a wardrobe shaped by calm structure, gentle light, and details that reveal themselves slowly.",
+    "button_label": "Read the story"
+  },
+  "bestsellers": {
+    "heading": "Bestsellers",
+    "subheading": "Signature pieces chosen again and again."
+  },
+  "care_values": {
+    "heading": "Care and Values",
+    "subheading": "Luxury is preserved through intention.",
+    "pillar_one_title": "Craftsmanship",
+    "pillar_one_body": "Each garment is refined through thoughtful tailoring, premium textiles, and quiet finishing details.",
+    "pillar_two_title": "Longevity",
+    "pillar_two_body": "Designed to transcend a single season, each piece is made to remain relevant and wearable over time.",
+    "pillar_three_title": "Considered Service",
+    "pillar_three_body": "From packaging to delivery, every touchpoint is shaped to feel calm, clear, and elevated."
+  },
+  "instagram": {
+    "heading": "A Glimpse in Motion",
+    "subheading": "A curated grid for editorial and community imagery."
+  },
+  "newsletter": {
+    "heading": "Stay Connected",
+    "subheading": "Stay connected. Discover new collections first.",
+    "success": "Thank you for subscribing.",
+    "placeholder": "Enter your email"
+  },
+  "collection": {
+    "heading": "Collection",
+    "filter_title": "Refine",
+    "sort_label": "Sort",
+    "load_more": "Load more",
+    "empty": "No products match the current refinement.",
+    "results": "{{ count }} products",
+    "showing": "Showing {{ shown }} of {{ total }}"
+  },
+  "product": {
+    "add_to_cart": "Add to cart",
+    "added_to_cart": "Added to cart",
+    "description": "Description",
+    "details": "Details",
+    "shipping": "Shipping and returns",
+    "related_heading": "You May Also Appreciate",
+    "trust_shipping": "Complimentary delivery over {{ threshold }}",
+    "trust_returns": "Refined returns window",
+    "trust_payment": "Secure payment"
+  },
+  "cart": {
+    "heading": "Your selection",
+    "drawer_heading": "Bag",
+    "empty": "Your selection is currently empty.",
+    "subtotal": "Subtotal",
+    "note": "Order note",
+    "note_placeholder": "Share any tailoring or gifting notes",
+    "discount": "Discount code",
+    "discount_placeholder": "Enter your code",
+    "discount_apply": "Apply at checkout",
+    "free_shipping_progress": "Complimentary delivery begins at {{ threshold }}.",
+    "upsell_heading": "Consider adding",
+    "remove": "Remove",
+    "update": "Update bag"
+  },
+  "footer": {
+    "statement": "Luxury modest fashion shaped with restraint, light, and intention.",
+    "newsletter_heading": "Private Updates",
+    "copyright": "Copyright © {{ year }} Zalene Maison. All rights reserved.",
+    "shop": "Shop",
+    "about": "About",
+    "care": "Care Guide",
+    "contact": "Contact",
+    "journal": "Journal"
+  },
+  "social": {
+    "instagram": "Instagram",
+    "pinterest": "Pinterest",
+    "tiktok": "TikTok",
+    "facebook": "Facebook",
+    "youtube": "YouTube"
+  },
+  "page_404": {
+    "heading": "A page of quiet absence.",
+    "subheading": "The page you were looking for could not be found.",
+    "button_label": "Return to the maison"
+  },
+  "password": {
+    "heading": "Opening Soon",
+    "subheading": "A new expression of modest luxury is nearly ready."
+  }
+}
