@@ -17,7 +17,7 @@
     "search": "Search products, collections, stories"
   },
   "general": {
-    "brand_name": "Zalene Maison",
+    "brand_name": "Zalène Maison",
     "continue_shopping": "Continue shopping",
     "learn_more": "Learn more",
     "shop_now": "Shop now",
@@ -64,7 +64,7 @@
   "brand_story": {
     "heading": "A House of Intentional Luxury",
     "subheading": "French discipline, Arabic grace, and craftsmanship without excess.",
-    "body": "Zalene Maison is built around precision, restraint, and beauty that unfolds in texture rather than noise. Every silhouette is considered for movement, modesty, and presence. Fabrics are selected for softness, depth, and longevity, while each finish is refined to feel discreetly exceptional. We design for women who value quiet confidence and garments that honour both occasion and everyday ritual. The result is a wardrobe shaped by calm structure, gentle light, and details that reveal themselves slowly.",
+    "body": "Zalène Maison is built around precision, restraint, and beauty that unfolds in texture rather than noise. Every silhouette is considered for movement, modesty, and presence. Fabrics are selected for softness, depth, and longevity, while each finish is refined to feel discreetly exceptional. We design for women who value quiet confidence and garments that honour both occasion and everyday ritual. The result is a wardrobe shaped by calm structure, gentle light, and details that reveal themselves slowly.",
     "button_label": "Read the story"
   },
   "bestsellers": {
@@ -129,7 +129,7 @@
   "footer": {
     "statement": "Luxury modest fashion shaped with restraint, light, and intention.",
     "newsletter_heading": "Private Updates",
-    "copyright": "Copyright © {{ year }} Zalene Maison. All rights reserved.",
+    "copyright": "Copyright © {{ year }} Zalène Maison. All rights reserved.",
     "shop": "Shop",
     "about": "About",
     "care": "Care Guide",

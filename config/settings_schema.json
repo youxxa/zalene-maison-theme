@@ -1,7 +1,7 @@
 [
   {
     "name": "Theme information",
-    "theme_name": "Zalene Maison",
+    "theme_name": "Zalène Maison",
     "theme_version": "1.0.0",
     "theme_author": "OpenAI Codex",
     "theme_documentation_url": "https://shopify.dev/docs/themes",
@@ -34,7 +34,7 @@
         "type": "text",
         "id": "brand_display_name",
         "label": "Brand display name",
-        "default": "Zalene Maison"
+        "default": "Zalène Maison"
       }
     ]
   },

@@ -1,7 +1,7 @@
 {
   "current": {
     "logo_width": 168,
-    "brand_display_name": "Zalene Maison",
+    "brand_display_name": "Zalène Maison",
     "color_primary": "#2C2C2C",
     "color_secondary": "#141414",
     "color_accent": "#D4AF37",
@@ -21,7 +21,7 @@
   },
   "presets": {
     "default": {
-      "brand_display_name": "Zalene Maison"
+      "brand_display_name": "Zalène Maison"
     }
   }
 }
