@@ -29,17 +29,23 @@
       </div>
 
       {% if cart.item_count > 0 %}
-        <form class="search-form" data-cart-note-form>
-          <label for="CartDrawerNote">{{ 'cart.note' | t }}</label>
-          <input class="form-field" id="CartDrawerNote" type="text" name="note" value="{{ cart.note }}" placeholder="{{ 'cart.note_placeholder' | t }}">
-          <button class="button button--secondary" type="submit">{{ 'cart.update' | t }}</button>
-        </form>
+      <div class="cart-drawer__helpers">
+        <details class="cart-drawer-details">
+          <summary>{{ 'cart.note' | t }}</summary>
+          <form class="cart-helper-form" data-cart-note-form>
+            <textarea class="form-field form-field--minimal" id="CartDrawerNote" name="note" placeholder="{{ 'cart.note_placeholder' | t }}" rows="2">{{ cart.note }}</textarea>
+            <button class="button button--secondary button--full" type="submit">{{ 'cart.update' | t }}</button>
+          </form>
+        </details>
 
-        <form class="search-form" data-discount-form>
-          <label for="CartDrawerDiscount">{{ 'cart.discount' | t }}</label>
-          <input class="form-field" id="CartDrawerDiscount" type="text" name="discount" placeholder="{{ 'cart.discount_placeholder' | t }}">
-          <button class="button button--secondary" type="submit">{{ 'cart.discount_apply' | t }}</button>
-        </form>
+        <details class="cart-drawer-details">
+          <summary>{{ 'cart.discount' | t }}</summary>
+          <form class="cart-helper-form" data-discount-form>
+            <input class="form-field form-field--minimal" id="CartDrawerDiscount" type="text" name="discount" placeholder="{{ 'cart.discount_placeholder' | t }}">
+            <button class="button button--secondary button--full" type="submit">{{ 'cart.discount_apply' | t }}</button>
+          </form>
+        </details>
+      </div>
 
         {% if settings.cart_upsell_products != blank %}
           <div>

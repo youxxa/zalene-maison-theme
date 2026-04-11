@@ -566,6 +566,51 @@ button {
   border: var(--border-thin) solid rgba(212, 175, 55, 0.55);
   background: transparent;
   color: inherit;
+  transition: border-color var(--transition-medium);
+}
+
+.form-field:focus {
+  outline: none;
+  border-color: var(--color-primary-accent);
+}
+
+/* Minimal form field removes the boxy look for elegant forms */
+.form-field--minimal {
+  padding: 14px 0;
+  border: none;
+  border-bottom: var(--border-medium) solid rgba(212, 175, 55, 0.35);
+  border-radius: 0;
+}
+
+/* Cart drawer details hide cumbersome forms cleanly */
+.cart-drawer-details {
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.cart-drawer-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  transition: color var(--transition-medium);
+}
+
+.cart-drawer-details summary:hover {
+  color: var(--color-primary-accent);
+}
+
+.cart-helper-form {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+/* Button utility for full width mobile spacing */
+.button--full {
+  width: 100%;
 }
 
 /* Search results list supports live predictive updates */
@@ -825,12 +870,25 @@ button {
   border: var(--border-thin) solid rgba(212, 175, 55, 0.35);
 }
 
-/* Minimal geometric icons are drawn with borders only */
-.values-grid__icon {
-  width: 34px;
-  height: 34px;
-  border: var(--border-thin) solid var(--color-primary-accent);
-  transform: rotate(45deg);
+/* Inline trust badge icons scale elegantly without a hard box constraint */
+.trust-badges__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-accent);
+  flex-shrink: 0;
+}
+
+.trust-badges__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0;
+  font-size: 0.875rem;
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.12);
+}
+
+.trust-badges__item:last-child {
+  border-bottom: none;
 }
 
 /* Instagram grid shifts from two to three columns cleanly */
