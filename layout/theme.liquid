@@ -35,18 +35,28 @@
     </title>
     <style>
       :root {
-        --color-primary-dark: #2C2C2C;
-        --color-primary-accent: #D4AF37;
-        --color-primary-light: #FFFFFF;
-        --color-background-dark: #101010;
-        --color-background-mid: #141414;
-        --color-gold-overlay: rgba(212, 175, 55, 0.15);
-        --color-text-primary: #1A1A1A;
-        --color-announcement-background: #000000;
-        --color-announcement-text: #D4AF37;
-        --font-heading: 'Playfair Display', serif;
-        --font-body: 'Cinzel', serif;
-        --button-radius: 0px;
+        --color-primary-dark: {{ settings.color_primary }};
+        --color-primary-accent: {{ settings.color_accent }};
+        --color-primary-light: {{ settings.color_background }};
+        --color-background-dark: {{ settings.color_background_dark }};
+        --color-background-mid: {{ settings.color_secondary }};
+        --color-gold-overlay: {{ settings.color_gold_overlay }};
+        --color-text-primary: {{ settings.color_text }};
+        --color-announcement-background: {{ settings.announcement_background }};
+        --color-announcement-text: {{ settings.announcement_text_color }};
+        --color-ivory: #FFFFF0;
+        --color-charcoal: {{ settings.color_primary }};
+        --color-gold: {{ settings.color_accent }};
+        --font-heading: {{ settings.heading_font_family }};
+        --font-body: {{ settings.body_font_family }};
+        {% case settings.button_radius %}
+          {% when 'rounded' %}
+            --button-radius: 12px;
+          {% when 'pill' %}
+            --button-radius: 999px;
+          {% else %}
+            --button-radius: 0px;
+        {% endcase %}
         --logo-width: {{ settings.logo_width }}px;
         --space-1: 16px;
         --space-2: 32px;
@@ -121,84 +131,15 @@
   </head>
   <body class="template-{{ request.page_type | handle }}">
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
-    <div class="theme-shell" style="max-width: none !important; width: 100% !important;">
+    <div class="theme-shell">
+      {% section 'announcement-bar' %}
       {% section 'header' %}
       {% section 'cart-drawer' %}
       <main id="MainContent" class="main-content" role="main" tabindex="-1">
-        <div class="page-width">
-          {{ content_for_layout }}
-        </div>
+        {{ content_for_layout }}
       </main>
       {% section 'footer' %}
       {% render 'cookie-banner' %}
     </div>
-    <script>
-      // Global fade-in micro-interaction
-      document.addEventListener("DOMContentLoaded", () => {
-        const observerOptions = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.1
-        };
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
-        
-        // Target all section-intro elements, images, and major blocks for the fade-in effect
-        document.querySelectorAll('.section-intro, .rich-copy, .mega-menu, .image-text-section__media, .footer-nav').forEach((el) => {
-          el.classList.add('fade-in-on-scroll');
-          observer.observe(el);
-        });
-      });
-    </script>
-    <style>
-      .floating-contact-btn {
-        position: fixed;
-        bottom: 32px;
-        left: 32px;
-        z-index: 100;
-        font-family: var(--font-body);
-        font-size: 0.75rem;
-        letter-spacing: 0.45rem;
-        text-transform: uppercase;
-        color: var(--color-primary-dark);
-        background: transparent;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        transition: color var(--transition-medium);
-      }
-      @media screen and (max-width: 749px) {
-        .floating-contact-btn {
-          bottom: 20px;
-          left: 20px;
-          font-size: 0.625rem;
-          letter-spacing: 0.25rem;
-        }
-      }
-      .floating-contact-btn::after {
-        content: "";
-        position: absolute;
-        inset-inline: 0;
-        inset-block-end: -6px;
-        transform: scaleX(0);
-        transform-origin: left;
-        height: 0.75px;
-        background: var(--color-primary-accent);
-        transition: transform var(--transition-medium);
-      }
-      .floating-contact-btn:hover {
-        color: var(--color-primary-accent);
-      }
-      .floating-contact-btn:hover::after {
-        transform: scaleX(1);
-      }
-    </style>
-    <a href="/pages/contact" class="floating-contact-btn">CONTACT US</a>
   </body>
 </html>

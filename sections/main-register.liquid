@@ -2,147 +2,46 @@
   filename: sections/main-register.liquid
   purpose: Ultra-minimalist registration form tracking bespoke data securely into Customer Properties.
 {% endcomment %}
-
-<style>
-  /* Exclusive Ultra-Minimalist Typography & Design System */
-  .auth-section {
-    background-color: #FFFFFF;
-    color: #000000;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    min-height: 80vh;
-    display: grid;
-    place-items: center;
-    padding: 64px 24px;
-    letter-spacing: 0.05em;
-  }
-
-  .auth-form-container {
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .auth-form-title {
-    text-align: center;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 48px;
-    color: #000000;
-  }
-
-  .auth-field {
-    margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .auth-field label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-
-  .auth-field input,
-  .auth-field select {
-    appearance: none;
-    background: transparent;
-    border: 1px solid #000000;
-    border-radius: 0 !important; /* Strict sharp corners */
-    padding: 20px 24px; /* Significant whitespace */
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 0.875rem;
-    color: #000000;
-    width: 100%;
-    outline: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .auth-field input:focus,
-  .auth-field select:focus {
-    background-color: #F9F9F9;
-  }
-
-  .auth-btn {
-    appearance: none;
-    background: #000000;
-    color: #FFFFFF;
-    border: 1px solid #000000;
-    border-radius: 0 !important;
-    padding: 24px;
-    width: 100%;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    margin-top: 32px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .auth-btn:hover {
-    background: #FFFFFF;
-    color: #000000;
-  }
-
-  .auth-footer {
-    margin-top: 32px;
-    text-align: center;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  
-  .auth-footer a {
-    color: #000000;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-</style>
-
-<section class="auth-section">
-  <div class="auth-form-container">
-    <h1 class="auth-form-title">Join The Maison</h1>
+<section class="auth section-shell scheme-light text-dark">
+  <div class="page-width">
+  <div class="auth__container">
+    <h1 class="auth__title">{{ 'account.register_heading' | t }}</h1>
 
     {% form 'create_customer', novalidate: 'novalidate' %}
       {%- if form.errors -%}
-        <div class="auth-field" style="color: red; font-size: 0.85rem; border: 1px solid red; padding: 16px;">
+        <div class="auth__errors">
           {{ form.errors | default_errors }}
         </div>
       {%- endif -%}
 
       <!-- Standard Fields -->
-      <div class="auth-field">
-        <label for="RegisterForm-FirstName">First Name</label>
-        <input type="text" name="customer[first_name]" id="RegisterForm-FirstName" autocomplete="given-name" placeholder="E.g., Charlotte">
+      <div class="auth__field">
+        <label class="auth__label" for="RegisterForm-FirstName">{{ 'account.first_name_label' | t }}</label>
+        <input class="form-field" type="text" name="customer[first_name]" id="RegisterForm-FirstName" autocomplete="given-name">
       </div>
 
-      <div class="auth-field">
-        <label for="RegisterForm-LastName">Last Name</label>
-        <input type="text" name="customer[last_name]" id="RegisterForm-LastName" autocomplete="family-name" placeholder="E.g., Dubois">
+      <div class="auth__field">
+        <label class="auth__label" for="RegisterForm-LastName">{{ 'account.last_name_label' | t }}</label>
+        <input class="form-field" type="text" name="customer[last_name]" id="RegisterForm-LastName" autocomplete="family-name">
       </div>
 
-      <div class="auth-field">
-        <label for="RegisterForm-email">Email Address *</label>
-        <input type="email" name="customer[email]" id="RegisterForm-email" autocomplete="email" required placeholder="hello@example.com">
+      <div class="auth__field">
+        <label class="auth__label" for="RegisterForm-email">{{ 'account.email_label' | t }}</label>
+        <input class="form-field" type="email" name="customer[email]" id="RegisterForm-email" autocomplete="email" required>
       </div>
 
-      <div class="auth-field">
-        <label for="RegisterForm-password">Password *</label>
-        <input type="password" name="customer[password]" id="RegisterForm-password" required placeholder="Create a password">
+      <div class="auth__field">
+        <label class="auth__label" for="RegisterForm-password">{{ 'account.password_label' | t }}</label>
+        <input class="form-field" type="password" name="customer[password]" id="RegisterForm-password" required>
       </div>
 
       <!-- Bespoke Custom Data Fields mapped to Customer Properties -->
       <input type="hidden" name="customer[tags]" value="Maison-Member">
       <input type="hidden" name="customer[note][Membership_Status]" value="Maison-Member">
 
-      <div class="auth-field">
+      <div class="auth__field">
         <label for="RegisterForm-Style">Preferred Style</label>
-        <select name="customer[note][Preferred_Style]" id="RegisterForm-Style">
+        <select class="form-field" name="customer[note][Preferred_Style]" id="RegisterForm-Style">
           <option value="Minimalist">Minimalist</option>
           <option value="Avant-Garde">Avant-Garde</option>
           <option value="Classic">Classic Elegance</option>
@@ -150,23 +49,24 @@
         </select>
       </div>
 
-      <div class="auth-field">
+      <div class="auth__field">
         <label for="RegisterForm-RingSize">Jewelry Size</label>
-        <input type="text" name="customer[note][Jewelry_Size]" id="RegisterForm-RingSize" placeholder="E.g., Ring Size 6 or 16mm">
+        <input class="form-field" type="text" name="customer[note][Jewelry_Size]" id="RegisterForm-RingSize">
       </div>
 
-      <div class="auth-field">
+      <div class="auth__field">
         <label for="RegisterForm-Birthday">Birthday</label>
-        <input type="date" name="customer[note][Birthday]" id="RegisterForm-Birthday">
+        <input class="form-field" type="date" name="customer[note][Birthday]" id="RegisterForm-Birthday">
       </div>
 
-      <button type="submit" class="auth-btn">Create Account</button>
+      <button type="submit" class="button button--outline button--full">{{ 'account.create_account' | t }}</button>
 
-      <div class="auth-footer">
-        <p>Already have an account? <a href="{{ routes.account_login_url }}">Sign In</a></p>
+      <div class="auth__footer">
+        <p>{{ 'account.already_have_account' | t }} <a class="auth__link" href="{{ routes.account_login_url }}">{{ 'account.sign_in' | t }}</a></p>
       </div>
 
     {% endform %}
+  </div>
   </div>
 </section>
 

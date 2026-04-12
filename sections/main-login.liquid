@@ -2,179 +2,47 @@
   filename: sections/main-login.liquid
   purpose: Ultra-minimalist login portal integrating guest checkout blocks and registration incentives.
 {% endcomment %}
-
-<style>
-  /* Exclusive Ultra-Minimalist Typography & Design System */
-  .auth-section {
-    background-color: #FFFFFF;
-    color: #000000;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    min-height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 64px 24px;
-    letter-spacing: 0.05em;
-  }
-
-  .auth-form-container {
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  .auth-form-title {
-    text-align: center;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 1.75rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 48px;
-    color: #000000;
-  }
-
-  .auth-promo {
-    text-align: center;
-    background-color: #f9f9f9;
-    border: 1px solid #000;
-    padding: 16px;
-    margin-bottom: 32px;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .auth-field {
-    margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .auth-field label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-
-  .auth-field input {
-    appearance: none;
-    background: transparent;
-    border: 1px solid #000000;
-    border-radius: 0 !important;
-    padding: 20px 24px;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 0.875rem;
-    color: #000000;
-    width: 100%;
-    outline: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .auth-field input:focus {
-    background-color: #F9F9F9;
-  }
-
-  .auth-btn {
-    appearance: none;
-    background: #000000;
-    color: #FFFFFF;
-    border: 1px solid #000000;
-    border-radius: 0 !important;
-    padding: 24px;
-    width: 100%;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    margin-top: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .auth-btn:hover {
-    background: #FFFFFF;
-    color: #000000;
-  }
-
-  .auth-btn--outline {
-    background: transparent;
-    color: #000000;
-    margin-top: 16px;
-  }
-
-  .auth-btn--outline:hover {
-    background: #f0f0f0;
-  }
-
-  .auth-footer {
-    margin-top: 32px;
-    text-align: center;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  
-  .auth-footer a {
-    color: #000000;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-  }
-
-  .guest-checkout-block {
-    margin-top: 64px;
-    padding-top: 48px;
-    border-top: 1px solid #000;
-  }
-</style>
-
-<section class="auth-section">
-  <div class="auth-form-container">
-    
-    <div class="auth-promo">
-      Create an account today to redeem a 5% welcome discount.
-    </div>
-
-    <h1 class="auth-form-title">Login</h1>
+<section class="auth section-shell scheme-light text-dark">
+  <div class="page-width">
+  <div class="auth__container">
+    <h1 class="auth__title">{{ 'account.login_heading' | t }}</h1>
 
     {% form 'customer_login', novalidate: 'novalidate' %}
       {%- if form.errors -%}
-        <div class="auth-field" style="color: red; font-size: 0.85rem; border: 1px solid red; padding: 16px;">
+        <div class="auth__errors">
           {{ form.errors | default_errors }}
         </div>
       {%- endif -%}
 
-      <div class="auth-field">
-        <label for="CustomerEmail">Email Address</label>
-        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required placeholder="hello@example.com">
+      <div class="auth__field">
+        <label class="auth__label" for="CustomerEmail">{{ 'account.email_label' | t }}</label>
+        <input class="form-field" type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
       </div>
 
       {%- if form.password_needed -%}
-        <div class="auth-field">
-          <label for="CustomerPassword">Password</label>
-          <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
+        <div class="auth__field">
+          <label class="auth__label" for="CustomerPassword">{{ 'account.password_label' | t }}</label>
+          <input class="form-field" type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
         </div>
       {%- endif -%}
 
-      <button type="submit" class="auth-btn">Sign In</button>
+      <button type="submit" class="button button--outline button--full">{{ 'account.sign_in' | t }}</button>
 
-      <div class="auth-footer">
-        <p>New to Maison? <a href="{{ routes.account_register_url }}">Create Account</a></p>
+      <div class="auth__footer">
+        <p>{{ 'account.new_to_maison' | t }} <a class="auth__link" href="{{ routes.account_register_url }}">{{ 'account.create_account' | t }}</a></p>
       </div>
     {% endform %}
 
     {%- if shop.checkout.guest_login -%}
-      <div class="guest-checkout-block">
-        <h2 class="auth-form-title" style="font-size: 1.25rem;">Checkout as Guest</h2>
+      <div class="auth__guest">
+        <h2 class="auth__subtitle">{{ 'account.guest_checkout' | t }}</h2>
         {% form 'guest_login' %}
-          <button type="submit" class="auth-btn auth-btn--outline">Continue to Checkout</button>
+          <button type="submit" class="button button--outline button--full">{{ 'account.continue_to_checkout' | t }}</button>
         {% endform %}
       </div>
     {%- endif -%}
     
+  </div>
   </div>
 </section>
 

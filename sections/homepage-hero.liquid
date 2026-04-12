@@ -1,78 +1,9 @@
-<style>
-  .hero {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-end; /* Bottom-left alignment by default */
-    overflow: hidden;
-  }
-  .hero--centered {
-    align-items: center;
-    justify-content: center;
-  }
-  .hero__media {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background-color: var(--color-background-dark);
-  }
-  .hero__media img,
-  .hero__media video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0.8; /* Subtle darkening for text readability */
-  }
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    padding: var(--space-4) var(--space-2);
-    width: 100%;
-    max-width: var(--container-width);
-    margin: 0 auto;
-    color: var(--color-primary-light);
-  }
-  .hero--centered .hero__content {
-    text-align: center;
-    padding: var(--space-5) var(--space-3);
-  }
-  .hero__title {
-    font-family: var(--font-heading);
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 1.1;
-    margin: 0 0 var(--space-2) 0;
-    font-weight: 400;
-  }
-  .hero__subtitle {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    letter-spacing: 0.5rem;
-    text-transform: uppercase;
-    margin: 0 0 var(--space-3) 0;
-  }
-  .ghost-button-gold--hover-wash {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 44px;
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    letter-spacing: 0.4rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--color-primary-accent);
-    border: 0.75px solid var(--color-primary-accent);
-    background: transparent;
-    transition: background-color var(--transition-medium), color var(--transition-medium);
-  }
-  .ghost-button-gold--hover-wash:hover {
-    background-color: var(--color-gold-overlay);
-    color: var(--color-primary-light);
-  }
-</style>
+{% comment %}
+  filename: sections/homepage-hero.liquid
+  purpose: Full-screen hero with image/video background, editorial typography, and refined gold-outline CTA.
+  key variables: section.settings.image, section.settings.video_url, section.settings.title, section.settings.subtitle, section.settings.button_label, section.settings.button_link
+  ai_agent_edit_guide: Keep structure here. Edit styling in assets/base.css and copy defaults in locale/section settings.
+{% endcomment %}
 
 <div class="hero {% if section.settings.alignment == 'center' %}hero--centered{% endif %}">
   <div class="hero__media">
@@ -85,7 +16,7 @@
     {% endif %}
   </div>
 
-  <div class="hero__content fade-in-on-scroll">
+  <div class="hero__content" data-reveal>
     {% if section.settings.title != blank %}
       <h1 class="hero__title">{{ section.settings.title }}</h1>
     {% endif %}
@@ -95,7 +26,7 @@
     {% endif %}
 
     {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="ghost-button-gold--hover-wash">
+      <a href="{{ section.settings.button_link }}" class="button button--outline">
         {{ section.settings.button_label }}
       </a>
     {% endif %}

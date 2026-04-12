@@ -1,129 +1,19 @@
 {% comment %}
   filename: snippets/cookie-banner.liquid
-  purpose: Ultra-minimalist cookie consent banner tailored to the Zalène Maison aesthetic.
+  purpose: Minimal cookie consent banner (no inline CSS/JS) aligned with the Zalène Maison design system.
+  key variables: locales cookie_banner.*, localStorage key managed in assets/theme.js
+  ai_agent_edit_guide: Edit structure only. Move copy to locales and styling to assets/base.css. Behavioral changes belong in assets/theme.js.
 {% endcomment %}
 
-<style>
-  .cookie-banner {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    right: 24px;
-    max-width: 480px;
-    background-color: #FFFFFF;
-    border: 1px solid #000000;
-    color: #000000;
-    padding: 24px;
-    z-index: 9999;
-    display: none; /* Hidden by default until JS checks consent */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    transform: translateY(100%);
-    opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-  }
-
-  .cookie-banner.is-visible {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .cookie-banner__content p {
-    margin: 0 0 16px 0;
-    font-size: 0.8125rem;
-    line-height: 1.5;
-    letter-spacing: 0.05em;
-  }
-
-  .cookie-banner__actions {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-  }
-
-  .cookie-btn {
-    appearance: none;
-    background: #000000;
-    color: #FFFFFF;
-    border: 1px solid #000000;
-    border-radius: 0;
-    padding: 12px 24px;
-    font-family: 'Helvetica', 'Inter', sans-serif;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  .cookie-btn:hover {
-    background: #FFFFFF;
-    color: #000000;
-  }
-
-  .cookie-btn--outline {
-    background: transparent;
-    color: #000000;
-  }
-
-  .cookie-btn--outline:hover {
-    background: #000000;
-    color: #FFFFFF;
-  }
-
-  @media screen and (max-width: 749px) {
-    .cookie-banner {
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 100%;
-      border-left: none;
-      border-right: none;
-      border-bottom: none;
-    }
-    .cookie-banner__actions {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
-<div class="cookie-banner" id="CookieBanner" role="dialog" aria-live="polite">
-  <div class="cookie-banner__content">
-    <p>We use functional and analytical cookies to ensure you get the most premium experience on our website. By continuing to browse, you agree to our use of cookies.</p>
-  </div>
+<div class="cookie-banner" id="CookieBanner" role="dialog" aria-live="polite" aria-label="{{ 'cookie_banner.aria_label' | t }}" hidden>
+  <p class="cookie-banner__copy">{{ 'cookie_banner.message' | t }}</p>
   <div class="cookie-banner__actions">
-    <button class="cookie-btn cookie-btn--outline" id="CookieDecline">Decline</button>
-    <button class="cookie-btn" id="CookieAccept">Accept All</button>
+    <button class="button button--secondary cookie-banner__button" type="button" data-cookie-decline>
+      {{ 'cookie_banner.decline' | t }}
+    </button>
+    <button class="button button--primary cookie-banner__button" type="button" data-cookie-accept>
+      {{ 'cookie_banner.accept' | t }}
+    </button>
   </div>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const banner = document.getElementById("CookieBanner");
-    const acceptBtn = document.getElementById("CookieAccept");
-    const declineBtn = document.getElementById("CookieDecline");
-
-    // Check if the user has already made a choice
-    if (!localStorage.getItem('zalene_cookie_consent')) {
-      // Show the banner slightly delayed for a smooth entrance
-      setTimeout(() => {
-        banner.style.display = "block";
-        // Trigger reflow to ensure the transition fires
-        void banner.offsetWidth;
-        banner.classList.add("is-visible");
-      }, 1000);
-    }
-
-    function closeBanner(choice) {
-      localStorage.setItem('zalene_cookie_consent', choice);
-      banner.classList.remove("is-visible");
-      setTimeout(() => {
-        banner.style.display = "none";
-      }, 400); // Wait for transition logic
-    }
-
-    acceptBtn.addEventListener("click", () => closeBanner("accepted"));
-    declineBtn.addEventListener("click", () => closeBanner("declined"));
-  });
-</script>
