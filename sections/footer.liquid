@@ -53,27 +53,6 @@
     </div>
 
     <div class="site-footer__meta">
-      <div class="price">
-        {% form 'localization' %}
-          <label class="visually-hidden" for="FooterCountry">{{ 'general.currency' | t }}</label>
-          <select class="quick-add__select" id="FooterCountry" name="country_code">
-            {% for country in localization.available_countries %}
-              <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
-                {{ country.name }} ({{ country.currency.iso_code }})
-              </option>
-            {% endfor %}
-          </select>
-          <label class="visually-hidden" for="FooterLanguage">{{ 'general.language' | t }}</label>
-          <select class="quick-add__select" id="FooterLanguage" name="locale_code">
-            {% for locale in localization.available_languages %}
-              <option value="{{ locale.iso_code }}" {% if locale.iso_code == localization.language.iso_code %}selected{% endif %}>
-                {{ locale.endonym_name | capitalize }}
-              </option>
-            {% endfor %}
-          </select>
-          <button class="button button--secondary" type="submit">{{ 'general.apply' | t }}</button>
-        {% endform %}
-      </div>
       <p>{{ 'footer.copyright' | t: year: current_year }}</p>
     </div>
   </div>

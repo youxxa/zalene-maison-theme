@@ -6,56 +6,57 @@
 {% endcomment %}
 <header class="site-header scheme-{{ section.settings.scheme_style }} text-{{ section.settings.text_style }}" data-section-id="header">
   <div class="site-header__inner">
-    <div class="site-header__brand">
-      <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
-        {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
-      </a>
-    </div>
+    <div class="site-header__top-row">
+      <div class="site-header__utilities site-header__utilities--left">
+        <!-- Menu Toggle (Always visible, Top Left Edge) -->
+        <button class="icon-button menu-toggle-btn" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
+          {% render 'icon-menu' %}
+        </button>
 
-    <nav class="site-header__nav" aria-label="{{ 'header.menu' | t }}">
-      <ul class="mega-menu" role="list">
-        {% for link in section.settings.desktop_menu.links %}
-          <li class="mega-menu__item">
-            <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
-              {{ link.title }}
-            </a>
-            {% if link.links != blank %}
-              <div class="mega-menu__panel">
-                {% for child_link in link.links %}
-                  <div class="footer-nav">
-                    <a class="text-link" href="{{ child_link.url }}">{{ child_link.title }}</a>
-                    {% if child_link.links != blank %}
-                      {% for grandchild_link in child_link.links %}
-                        <a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
-                      {% endfor %}
-                    {% endif %}
-                  </div>
-                {% endfor %}
-              </div>
-            {% endif %}
-          </li>
-        {% endfor %}
-      </ul>
-    </nav>
+        <!-- Brand Logo (Following Menu) -->
+        <div class="site-header__brand">
+          <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
+            {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
+          </a>
+        </div>
+      </div>
 
-    <div class="site-header__utilities">
-      <button class="icon-button large-up-hide" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
-        {% render 'icon-menu' %}
-      </button>
-      <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
-        {% render 'icon-search' %}
-      </button>
-      <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
-        <span class="visually-hidden">{{ 'header.cart' | t }}</span>
-        {% render 'icon-cart' %}
-        <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
-      </button>
+      <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
+        <ul class="mega-menu" role="list">
+          {% for link in section.settings.desktop_menu.links %}
+            <li class="mega-menu__item">
+              <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <div class="site-header__utilities site-header__utilities--right">
+        <!-- Search -->
+        <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
+          {% render 'icon-search' %}
+        </button>
+
+        <!-- Account -->
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
+          {% render 'icon-account' %}
+        </a>
+
+        <!-- Cart -->
+        <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
+          <span class="visually-hidden">{{ 'header.cart' | t }}</span>
+          {% render 'icon-cart' %}
+          <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+        </button>
+      </div>
     </div>
   </div>
 
   <div id="MobileMenuDrawer" class="drawer" aria-hidden="true">
     <div class="drawer__overlay" data-drawer-overlay></div>
-    <div class="drawer__panel drawer__panel--fullscreen scheme-dark text-light" data-drawer-panel>
+    <div class="drawer__panel drawer__panel--left scheme-dark text-light" data-drawer-panel>
       <div class="drawer__header">
         <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
         <button class="icon-button" type="button" data-drawer-close="MobileMenuDrawer" aria-label="{{ 'accessibility.close_menu' | t }}">
@@ -98,17 +99,19 @@
           {% render 'icon-close' %}
         </button>
       </div>
-      <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" data-predictive-search-form>
-        <input
-          class="search-form__field"
-          type="search"
-          name="q"
-          value=""
-          placeholder="{{ 'accessibility.search' | t }}"
-          aria-label="{{ 'header.search' | t }}"
-        >
-        <div class="predictive-search__results" data-predictive-results></div>
-      </form>
+      <div class="drawer__body">
+        <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" data-predictive-search-form>
+          <input
+            class="search-form__field"
+            type="search"
+            name="q"
+            value=""
+            placeholder="{{ 'accessibility.search' | t }}"
+            aria-label="{{ 'header.search' | t }}"
+          >
+          <div class="predictive-search__results" data-predictive-results></div>
+        </form>
+      </div>
     </div>
   </div>
 </header>

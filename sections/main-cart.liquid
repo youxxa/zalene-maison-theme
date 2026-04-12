@@ -49,13 +49,13 @@
         </form>
 
         <div class="cart-page__summary">
-          <form class="search-form" data-cart-note-form>
+          <form class="cart-summary-form" data-cart-note-form>
             <label for="CartPageNote">{{ 'cart.note' | t }}</label>
             <input class="form-field" id="CartPageNote" type="text" name="note" value="{{ cart.note }}" placeholder="{{ 'cart.note_placeholder' | t }}">
             <button class="button button--secondary" type="submit">{{ 'general.save' | t }}</button>
           </form>
 
-          <form class="search-form" data-discount-form>
+          <form class="cart-summary-form" data-discount-form>
             <label for="CartPageDiscount">{{ 'cart.discount' | t }}</label>
             <input class="form-field" id="CartPageDiscount" type="text" name="discount" placeholder="{{ 'cart.discount_placeholder' | t }}">
             <button class="button button--secondary" type="submit">{{ 'cart.discount_apply' | t }}</button>

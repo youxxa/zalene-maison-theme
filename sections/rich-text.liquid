@@ -1,0 +1,150 @@
+{% comment %}
+  filename: sections/rich-text.liquid
+  purpose: A flexible "Canva-style" draggable block for centered text, quotes, and narrative.
+{% endcomment %}
+
+<style>
+  .rich-text-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+  .rich-text-section__heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin: 0;
+    font-weight: 400;
+  }
+</style>
+
+<section class="section-shell scheme-{{ section.settings.bg_color }} text-{{ section.settings.text_color }} section-spacing--top-space-{{ section.settings.padding_top }} section-spacing--bottom-space-{{ section.settings.padding_bottom }}">
+  <div class="page-width">
+    <div class="rich-text-section">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'eyebrow' -%}
+            <p class="section-intro__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+          {%- when 'heading' -%}
+            <h2 class="section-intro__heading rich-text-section__heading" {{ block.shopify_attributes }}>{{ block.settings.text }}</h2>
+          {%- when 'text' -%}
+            <div class="rich-copy" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+          {%- when 'button' -%}
+            <div {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.button_link }}" class="button button--{{ block.settings.button_style }}">
+                {{ block.settings.button_label }}
+              </a>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rich text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "Background color scheme",
+      "options": [
+        { "value": "light", "label": "Light" },
+        { "value": "mid", "label": "Mid" },
+        { "value": "dark", "label": "Dark" }
+      ],
+      "default": "light"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "options": [
+        { "value": "dark", "label": "Dark" },
+        { "value": "light", "label": "Light" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "label": "Top spacing",
+      "options": [
+        { "value": "sm", "label": "Small" },
+        { "value": "lg", "label": "Large" },
+        { "value": "xl", "label": "Extra Large" }
+      ],
+      "default": "lg"
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "label": "Bottom spacing",
+      "options": [
+        { "value": "sm", "label": "Small" },
+        { "value": "lg", "label": "Large" },
+        { "value": "xl", "label": "Extra Large" }
+      ],
+      "default": "lg"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "eyebrow",
+      "name": "Eyebrow text",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "default": "Chapter I" }
+      ]
+    },
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "default": "Talk about your brand" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "limit": 2,
+      "settings": [
+        { "type": "richtext", "id": "text", "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>" }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "button_label", "default": "Read more" },
+        { "type": "url", "id": "button_link" },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            { "value": "primary", "label": "Solid" },
+            { "value": "secondary", "label": "Outline" }
+          ],
+          "default": "primary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "blocks": [
+        { "type": "heading" },
+        { "type": "text" }
+      ]
+    }
+  ]
+}
+{% endschema %}

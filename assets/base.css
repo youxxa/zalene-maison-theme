@@ -12,26 +12,32 @@
   box-sizing: border-box;
 }
 
+/* Focus states use gold for clear accessibility without heavy shadows */
+:focus-visible {
+  outline: 1px solid var(--color-primary-accent);
+  outline-offset: 3px;
+}
+
+/* Global design constraints for luxury feel */
+:root {
+  --tracking-luxury: 7px;
+  --tracking-editorial: 5px;
+  --border-hairline: 0.75px;
+}
+
 /* Base element defaults for a calm, premium canvas */
 html,
 body {
   min-height: 100%;
 }
 
-/* Body typography, background, and rendering behavior */
 body {
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.7;
-  color: var(--color-text-primary);
+  line-height: 1.8;
+  color: #2C2C2C; /* Strict Charcoal */
+  background: var(--color-primary-light);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Focus states use gold for clear accessibility without heavy shadows */
-:focus-visible {
-  outline: 1px solid var(--color-primary-accent);
-  outline-offset: 3px;
 }
 
 /* Links inherit a restrained visual treatment */
@@ -81,10 +87,27 @@ button {
   overflow: clip;
 }
 
-/* Announcement bar uses its own configurable theme settings */
+/* Announcement bar carries the refined brand message with high letter spacing */
 .announcement-bar {
   background: var(--color-announcement-background);
   color: var(--color-announcement-text);
+  text-transform: uppercase;
+  letter-spacing: 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.announcement-bar .drawer-nav__link {
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+  display: inline-block;
 }
 
 /* Color schemes map section settings to root tokens */
@@ -195,47 +218,47 @@ button {
   margin-inline: auto;
 }
 
-/* Button treatment keeps gold reserved and tactile */
+/* Global Button Overhaul - STRICT GHOST ONLY */
 .button,
+.button--primary,
+.button--secondary,
 .shopify-payment-button__button,
 .shopify-challenge__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px;
   min-height: 48px;
-  padding: 14px 24px;
-  border: var(--border-thin) solid var(--color-primary-accent);
-  border-radius: var(--button-radius);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.32rem;
+  padding: 0 44px;
+  font-family: var(--font-body);
+  font-size: 0.75rem !important;
+  letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
-  transition:
-    background-color var(--transition-medium),
-    color var(--transition-medium),
-    border-color var(--transition-medium),
-    transform var(--transition-medium);
+  text-decoration: none;
+  background: transparent !important;
+  border: var(--border-hairline) solid var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Primary button uses the gold accent sparingly but decisively */
-.button--primary {
-  background: var(--color-primary-accent);
-  color: var(--color-primary-dark);
-}
-
-/* Secondary button preserves whitespace and border definition */
-.button--secondary {
-  background: transparent;
-  color: inherit;
-}
-
-/* Button hover adds a subtle lift without theatrical motion */
 .button:hover,
-.button:focus-visible,
-.shopify-payment-button__button:hover,
-.shopify-payment-button__button:focus-visible {
-  transform: translateY(-1px);
+.button--primary:hover,
+.button--secondary:hover,
+.shopify-payment-button__button:hover {
+  background-color: var(--color-primary-accent) !important;
+  color: var(--color-primary-light) !important;
+  transform: none !important;
+}
+
+/* Specific section overrides to catch residual solid styles */
+.section-intro .button,
+.cart-drawer .button,
+.not-found .button,
+.main-content .button {
+  background: transparent !important;
+  border: var(--border-hairline) solid var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
 }
 
 /* Icon buttons meet tap target requirements across the theme */
@@ -249,6 +272,23 @@ button {
   border: var(--border-thin) solid transparent;
   color: inherit;
   transition: border-color var(--transition-medium), color var(--transition-medium);
+}
+
+.menu-toggle-btn {
+  inline-size: auto;
+  padding: 0 16px;
+  gap: 8px;
+}
+.menu-label,
+.header-text-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: opacity var(--transition-medium);
+}
+.header-text-link:hover {
+  opacity: 0.7;
 }
 
 /* Text links use an understated gold underline cue */
@@ -293,42 +333,80 @@ button {
   min-height: 64px;
 }
 
-/* Header shell sets border and translucent backdrop */
+/* Header shell handles the stacked brand-centered architecture */
 .site-header__inner {
-  min-height: var(--header-height);
-  padding-bottom: 24px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 12px;
-  width: min(calc(100% - 24px), var(--container-width));
+  padding: 0 32px;
+  width: 100%;
   margin-inline: auto;
   transition: min-height var(--transition-medium);
-  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.24);
-  backdrop-filter: blur(12px);
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.15);
 }
 
-/* Brand mark keeps spacing refined even without an uploaded image */
-.site-header__brand {
-  display: inline-flex;
+.site-header__top-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 24px 0;
+  position: relative;
+  width: 100%;
+}
+
+.site-header__utilities--left {
+  flex: 1 1 0%;
+  display: flex !important;
+  justify-content: flex-start;
   align-items: center;
-  max-width: var(--logo-width);
 }
 
-/* Brand text fallback uses the same premium tracking everywhere */
+.site-header__utilities--right {
+  flex: 1 1 0%;
+  display: flex !important;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-header__brand {
+  flex: 0 0 auto;
+  padding: 0 20px;
+}
+
+/* Gold color for brand logo link */
+.site-header__brand a {
+  color: var(--color-primary-accent);
+  text-decoration: none;
+}
+
+.site-header__nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  z-index: 5;
+}
+
+/* Hide on large (desktop) screens - utility class */
+@media screen and (min-width: 990px) {
+  .large-up-hide {
+    display: none !important;
+  }
+}
+
+/* Brand mark in centered position - STRICT GOLD */
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
-  letter-spacing: 0.42rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.8rem;
   text-transform: uppercase;
   white-space: nowrap;
+  font-family: var(--font-heading);
+  color: var(--color-primary-accent); /* #D4AF37 */
 }
 
-/* Navigation list remains centered with precise spacing */
+/* Navigation list styling */
 .site-header__nav {
-  display: none;
+  display: block;
 }
 
 /* Header utilities align menu, search, and cart actions */
@@ -357,24 +435,30 @@ button {
   font-weight: 700;
 }
 
-/* Desktop navigation keeps links airy and highly legible */
+/* Desktop navigation keeps links airy and centered under the brand row */
 .mega-menu {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 48px;
 }
 
-/* Top-level nav items carry the brand's uppercase cadence */
+/* Top-level nav items carry the brand's uppercase cadence - 7px Tracking */
 .mega-menu__link {
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.38rem;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
+  color: #2C2C2C;
+}
+
+.mega-menu__link:hover {
+  color: var(--color-primary-accent);
 }
 
 /* Gold active line stays delicate and intentional */
@@ -449,32 +533,33 @@ button {
   inset-block: 0;
   inset-inline-end: 0;
   width: min(100%, 440px);
-  padding: 24px 16px 32px;
+  padding: 32px 24px;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  gap: 20px;
+  gap: 24px;
   background: var(--color-background-dark);
   color: var(--color-primary-light);
-  border-inline-start: var(--border-thin) solid rgba(212, 175, 55, 0.3);
-  transform: translateX(100%);
-  transition: transform var(--transition-medium);
+  border-inline-start: var(--border-thin) solid transparent;
+  transform: translateX(10%);
+  opacity: 0;
+  transition: transform var(--transition-medium), opacity var(--transition-medium);
 }
 
 /* Menu and filter drawers can also slide from the left edge */
 .drawer__panel--left {
   inset-inline-start: 0;
   inset-inline-end: auto;
-  transform: translateX(-100%);
-  border-inline-end: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+  transform: translateX(-10%);
+  border-inline-end: var(--border-thin) solid transparent;
   border-inline-start: 0;
 }
 
 /* Fullscreen drawer variant supports immersive mobile navigation */
 .drawer__panel--fullscreen {
   width: 100%;
-  transform: translateY(-100%);
+  transform: translateY(-5%);
   border-inline: 0;
-  border-block-end: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+  border-block-end: var(--border-thin) solid transparent;
 }
 
 /* Drawers animate as a coordinated backdrop and panel system */
@@ -485,6 +570,7 @@ button {
 /* Open drawer panel returns to its resting position */
 .drawer.is-open .drawer__panel {
   transform: translateX(0);
+  opacity: 1;
 }
 
 /* Fullscreen drawer opens vertically for a softer motion profile */
@@ -549,8 +635,11 @@ button {
 
 /* Search input treatment uses gold borders in place of shadows */
 .search-form {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding-top: 20px;
 }
 
 /* Search field line height and spacing preserve premium readability */
@@ -558,10 +647,14 @@ button {
 .form-field {
   width: 100%;
   min-height: 52px;
-  padding: 14px 16px;
-  border: var(--border-thin) solid rgba(212, 175, 55, 0.55);
+  padding: 14px 0;
+  border: none;
+  border-bottom: var(--border-hairline) solid var(--color-primary-accent);
   background: transparent;
   color: inherit;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
   transition: border-color var(--transition-medium);
 }
 

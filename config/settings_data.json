@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "logo_width": 168,
@@ -17,7 +26,50 @@
     "announcement_text": "Worldwide delivery for refined wardrobes.",
     "announcement_background": "#0D0D0D",
     "announcement_text_color": "#FFFFFF",
-    "free_shipping_threshold": "250"
+    "free_shipping_threshold": "250",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "desktop_menu": "main-menu",
+          "mobile_menu": "main-menu",
+          "scheme_style": "light",
+          "text_style": "dark"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      },
+      "main-404": {
+        "type": "main-404",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "statement": "Luxury modest fashion shaped with restraint, light, and intention.",
+          "menu_one": "footer",
+          "menu_one_heading": "Shop",
+          "menu_two": "footer",
+          "menu_two_heading": "About",
+          "padding_top": "lg",
+          "padding_bottom": "lg"
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "1513253815146976218": {
+        "type": "shopify://apps/omnisend-email-marketing-sms/blocks/app-embed/44704aa2-794f-4c5d-8c8e-039c841158e9",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "presets": {
     "default": {
