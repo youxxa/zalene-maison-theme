@@ -337,7 +337,7 @@ button {
 .site-header__inner {
   padding: 0 32px;
   width: 100%;
-  margin-inline: auto;
+  margin: 0;
   transition: min-height var(--transition-medium);
   border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.15);
 }
