@@ -43,12 +43,12 @@
 <section class="section-shell scheme-light text-dark not-found-spacing">
   <div class="page-width">
     <div class="not-found">
-      <div class="section-intro">
+      <div class="section-intro" style="text-align: center;">
         <p class="brand-serif-gold">{{ settings.brand_display_name }}</p>
-        <h1 class="section-intro__heading" style="font-family: var(--font-heading); font-size: clamp(3rem, 10vw, 6rem);">A page of quiet absence.</h1>
-        <div class="section-intro__divider" style="margin-top: 40px; margin-bottom: 40px;"></div>
-        <p class="section-intro__subheading" style="font-family: var(--font-body); letter-spacing: 0.2rem; margin-bottom: 56px;">{{ 'page_404.subheading' | t }}</p>
-        <a class="ghost-button-gold" href="{{ routes.root_url }}">{{ 'page_404.button_label' | t }}</a>
+        <h1 class="section-intro__heading" style="font-family: var(--font-heading); font-size: clamp(3.5rem, 12vw, 85px); font-weight: 300; margin: 0 auto; max-width: 900px; color: #111;">{{ section.settings.heading }}</h1>
+        <div class="section-intro__divider" style="margin: 56px auto; height: 1.5px; background: var(--color-primary-accent); width: 60px;"></div>
+        <p class="section-intro__subheading" style="font-family: var(--font-body); letter-spacing: 0.35rem; margin-bottom: 72px; font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">THE PAGE YOU WERE LOOKING FOR COULD NOT BE FOUND.</p>
+        <a class="button" href="{{ routes.root_url }}">{{ section.settings.button_label }}</a>
       </div>
     </div>
   </div>
@@ -57,6 +57,19 @@
 {% schema %}
 {
   "name": "Main 404",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A page of quiet absence."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "RETURN TO THE MAISON"
+    }
+  ]
 }
 {% endschema %}

@@ -7,53 +7,48 @@
 <header class="site-header scheme-{{ section.settings.scheme_style }} text-{{ section.settings.text_style }}" data-section-id="header">
   <div class="site-header__inner">
     <div class="site-header__top-row">
-      <div class="site-header__utilities site-header__utilities--left">
-        <!-- 4. Menu (Mobile Only) -->
-        <button class="icon-button menu-toggle-btn large-up-hide" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
-          {% render 'icon-menu' %}
-          <span class="menu-label">MENU</span>
-        </button>
-        
-        <!-- Desktop Nav in Left Column -->
-        <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
-          <ul class="mega-menu" role="list">
-            {% for link in section.settings.desktop_menu.links %}
-              <li class="mega-menu__item">
-                <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
-                  {{ link.title }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
-      </div>
-
       <div class="site-header__brand">
-        <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
+        <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}" style="color: var(--color-primary-accent);">
           {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
         </a>
       </div>
 
+      <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
+        <ul class="mega-menu" role="list">
+          {% for link in section.settings.desktop_menu.links %}
+            <li class="mega-menu__item">
+              <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+
       <div class="site-header__utilities site-header__utilities--right">
-        <!-- 2. Search -->
+        <!-- Search -->
         <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
           {% render 'icon-search' %}
         </button>
 
-        <!-- 3. Account (User) -->
+        <!-- Account -->
         <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
           {% render 'icon-account' %}
         </a>
 
-        <!-- 1. Bag (Cart) -->
+        <!-- Cart -->
         <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
           <span class="visually-hidden">{{ 'header.cart' | t }}</span>
           {% render 'icon-cart' %}
           <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
         </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="icon-button menu-toggle-btn large-up-hide" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
+          {% render 'icon-menu' %}
+        </button>
       </div>
     </div>
-
   </div>
 
   <div id="MobileMenuDrawer" class="drawer" aria-hidden="true">
