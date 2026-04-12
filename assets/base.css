@@ -28,6 +28,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Global fade in on scroll */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Focus states use gold for clear accessibility without heavy shadows */
 :focus-visible {
   outline: 1px solid var(--color-primary-accent);
@@ -371,11 +382,13 @@ button {
   letter-spacing: 0.75rem;
   text-transform: uppercase;
   white-space: nowrap;
+  font-family: var(--font-heading);
+  color: var(--color-primary-accent);
 }
 
-/* Navigation list remains centered with precise spacing */
+/* Navigation list styling */
 .site-header__nav {
-  display: none;
+  display: block;
 }
 
 /* Header utilities align menu, search, and cart actions */
@@ -418,9 +431,10 @@ button {
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
   font-weight: 500;
-  letter-spacing: 0.45rem;
+  letter-spacing: 5px;
   text-transform: uppercase;
 }
 

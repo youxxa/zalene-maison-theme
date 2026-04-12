@@ -4,15 +4,51 @@
   key variables: section.settings.*
   ai_agent_edit_guide: Edit the 404 presentation or recovery CTA here. Keep copy localized and reusable.
 {% endcomment %}
-<section class="section-shell scheme-light text-dark section-spacing--top-space-xl section-spacing--bottom-space-xl">
+<style>
+  .ghost-button-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 40px;
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 0.4rem;
+    color: var(--color-primary-accent);
+    background: transparent;
+    border: 0.75px solid var(--color-primary-accent);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color var(--transition-medium), color var(--transition-medium);
+  }
+  .ghost-button-gold:hover {
+    background-color: var(--color-primary-accent);
+    color: var(--color-primary-dark);
+  }
+  .not-found-spacing {
+    padding-top: 20vh;
+    padding-bottom: 25vh;
+  }
+  .brand-serif-gold {
+    font-family: var(--font-heading);
+    color: var(--color-primary-accent);
+    font-size: 1.25rem;
+    letter-spacing: 0.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+  }
+</style>
+
+<section class="section-shell scheme-light text-dark not-found-spacing">
   <div class="page-width">
     <div class="not-found">
       <div class="section-intro">
-        <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
-        <h1 class="section-intro__heading">{{ 'page_404.heading' | t }}</h1>
-        <div class="section-intro__divider"></div>
-        <p class="section-intro__subheading">{{ 'page_404.subheading' | t }}</p>
-        <a class="button button--primary" href="{{ routes.root_url }}">{{ 'page_404.button_label' | t }}</a>
+        <p class="brand-serif-gold">{{ settings.brand_display_name }}</p>
+        <h1 class="section-intro__heading" style="font-family: var(--font-heading); font-size: clamp(3rem, 10vw, 6rem);">A page of quiet absence.</h1>
+        <div class="section-intro__divider" style="margin-top: 40px; margin-bottom: 40px;"></div>
+        <p class="section-intro__subheading" style="font-family: var(--font-body); letter-spacing: 0.2rem; margin-bottom: 56px;">{{ 'page_404.subheading' | t }}</p>
+        <a class="ghost-button-gold" href="{{ routes.root_url }}">{{ 'page_404.button_label' | t }}</a>
       </div>
     </div>
   </div>
