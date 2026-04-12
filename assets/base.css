@@ -353,18 +353,23 @@ button {
 }
 
 .site-header__utilities--left {
-  justify-content: flex-start;
+  flex: 1 1 0%;
   display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .site-header__utilities--right {
-  justify-content: flex-end;
+  flex: 1 1 0%;
   display: flex !important;
-  gap: 4px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
 }
 
 .site-header__brand {
   flex: 0 0 auto;
+  padding: 0 20px;
 }
 
 .site-header__nav {
@@ -372,6 +377,7 @@ button {
   left: 50%;
   transform: translateX(-50%);
   display: block;
+  z-index: 5;
 }
 
 /* Brand mark in centered position - STRICT GOLD */
@@ -617,8 +623,11 @@ button {
 
 /* Search input treatment uses gold borders in place of shadows */
 .search-form {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding-top: 20px;
 }
 
 /* Search field line height and spacing preserve premium readability */
@@ -626,10 +635,14 @@ button {
 .form-field {
   width: 100%;
   min-height: 52px;
-  padding: 14px 16px;
-  border: var(--border-thin) solid rgba(212, 175, 55, 0.55);
+  padding: 14px 0;
+  border: none;
+  border-bottom: var(--border-hairline) solid var(--color-primary-accent);
   background: transparent;
   color: inherit;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
   transition: border-color var(--transition-medium);
 }
 
