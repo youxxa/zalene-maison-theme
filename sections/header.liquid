@@ -5,6 +5,13 @@
   ai_agent_edit_guide: Edit navigation structure, utility controls, or drawer composition here. Keep brand rendering in the brand-logo snippet and global behavior in theme.js.
 {% endcomment %}
 <header class="site-header scheme-{{ section.settings.scheme_style }} text-{{ section.settings.text_style }}" data-section-id="header">
+  <style>
+    @media screen and (max-width: 989px) {
+      .site-header__nav.small-hide.medium-hide {
+        display: none !important;
+      }
+    }
+  </style>
   <div class="site-header__inner">
     <div class="site-header__top-row">
       <div class="site-header__utilities site-header__utilities--left">
