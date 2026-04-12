@@ -251,6 +251,17 @@ button {
   transition: border-color var(--transition-medium), color var(--transition-medium);
 }
 
+.menu-toggle-btn {
+  inline-size: auto;
+  padding: 0 16px;
+  gap: 8px;
+}
+.menu-label {
+  font-size: 0.8125rem;
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+}
+
 /* Text links use an understated gold underline cue */
 .text-link {
   display: inline-flex;
