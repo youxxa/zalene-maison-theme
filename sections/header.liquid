@@ -8,16 +8,29 @@
   <div class="site-header__inner">
     <div class="site-header__top-row">
       <div class="site-header__utilities site-header__utilities--left">
-        <!-- Menu Toggle (Always visible, Top Left Edge) -->
-        <button class="icon-button menu-toggle-btn" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
+        <!-- Mobile menu toggle -->
+        <button class="icon-button menu-toggle-btn large-up-hide" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
           {% render 'icon-menu' %}
         </button>
+
+        <!-- Desktop navigation (single row, never stacked) -->
+        <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
+          <ul class="mega-menu" role="list">
+            {% for link in section.settings.desktop_menu.links %}
+              <li class="mega-menu__item">
+                <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
       </div>
 
-      <!-- Brand Logo (Absolute Centered Anchor) -->
+      <!-- Centered wordmark -->
       <div class="site-header__brand">
         <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
-          {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
+          <span class="site-header__wordmark">{{ settings.brand_display_name | upcase }}</span>
         </a>
       </div>
 
@@ -26,11 +39,6 @@
         <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
           {% render 'icon-search' %}
         </button>
-
-        <!-- Account -->
-        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
-          {% render 'icon-account' %}
-        </a>
 
         <!-- Cart -->
         <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
