@@ -385,6 +385,13 @@ button {
   z-index: 5;
 }
 
+/* Hide on mobile viewports strictly */
+@media screen and (max-width: 989px) {
+  .site-header__nav {
+    display: none !important;
+  }
+}
+
 /* Hide on large (desktop) screens - utility class */
 @media screen and (min-width: 990px) {
   .large-up-hide {
@@ -402,6 +409,13 @@ button {
   white-space: nowrap;
   font-family: var(--font-heading);
   color: var(--color-primary-accent); /* #D4AF37 */
+}
+
+@media screen and (max-width: 749px) {
+  .brand-mark {
+    font-size: 1.125rem;
+    letter-spacing: 0.4rem;
+  }
 }
 
 /* Navigation list styling */
@@ -1227,10 +1241,21 @@ button {
   transform: rotate(-90deg);
 }
 
-/* Mobile-only helpers hide elements from tablet and desktop */
-@media screen and (min-width: 750px) {
-  .small-hide,
+/* Responsive helpers for UI discipline */
+@media screen and (max-width: 749px) {
+  .small-hide {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 989px) {
   .medium-hide {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .large-up-hide {
     display: none !important;
   }
 }
