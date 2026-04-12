@@ -35,13 +35,13 @@
     </title>
     <style>
       :root {
-        --color-primary-dark: #000000;
+        --color-primary-dark: #2C2C2C;
         --color-primary-accent: #D4AF37;
         --color-primary-light: #FFFFFF;
-        --color-background-dark: #121212;
-        --color-background-mid: #F8F8F8;
+        --color-background-dark: #101010;
+        --color-background-mid: #141414;
         --color-gold-overlay: rgba(212, 175, 55, 0.15);
-        --color-text-primary: #111111;
+        --color-text-primary: #1A1A1A;
         --color-announcement-background: #000000;
         --color-announcement-text: #D4AF37;
         --font-heading: 'Playfair Display', serif;
@@ -60,7 +60,9 @@
         --container-width: 1440px;
         --copy-max-width: 720px;
         --transition-slow: 320ms ease;
-        --transition-medium: 220ms ease;
+        --transition-medium: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        --transition-duration: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        --transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       html {
