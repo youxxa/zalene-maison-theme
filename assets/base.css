@@ -20,14 +20,9 @@
 
 /* Global design constraints for luxury feel */
 :root {
-  --tracking-luxury: 5px;
+  --tracking-luxury: 7px;
   --tracking-editorial: 5px;
   --border-hairline: 0.75px;
-  --color-ivory: #FFFFF0;
-  --color-charcoal: #2C2C2C;
-  --color-gold: #D4AF37;
-  --color-gold-overlay: rgba(212, 175, 55, 0.15);
-  --transition-fast: 180ms ease;
 }
 
 /* Base element defaults for a calm, premium canvas */
@@ -41,19 +36,8 @@ body {
   font-size: 16px;
   line-height: 1.8;
   color: #2C2C2C; /* Strict Charcoal */
-  background: var(--color-ivory);
+  background: var(--color-primary-light);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Headlines and display typography always use Playfair Display */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading);
 }
 
 /* Links inherit a restrained visual treatment */
@@ -108,7 +92,7 @@ button {
   background: var(--color-announcement-background);
   color: var(--color-announcement-text);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-editorial);
+  letter-spacing: 0.45rem;
   font-size: 0.7rem;
   font-weight: 500;
   text-align: center;
@@ -128,7 +112,7 @@ button {
 
 /* Color schemes map section settings to root tokens */
 .scheme-light {
-  background: var(--color-ivory);
+  background: var(--color-primary-light);
 }
 
 /* Secondary dark scheme for premium contrast sections */
@@ -205,9 +189,9 @@ button {
   margin: 0;
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: var(--tracking-editorial);
+  letter-spacing: 0.5rem;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-primary-accent);
 }
 
 /* Headings lean on Playfair for dramatic but restrained contrast */
@@ -216,7 +200,7 @@ button {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 8vw, 4.75rem);
   line-height: 1.08;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* Subheadings stay readable and elegantly narrow */
@@ -230,12 +214,14 @@ button {
 .section-intro__divider {
   width: 88px;
   height: var(--border-medium);
-  background: var(--color-gold);
+  background: var(--color-primary-accent);
   margin-inline: auto;
 }
 
-/* Button system: refined gold outline with subtle gold wash on hover */
+/* Global Button Overhaul - STRICT GHOST ONLY */
 .button,
+.button--primary,
+.button--secondary,
 .shopify-payment-button__button,
 .shopify-challenge__button {
   display: inline-flex;
@@ -244,38 +230,35 @@ button {
   min-height: 48px;
   padding: 0 44px;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  letter-spacing: var(--tracking-editorial);
+  font-size: 0.75rem !important;
+  letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
   text-decoration: none;
-  background: transparent;
-  border: var(--border-hairline) solid var(--color-gold);
-  color: var(--color-gold);
+  background: transparent !important;
+  border: var(--border-hairline) solid var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
   border-radius: 0;
   cursor: pointer;
-  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .button:hover,
-.button:focus-visible,
-.shopify-payment-button__button:hover,
-.shopify-payment-button__button:focus-visible {
-  background: var(--color-gold-overlay);
-  color: var(--color-gold);
+.button--primary:hover,
+.button--secondary:hover,
+.shopify-payment-button__button:hover {
+  background-color: var(--color-primary-accent) !important;
+  color: var(--color-primary-light) !important;
+  transform: none !important;
 }
 
-.button--primary,
-.button--secondary {
-  background: transparent;
-  color: var(--color-gold);
-  border-color: var(--color-gold);
-}
-
-/* Explicit gold outline button for 404 and premium CTAs */
-.button--outline-gold {
-  background: transparent;
-  color: var(--color-gold);
-  border-color: var(--color-gold);
+/* Specific section overrides to catch residual solid styles */
+.section-intro .button,
+.cart-drawer .button,
+.not-found .button,
+.main-content .button {
+  background: transparent !important;
+  border: var(--border-hairline) solid var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
 }
 
 /* Icon buttons meet tap target requirements across the theme */
@@ -299,7 +282,7 @@ button {
 .menu-label,
 .header-text-link {
   font-size: 0.75rem;
-  letter-spacing: var(--tracking-editorial);
+  letter-spacing: 0.4rem;
   font-weight: 500;
   text-transform: uppercase;
   transition: opacity var(--transition-medium);
@@ -315,7 +298,7 @@ button {
   gap: 8px;
   font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: var(--tracking-editorial);
+  letter-spacing: 0.26rem;
   text-transform: uppercase;
 }
 
@@ -324,7 +307,7 @@ button {
   content: "";
   width: 36px;
   height: var(--border-thin);
-  background: var(--color-gold);
+  background: var(--color-primary-accent);
   transition: width var(--transition-medium);
 }
 
@@ -462,8 +445,8 @@ button {
   justify-content: center;
   padding-inline: 4px;
   border-radius: 999px;
-  background: var(--color-gold);
-  color: var(--color-charcoal);
+  background: var(--color-primary-accent);
+  color: var(--color-primary-dark);
   font-size: 0.625rem;
   font-weight: 700;
 }
@@ -491,7 +474,7 @@ button {
 }
 
 .mega-menu__link:hover {
-  color: var(--color-gold);
+  color: var(--color-primary-accent);
 }
 
 /* Gold active line stays delicate and intentional */
@@ -502,8 +485,8 @@ button {
   inset-block-end: 10px;
   transform: scaleX(0);
   transform-origin: center;
-  height: var(--border-hairline);
-  background: var(--color-gold);
+  height: var(--border-thin);
+  background: var(--color-primary-accent);
   transition: transform var(--transition-medium);
 }
 
@@ -1287,53 +1270,10 @@ button {
 
 /* 404 state mirrors the brand's spacious, reflective tone */
 .not-found {
-  min-height: 72vh;
+  min-height: 56vh;
   display: grid;
   place-items: center;
   text-align: center;
-  padding: 20vh 0 25vh;
-}
-
-.not-found__content {
-  width: min(100%, 860px);
-  margin-inline: auto;
-  display: grid;
-  justify-items: center;
-  gap: 24px;
-}
-
-.not-found__brand {
-  margin: 0;
-  font-family: var(--font-heading);
-  color: var(--color-gold);
-  letter-spacing: var(--tracking-editorial);
-  text-transform: uppercase;
-  font-size: 1.125rem;
-}
-
-.not-found__heading {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: clamp(3rem, 10vw, 80px);
-  line-height: 1.1;
-  color: var(--color-charcoal);
-}
-
-.not-found__divider {
-  width: 60px;
-  height: var(--border-hairline);
-  background: var(--color-gold);
-  opacity: 0.6;
-}
-
-.not-found__subheading {
-  margin: 0;
-  font-family: var(--font-body);
-  letter-spacing: var(--tracking-editorial);
-  font-size: 0.75rem;
-  color: rgba(44, 44, 44, 0.7);
-  text-transform: uppercase;
 }
 
 /* Utility class supports no-scroll state for drawers and modals */
