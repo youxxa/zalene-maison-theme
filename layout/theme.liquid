@@ -88,18 +88,18 @@
 
       .skip-link {
         position: absolute;
-        inset-inline-start: var(--space-2);
-        inset-block-start: calc(var(--space-2) * -3);
+        top: -999px;
+        left: 0;
         z-index: 50;
         padding: var(--space-2);
         background: var(--color-primary-accent);
         color: var(--color-primary-dark);
         text-decoration: none;
-        transition: inset-block-start var(--transition-medium);
       }
 
       .skip-link:focus {
-        inset-block-start: var(--space-2);
+        top: var(--space-2);
+        left: var(--space-2);
       }
     </style>
     {{ 'base.css' | asset_url | stylesheet_tag }}

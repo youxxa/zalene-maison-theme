@@ -192,6 +192,7 @@ button {
   width: 88px;
   height: var(--border-medium);
   background: var(--color-primary-accent);
+  margin-inline: auto;
 }
 
 /* Button treatment keeps gold reserved and tactile */
@@ -239,6 +240,7 @@ button {
 
 /* Icon buttons meet tap target requirements across the theme */
 .icon-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -294,6 +296,7 @@ button {
 /* Header shell sets border and translucent backdrop */
 .site-header__inner {
   min-height: var(--header-height);
+  padding-bottom: 24px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -320,14 +323,7 @@ button {
   font-size: 0.85rem;
   letter-spacing: 0.42rem;
   text-transform: uppercase;
-}
-
-/* Gold rule beside the wordmark reinforces brand identity */
-.brand-mark::before {
-  content: "";
-  width: 18px;
-  height: var(--border-medium);
-  background: var(--color-primary-accent);
+  white-space: nowrap;
 }
 
 /* Navigation list remains centered with precise spacing */

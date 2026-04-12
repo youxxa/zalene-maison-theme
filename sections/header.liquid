@@ -6,12 +6,6 @@
 {% endcomment %}
 <header class="site-header scheme-{{ section.settings.scheme_style }} text-{{ section.settings.text_style }}" data-section-id="header">
   <div class="site-header__inner">
-    <div class="site-header__utilities">
-      <button class="icon-button small-hide medium-hide" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
-        {% render 'icon-menu' %}
-      </button>
-    </div>
-
     <div class="site-header__brand">
       <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
         {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
@@ -45,6 +39,9 @@
     </nav>
 
     <div class="site-header__utilities">
+      <button class="icon-button large-up-hide" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
+        {% render 'icon-menu' %}
+      </button>
       <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
         {% render 'icon-search' %}
       </button>
