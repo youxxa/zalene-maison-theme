@@ -1,9 +1,0 @@
-# filename: .gitignore
-# purpose: Prevent committing build artifacts, OS files, and local archives.
-# ai_agent_edit_guide: Add new local-only patterns here (never ignore theme source folders like assets/sections/snippets).
-
-.DS_Store
-*.zip
-node_modules/
-.shopify/
-

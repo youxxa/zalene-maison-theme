@@ -8,13 +8,13 @@
   <div class="site-header__inner">
     <div class="site-header__top-row">
       <div class="site-header__utilities site-header__utilities--left">
-        <!-- Mobile menu toggle -->
+        <!-- Menu Toggle (Always visible, Top Left Edge) -->
         <button class="icon-button menu-toggle-btn" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
           {% render 'icon-menu' %}
         </button>
       </div>
 
-      <!-- Brand -->
+      <!-- Brand Logo (Absolute Centered Anchor) -->
       <div class="site-header__brand">
         <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
           {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
@@ -40,36 +40,6 @@
         </button>
       </div>
     </div>
-
-    {% if section.settings.desktop_menu != blank %}
-      <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
-        <ul class="mega-menu" role="list">
-          {% for link in section.settings.desktop_menu.links %}
-            <li class="mega-menu__item">
-              <a class="mega-menu__link" href="{{ link.url }}" {% if link.active %}aria-current="page"{% endif %}>
-                {{ link.title }}
-              </a>
-              {% if link.links != blank %}
-                <div class="mega-menu__panel" role="region" aria-label="{{ link.title }}">
-                  {% for child_link in link.links %}
-                    <div class="mega-menu__group">
-                      <a class="drawer-nav__link" href="{{ child_link.url }}">{{ child_link.title }}</a>
-                      {% if child_link.links != blank %}
-                        <div class="drawer-nav__child-list">
-                          {% for grand_link in child_link.links %}
-                            <a href="{{ grand_link.url }}">{{ grand_link.title }}</a>
-                          {% endfor %}
-                        </div>
-                      {% endif %}
-                    </div>
-                  {% endfor %}
-                </div>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
-    {% endif %}
   </div>
 
   <div id="MobileMenuDrawer" class="drawer" aria-hidden="true">

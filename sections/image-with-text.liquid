@@ -3,6 +3,46 @@
   purpose: A flexible "Canva-style" draggable block combining an image and text content, ideal for editorial layouts.
 {% endcomment %}
 
+<style>
+  .image-text-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media screen and (min-width: 750px) {
+    .image-text-section {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .image-text-section--image-right .image-text-section__media {
+      order: 2;
+    }
+  }
+  .image-text-section__media img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .image-text-section__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+  }
+  .image-text-section__heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin: 0;
+    font-weight: 400;
+  }
+  .image-text-section__text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>
+
 <section class="section-shell scheme-{{ section.settings.bg_color }} text-{{ section.settings.text_color }} section-spacing--top-space-{{ section.settings.padding_top }} section-spacing--bottom-space-{{ section.settings.padding_bottom }}">
   <div class="page-width">
     <div class="image-text-section {% if section.settings.layout == 'right' %}image-text-section--image-right{% endif %}">

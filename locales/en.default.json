@@ -14,8 +14,7 @@
     "quantity": "Quantity",
     "size_guide": "Open size guide",
     "image": "Image",
-    "search": "Search products, collections, stories",
-    "account": "Account"
+    "search": "Search products, collections, stories"
   },
   "general": {
     "brand_name": "Zalène Maison",
@@ -148,26 +147,6 @@
     "heading": "A page of quiet absence.",
     "subheading": "The page you were looking for could not be found.",
     "button_label": "Return to the maison"
-  },
-  "cookie_banner": {
-    "aria_label": "Cookie preferences",
-    "message": "We use functional and analytical cookies to ensure a refined experience. By continuing to browse, you agree to our use of cookies.",
-    "decline": "Decline",
-    "accept": "Accept"
-  },
-  "account": {
-    "login_heading": "Login",
-    "register_heading": "Join the maison",
-    "email_label": "Email address",
-    "password_label": "Password",
-    "first_name_label": "First name",
-    "last_name_label": "Last name",
-    "sign_in": "Sign in",
-    "create_account": "Create account",
-    "new_to_maison": "New to Maison?",
-    "already_have_account": "Already have an account?",
-    "guest_checkout": "Checkout as guest",
-    "continue_to_checkout": "Continue to checkout"
   },
   "password": {
     "heading": "Opening Soon",

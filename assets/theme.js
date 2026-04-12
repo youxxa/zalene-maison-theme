@@ -664,87 +664,6 @@ function initStickyAtc() {
 }
 
 /**
- * Reveals elements marked with data-reveal when they enter the viewport.
- * Respects reduced-motion preferences.
- */
-function initRevealOnScroll() {
-  const items = qsa(document, '[data-reveal]');
-
-  if (!items.length) {
-    return;
-  }
-
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    items.forEach((item) => item.classList.add('is-revealed'));
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-revealed');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { rootMargin: '120px 0px' });
-
-  items.forEach((item) => observer.observe(item));
-}
-
-/**
- * Initializes the cookie consent banner.
- * Stores a simple accept/decline choice in localStorage.
- */
-function initCookieBanner() {
-  const banner = /** @type {HTMLElement|null} */ (document.getElementById('CookieBanner'));
-
-  if (!banner) {
-    return;
-  }
-
-  const KEY = 'zalene_cookie_consent';
-
-  try {
-    if (window.localStorage.getItem(KEY)) {
-      return;
-    }
-  } catch (error) {
-    // If storage is blocked, keep the banner hidden to avoid trapping the UI.
-    return;
-  }
-
-  const accept = qs(banner, '[data-cookie-accept]');
-  const decline = qs(banner, '[data-cookie-decline]');
-
-  /** @param {'accepted'|'declined'} choice */
-  function close(choice) {
-    try {
-      window.localStorage.setItem(KEY, choice);
-    } catch (error) {
-      // no-op
-    }
-
-    banner.classList.remove('is-visible');
-    window.setTimeout(() => {
-      banner.hidden = true;
-    }, 220);
-  }
-
-  if (accept) {
-    accept.addEventListener('click', () => close('accepted'));
-  }
-
-  if (decline) {
-    decline.addEventListener('click', () => close('declined'));
-  }
-
-  banner.hidden = false;
-  window.setTimeout(() => {
-    banner.classList.add('is-visible');
-  }, 520);
-}
-
-/**
  * Boots all global interactive behavior once the document is ready.
  */
 function initTheme() {
@@ -759,8 +678,6 @@ function initTheme() {
   initSizeGuide();
   initCartForms();
   initStickyAtc();
-  initRevealOnScroll();
-  initCookieBanner();
 }
 
 document.addEventListener('DOMContentLoaded', initTheme);

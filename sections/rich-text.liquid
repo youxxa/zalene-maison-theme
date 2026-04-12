@@ -3,6 +3,24 @@
   purpose: A flexible "Canva-style" draggable block for centered text, quotes, and narrative.
 {% endcomment %}
 
+<style>
+  .rich-text-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+  .rich-text-section__heading {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin: 0;
+    font-weight: 400;
+  }
+</style>
+
 <section class="section-shell scheme-{{ section.settings.bg_color }} text-{{ section.settings.text_color }} section-spacing--top-space-{{ section.settings.padding_top }} section-spacing--bottom-space-{{ section.settings.padding_bottom }}">
   <div class="page-width">
     <div class="rich-text-section">

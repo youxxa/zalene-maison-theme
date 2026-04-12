@@ -4,21 +4,21 @@
   key variables: settings.announcement_enabled, settings.announcement_text, settings.announcement_link
   ai_agent_edit_guide: Edit announcement structure or interaction here. Keep copy and colors managed through theme settings.
 {% endcomment %}
-{% if settings.announcement_enabled %}
-  <section class="section-shell announcement-bar" aria-label="{{ 'announcement.default_text' | t }}">
+<section class="section-shell announcement-bar" aria-label="{{ 'announcement.default_text' | t }}">
+  <div>
     <div class="page-width">
       {% assign announcement_text = settings.announcement_text %}
       {% if announcement_text == blank %}
         {% assign announcement_text = 'announcement.default_text' | t %}
       {% endif %}
       {% if settings.announcement_link != blank %}
-        <a class="announcement-bar__text" href="{{ settings.announcement_link }}">{{ announcement_text }}</a>
+        <a class="drawer-nav__link" href="{{ settings.announcement_link }}">{{ announcement_text }}</a>
       {% else %}
-        <p class="announcement-bar__text">{{ announcement_text }}</p>
+        <p class="drawer-nav__link">{{ announcement_text }}</p>
       {% endif %}
     </div>
-  </section>
-{% endif %}
+  </div>
+</section>
 
 {% schema %}
 {

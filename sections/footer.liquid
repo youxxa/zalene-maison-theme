@@ -21,7 +21,7 @@
     {% assign current_year = 'now' | date: '%Y' %}
     <div class="site-footer__layout">
       <div class="footer-nav">
-        <a href="{{ routes.root_url }}" class="site-footer__brand">
+        <a href="{{ routes.root_url }}" class="site-header__brand">
           {% render 'brand-logo', inverted: true %}
         </a>
         <p class="rich-copy">{{ footer_statement }}</p>
@@ -96,24 +96,24 @@
       "type": "select",
       "id": "padding_top",
       "label": "Padding top",
-      "default": "space-lg",
+      "default": "lg",
       "options": [
-        { "value": "space-sm", "label": "Small" },
-        { "value": "space-md", "label": "Medium" },
-        { "value": "space-lg", "label": "Large" },
-        { "value": "space-xl", "label": "Extra large" }
+        { "value": "sm", "label": "Small" },
+        { "value": "md", "label": "Medium" },
+        { "value": "lg", "label": "Large" },
+        { "value": "xl", "label": "Extra large" }
       ]
     },
     {
       "type": "select",
       "id": "padding_bottom",
       "label": "Padding bottom",
-      "default": "space-lg",
+      "default": "lg",
       "options": [
-        { "value": "space-sm", "label": "Small" },
-        { "value": "space-md", "label": "Medium" },
-        { "value": "space-lg", "label": "Large" },
-        { "value": "space-xl", "label": "Extra large" }
+        { "value": "sm", "label": "Small" },
+        { "value": "md", "label": "Medium" },
+        { "value": "lg", "label": "Large" },
+        { "value": "xl", "label": "Extra large" }
       ]
     }
   ]
