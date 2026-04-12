@@ -1344,6 +1344,15 @@ button {
   }
 }
 
+/* Mobile header: allow edge-to-edge controls so the hamburger sits at the far left */
+@media screen and (max-width: 749px) {
+  .site-header__inner {
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 16px;
+  }
+}
+
 /* Desktop storefront layouts refine into three-column systems where needed */
 @media screen and (min-width: 990px) {
   /* Featured collection cards expand to a three-column edit */
