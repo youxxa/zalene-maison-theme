@@ -335,12 +335,11 @@ button {
 
 /* Header shell handles the stacked brand-centered architecture */
 .site-header__inner {
-  padding: 48px 0 32px 0;
-  width: min(calc(100% - 48px), var(--container-width));
+  padding: 0 32px;
+  width: 100%;
   margin-inline: auto;
   transition: min-height var(--transition-medium);
   border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.15);
-  backdrop-filter: blur(12px);
 }
 
 .site-header__top-row {
@@ -372,12 +371,25 @@ button {
   padding: 0 20px;
 }
 
+/* Gold color for brand logo link */
+.site-header__brand a {
+  color: var(--color-primary-accent);
+  text-decoration: none;
+}
+
 .site-header__nav {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   display: block;
   z-index: 5;
+}
+
+/* Hide on large (desktop) screens - utility class */
+@media screen and (min-width: 990px) {
+  .large-up-hide {
+    display: none !important;
+  }
 }
 
 /* Brand mark in centered position - STRICT GOLD */
