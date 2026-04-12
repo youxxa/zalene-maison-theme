@@ -122,9 +122,6 @@
   <body class="template-{{ request.page_type | handle }}">
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
     <div class="theme-shell">
-      {% if settings.announcement_enabled %}
-        {% section 'announcement-bar' %}
-      {% endif %}
       {% section 'header' %}
       {% section 'cart-drawer' %}
       <main id="MainContent" class="main-content" role="main" tabindex="-1">
