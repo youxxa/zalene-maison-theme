@@ -356,6 +356,7 @@ button {
   display: flex !important;
   justify-content: flex-start;
   align-items: center;
+  gap: 32px;
 }
 
 .site-header__utilities--right {
@@ -367,8 +368,11 @@ button {
 }
 
 .site-header__brand {
-  flex: 0 0 auto;
-  padding: 0 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: auto;
 }
 
 /* Gold color for brand logo link */
@@ -378,9 +382,7 @@ button {
 }
 
 .site-header__nav {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
   display: block;
   z-index: 5;
 }

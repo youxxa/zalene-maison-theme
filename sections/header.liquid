@@ -5,13 +5,6 @@
   ai_agent_edit_guide: Edit navigation structure, utility controls, or drawer composition here. Keep brand rendering in the brand-logo snippet and global behavior in theme.js.
 {% endcomment %}
 <header class="site-header scheme-{{ section.settings.scheme_style }} text-{{ section.settings.text_style }}" data-section-id="header">
-  <style>
-    @media screen and (max-width: 989px) {
-      .site-header__nav.small-hide.medium-hide {
-        display: none !important;
-      }
-    }
-  </style>
   <div class="site-header__inner">
     <div class="site-header__top-row">
       <div class="site-header__utilities site-header__utilities--left">
@@ -20,25 +13,25 @@
           {% render 'icon-menu' %}
         </button>
 
-        <!-- Brand Logo (Following Menu) -->
+        <!-- Brand Logo (Centered Absolute) -->
         <div class="site-header__brand">
           <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
             {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
           </a>
         </div>
-      </div>
 
-      <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
-        <ul class="mega-menu" role="list">
-          {% for link in section.settings.desktop_menu.links %}
-            <li class="mega-menu__item">
-              <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
-                {{ link.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </nav>
+        <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
+          <ul class="mega-menu" role="list">
+            {% for link in section.settings.desktop_menu.links %}
+              <li class="mega-menu__item">
+                <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
 
       <div class="site-header__utilities site-header__utilities--right">
         <!-- Search -->
