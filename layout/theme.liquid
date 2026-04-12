@@ -154,5 +154,41 @@
         });
       });
     </script>
+    <style>
+      .floating-contact-btn {
+        position: fixed;
+        bottom: 32px;
+        left: 32px;
+        z-index: 100;
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        letter-spacing: 0.45rem;
+        text-transform: uppercase;
+        color: var(--color-primary-dark);
+        background: transparent;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: color var(--transition-medium);
+      }
+      .floating-contact-btn::after {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        inset-block-end: -6px;
+        transform: scaleX(0);
+        transform-origin: left;
+        height: 0.75px;
+        background: var(--color-primary-accent);
+        transition: transform var(--transition-medium);
+      }
+      .floating-contact-btn:hover {
+        color: var(--color-primary-accent);
+      }
+      .floating-contact-btn:hover::after {
+        transform: scaleX(1);
+      }
+    </style>
+    <a href="/pages/contact" class="floating-contact-btn">CONTACT US</a>
   </body>
 </html>
