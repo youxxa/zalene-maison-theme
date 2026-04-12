@@ -121,11 +121,13 @@
   </head>
   <body class="template-{{ request.page_type | handle }}">
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
-    <div class="theme-shell">
+    <div class="theme-shell" style="max-width: none !important; width: 100% !important;">
       {% section 'header' %}
       {% section 'cart-drawer' %}
       <main id="MainContent" class="main-content" role="main" tabindex="-1">
-        {{ content_for_layout }}
+        <div class="page-width">
+          {{ content_for_layout }}
+        </div>
       </main>
       {% section 'footer' %}
       {% render 'cookie-banner' %}
