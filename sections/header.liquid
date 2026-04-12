@@ -19,18 +19,6 @@
             {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
           </a>
         </div>
-
-        <nav class="site-header__nav small-hide medium-hide" aria-label="{{ 'header.menu' | t }}">
-          <ul class="mega-menu" role="list">
-            {% for link in section.settings.desktop_menu.links %}
-              <li class="mega-menu__item">
-                <a class="mega-menu__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>
-                  {{ link.title }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
       </div>
 
       <div class="site-header__utilities site-header__utilities--right">
