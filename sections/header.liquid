@@ -6,10 +6,39 @@
 {% endcomment %}
 <header class="site-header scheme-{{ section.settings.scheme_style }} text-{{ section.settings.text_style }}" data-section-id="header">
   <div class="site-header__inner">
-    <div class="site-header__brand">
-      <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
-        {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
-      </a>
+    <div class="site-header__top-row">
+      <div class="site-header__utilities site-header__utilities--left">
+        <!-- 4. Menu -->
+        <button class="icon-button menu-toggle-btn" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
+          {% render 'icon-menu' %}
+          <span class="menu-label small-hide">MENU</span>
+        </button>
+      </div>
+
+      <div class="site-header__brand">
+        <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
+          {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
+        </a>
+      </div>
+
+      <div class="site-header__utilities site-header__utilities--right">
+        <!-- 2. Search -->
+        <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
+          {% render 'icon-search' %}
+        </button>
+
+        <!-- 3. Account (User) -->
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
+          {% render 'icon-account' %}
+        </a>
+
+        <!-- 1. Bag (Cart) -->
+        <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
+          <span class="visually-hidden">{{ 'header.cart' | t }}</span>
+          {% render 'icon-cart' %}
+          <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
+        </button>
+      </div>
     </div>
 
     <nav class="site-header__nav" aria-label="{{ 'header.menu' | t }}">
@@ -37,31 +66,6 @@
         {% endfor %}
       </ul>
     </nav>
-
-    <div class="site-header__utilities">
-      <!-- 1. Bag (Cart) -->
-      <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
-        <span class="visually-hidden">{{ 'header.cart' | t }}</span>
-        {% render 'icon-cart' %}
-        <span class="site-header__cart-count" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span>
-      </button>
-
-      <!-- 2. Search -->
-      <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
-        {% render 'icon-search' %}
-      </button>
-
-      <!-- 3. Account (User) -->
-      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
-        {% render 'icon-account' %}
-      </a>
-
-      <!-- 4. Menu -->
-      <button class="icon-button menu-toggle-btn" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
-        {% render 'icon-menu' %}
-        <span class="menu-label small-hide">MENU</span>
-      </button>
-    </div>
   </div>
 
   <div id="MobileMenuDrawer" class="drawer" aria-hidden="true">
