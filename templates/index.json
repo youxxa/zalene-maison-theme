@@ -1,5 +1,13 @@
 {
   "sections": {
+    "zm_hero": {
+      "type": "zalene-maison-hero",
+      "settings": {
+        "eyebrow_text": "Zalène Maison",
+        "heading_text": "Quiet luxury.\nRedefined.",
+        "subheading_text": "Curated pieces for the discerning few."
+      }
+    },
     "hero": {
       "type": "homepage-hero",
       "settings": {
@@ -92,6 +100,7 @@
     }
   },
   "order": [
+    "zm_hero",
     "hero",
     "collections",
     "story",
