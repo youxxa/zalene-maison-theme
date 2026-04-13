@@ -570,6 +570,15 @@ button {
   border-inline-start: 0;
 }
 
+/* Right-side drawers mirror the base drawer so search can slide in from the right */
+.drawer__panel--right {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  transform: translateX(10%);
+  border-inline-start: var(--border-thin) solid transparent;
+  border-inline-end: 0;
+}
+
 /* Fullscreen drawer variant supports immersive mobile navigation */
 .drawer__panel--fullscreen {
   width: 100%;
@@ -587,6 +596,11 @@ button {
 .drawer.is-open .drawer__panel {
   transform: translateX(0);
   opacity: 1;
+}
+
+/* Right-side drawers use the same open state but mirror the transform direction */
+.drawer.is-open .drawer__panel--right {
+  transform: translateX(0);
 }
 
 /* Fullscreen drawer opens vertically for a softer motion profile */
