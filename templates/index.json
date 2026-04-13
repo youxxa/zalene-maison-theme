@@ -1,6 +1,6 @@
 {
   "sections": {
-    "zm_hero": {
+    "zm-hero": {
       "type": "zalene-maison-hero",
       "settings": {
         "eyebrow_text": "Zalène Maison",
@@ -100,7 +100,7 @@
     }
   },
   "order": [
-    "zm_hero",
+    "zm-hero",
     "hero",
     "collections",
     "story",
