@@ -1,0 +1,639 @@
+{% comment %}
+  filename: sections/zalene-maison-hero.liquid
+  purpose:  Self-contained Brand Hero section for Zalène Maison.
+            Drag into any Shopify page and configure everything via the Theme Editor sidebar.
+            Bundles its own <style> and <script> — no external dependencies.
+  schema:   All text, fonts, colors, images, and layout options are exposed as theme settings.
+{% endcomment %}
+
+{% assign bg_image     = section.settings.background_image %}
+{% assign overlay_pct  = section.settings.overlay_opacity | times: 0.01 %}
+{% assign eyebrow      = section.settings.eyebrow_text %}
+{% assign heading      = section.settings.heading_text %}
+{% assign subheading   = section.settings.subheading_text %}
+{% assign btn_label    = section.settings.button_label %}
+{% assign btn_url      = section.settings.button_url %}
+{% assign btn2_label   = section.settings.button_secondary_label %}
+{% assign btn2_url     = section.settings.button_secondary_url %}
+{% assign accent_color = section.settings.accent_color %}
+{% assign text_color   = section.settings.text_color %}
+{% assign min_height   = section.settings.min_height %}
+
+<section
+  id="ZaleneMaisonHero-{{ section.id }}"
+  class="zm-hero{% if bg_image == blank %} zm-hero--no-image{% endif %}"
+  style="
+    --zm-accent:   {{ accent_color }};
+    --zm-text:     {{ text_color }};
+    --zm-overlay:  {{ overlay_pct }};
+    --zm-height:   {{ min_height }}px;
+  "
+>
+
+  {%- if bg_image != blank -%}
+    <div class="zm-hero__media" role="img" aria-label="{{ bg_image.alt | escape }}">
+      <img
+        class="zm-hero__img"
+        src="{{ bg_image | image_url: width: 2400 }}"
+        srcset="
+          {{ bg_image | image_url: width: 600  }} 600w,
+          {{ bg_image | image_url: width: 900  }} 900w,
+          {{ bg_image | image_url: width: 1200 }} 1200w,
+          {{ bg_image | image_url: width: 1800 }} 1800w,
+          {{ bg_image | image_url: width: 2400 }} 2400w
+        "
+        sizes="100vw"
+        alt="{{ bg_image.alt | escape }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    </div>
+  {%- endif -%}
+
+  <div class="zm-hero__overlay"></div>
+
+  <div class="zm-hero__inner">
+
+    {%- if eyebrow != blank -%}
+      <p class="zm-eyebrow" data-animate="fade-up" data-delay="0">{{ eyebrow }}</p>
+    {%- endif -%}
+
+    {%- if heading != blank -%}
+      <h2 class="zm-heading" data-animate="fade-up" data-delay="80">{{ heading }}</h2>
+    {%- endif -%}
+
+    <div class="zm-divider" data-animate="scale-in" data-delay="160"></div>
+
+    {%- if subheading != blank -%}
+      <p class="zm-subheading" data-animate="fade-up" data-delay="240">{{ subheading }}</p>
+    {%- endif -%}
+
+    {%- if btn_label != blank or btn2_label != blank -%}
+      <div class="zm-actions" data-animate="fade-up" data-delay="320">
+        {%- if btn_label != blank -%}
+          <a class="zm-btn zm-btn--primary" href="{{ btn_url | default: '#' }}">{{ btn_label }}</a>
+        {%- endif -%}
+        {%- if btn2_label != blank -%}
+          <a class="zm-btn zm-btn--ghost" href="{{ btn2_url | default: '#' }}">{{ btn2_label }}</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+
+  {%- if section.settings.show_scroll_cue -%}
+    <div class="zm-scroll-cue" aria-hidden="true">
+      <span class="zm-scroll-cue__line"></span>
+    </div>
+  {%- endif -%}
+
+</section>
+
+{% if section.settings.show_feature_strip %}
+<div class="zm-strip" id="ZaleneMaisonStrip-{{ section.id }}">
+  <div class="zm-strip__inner">
+    {%- for i in (1..3) -%}
+      {%- assign label_key = 'strip_item_' | append: i | append: '_label' -%}
+      {%- assign icon_key  = 'strip_item_' | append: i | append: '_icon' -%}
+      {%- assign label = section.settings[label_key] -%}
+      {%- assign icon  = section.settings[icon_key] -%}
+      {%- if label != blank -%}
+        <div class="zm-strip__item">
+          {%- if icon != blank -%}<span class="zm-strip__icon">{{ icon }}</span>{%- endif -%}
+          <span class="zm-strip__label">{{ label }}</span>
+        </div>
+        {%- unless forloop.last -%}<div class="zm-strip__sep" aria-hidden="true"></div>{%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+{% endif %}
+
+<!-- ============================================================
+     SECTION-SCOPED STYLES — no external CSS file dependency
+     ============================================================ -->
+<style>
+  /* ── Design tokens (overridden per-section via inline style vars) ── */
+  #ZaleneMaisonHero-{{ section.id }},
+  #ZaleneMaisonStrip-{{ section.id }} {
+    --zm-font-body:    {{ section.settings.font_body.family }}, serif;
+    --zm-font-heading: {{ section.settings.font_heading.family }}, serif;
+    --zm-tracking-wide: 0.45rem;
+    --zm-tracking-med:  0.25rem;
+    --zm-ease:          cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ── Hero shell ── */
+  #ZaleneMaisonHero-{{ section.id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--zm-height, 680px);
+    overflow: hidden;
+    background: #0d0d0d;
+    text-align: center;
+    color: var(--zm-text, #fff);
+  }
+
+  /* ── Background image ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  #ZaleneMaisonHero-{{ section.id }} .zm-hero__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.focal_point }};
+    display: block;
+  }
+
+  /* ── Dark overlay on top of image ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(13, 13, 13, var(--zm-overlay, 0.52));
+  }
+
+  /* ── Content layer ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-hero__inner {
+    position: relative;
+    z-index: 2;
+    width: min(calc(100% - 48px), 860px);
+    margin-inline: auto;
+    display: grid;
+    gap: 18px;
+    justify-items: center;
+  }
+
+  /* ── Eyebrow ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-eyebrow {
+    margin: 0;
+    font-family: var(--zm-font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: var(--zm-tracking-wide);
+    text-transform: uppercase;
+    color: var(--zm-accent, #D4AF37);
+  }
+
+  /* ── Main heading ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-heading {
+    margin: 0;
+    font-family: var(--zm-font-heading);
+    font-size: clamp(2.4rem, 8vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+    color: var(--zm-text, #fff);
+  }
+
+  /* ── Gold rule ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-divider {
+    width: 72px;
+    height: 1px;
+    background: var(--zm-accent, #D4AF37);
+    transform-origin: center;
+  }
+
+  /* ── Subheading ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-subheading {
+    margin: 0;
+    max-width: 520px;
+    font-family: var(--zm-font-body);
+    font-size: 0.875rem;
+    letter-spacing: var(--zm-tracking-med);
+    text-transform: uppercase;
+    color: var(--zm-text, #fff);
+    opacity: 0.78;
+  }
+
+  /* ── Action buttons ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  #ZaleneMaisonHero-{{ section.id }} .zm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 44px;
+    font-family: var(--zm-font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: var(--zm-tracking-wide);
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.38s var(--zm-ease),
+                color 0.38s var(--zm-ease),
+                border-color 0.38s var(--zm-ease);
+  }
+
+  #ZaleneMaisonHero-{{ section.id }} .zm-btn--primary {
+    background: var(--zm-accent, #D4AF37);
+    color: #0d0d0d;
+    border: 1px solid var(--zm-accent, #D4AF37);
+  }
+  #ZaleneMaisonHero-{{ section.id }} .zm-btn--primary:hover {
+    background: transparent;
+    color: var(--zm-accent, #D4AF37);
+  }
+
+  #ZaleneMaisonHero-{{ section.id }} .zm-btn--ghost {
+    background: transparent;
+    color: var(--zm-text, #fff);
+    border: 1px solid rgba(255,255,255,0.45);
+  }
+  #ZaleneMaisonHero-{{ section.id }} .zm-btn--ghost:hover {
+    border-color: var(--zm-accent, #D4AF37);
+    color: var(--zm-accent, #D4AF37);
+  }
+
+  /* ── Scroll cue ── */
+  #ZaleneMaisonHero-{{ section.id }} .zm-scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #ZaleneMaisonHero-{{ section.id }} .zm-scroll-cue__line {
+    display: block;
+    width: 1px;
+    height: 52px;
+    background: linear-gradient(to bottom, var(--zm-accent, #D4AF37), transparent);
+    animation: zmScrollPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes zmScrollPulse {
+    0%, 100% { transform: scaleY(1); opacity: 0.9; }
+    50%       { transform: scaleY(0.55); opacity: 0.3; }
+  }
+
+  /* ── Feature strip ── */
+  #ZaleneMaisonStrip-{{ section.id }} {
+    background: {{ section.settings.strip_bg }};
+    border-top:    0.75px solid rgba(212,175,55,0.22);
+    border-bottom: 0.75px solid rgba(212,175,55,0.22);
+    padding: 18px 24px;
+  }
+  #ZaleneMaisonStrip-{{ section.id }} .zm-strip__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    max-width: 960px;
+    margin-inline: auto;
+  }
+  #ZaleneMaisonStrip-{{ section.id }} .zm-strip__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 36px;
+    white-space: nowrap;
+  }
+  #ZaleneMaisonStrip-{{ section.id }} .zm-strip__icon {
+    font-size: 1rem;
+  }
+  #ZaleneMaisonStrip-{{ section.id }} .zm-strip__label {
+    font-family: var(--zm-font-body);
+    font-size: 0.68rem;
+    letter-spacing: 0.38rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: {{ section.settings.strip_text_color }};
+  }
+  #ZaleneMaisonStrip-{{ section.id }} .zm-strip__sep {
+    width: 0.75px;
+    height: 32px;
+    background: rgba(212,175,55,0.3);
+    flex-shrink: 0;
+  }
+
+  /* ── Entrance animations ── */
+  #ZaleneMaisonHero-{{ section.id }} [data-animate] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.72s var(--zm-ease), transform 0.72s var(--zm-ease);
+  }
+  #ZaleneMaisonHero-{{ section.id }} [data-animate="scale-in"] {
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+  #ZaleneMaisonHero-{{ section.id }}.zm-is-visible [data-animate] {
+    opacity: 1;
+    transform: translateY(0) scaleX(1);
+  }
+
+  /* ── Mobile overrides ── */
+  @media screen and (max-width: 749px) {
+    #ZaleneMaisonHero-{{ section.id }} {
+      min-height: {{ section.settings.min_height_mobile }}px;
+    }
+    #ZaleneMaisonHero-{{ section.id }} .zm-hero__inner {
+      width: calc(100% - 48px);
+      gap: 14px;
+    }
+    #ZaleneMaisonHero-{{ section.id }} .zm-heading {
+      font-size: clamp(2rem, 11vw, 3.2rem);
+    }
+    #ZaleneMaisonHero-{{ section.id }} .zm-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    #ZaleneMaisonHero-{{ section.id }} .zm-btn {
+      width: 100%;
+      padding: 0 24px;
+    }
+    #ZaleneMaisonStrip-{{ section.id }} .zm-strip__item {
+      padding: 10px 20px;
+    }
+    #ZaleneMaisonStrip-{{ section.id }} .zm-strip__sep {
+      display: none;
+    }
+  }
+</style>
+
+<!-- ============================================================
+     SECTION-SCOPED JAVASCRIPT — entrance animation + no deps
+     ============================================================ -->
+<script>
+(function () {
+  var section = document.getElementById('ZaleneMaisonHero-{{ section.id }}');
+  if (!section) return;
+
+  // Stagger child animations by delay attr
+  function playAnimations() {
+    section.classList.add('zm-is-visible');
+    section.querySelectorAll('[data-animate]').forEach(function (el) {
+      var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+      el.style.transitionDelay = delay + 'ms';
+    });
+  }
+
+  // Fire when section enters viewport
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          playAnimations();
+          observer.unobserve(section);
+        }
+      });
+    }, { threshold: 0.12 });
+    observer.observe(section);
+  } else {
+    // Fallback: fire immediately
+    playAnimations();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "ZM — Brand Hero",
+  "tag": "div",
+  "class": "zm-section-wrapper",
+  "settings": [
+
+    {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Hero image",
+      "info": "Recommended: at least 2400×1400px, JPG. Leave blank for a dark canvas."
+    },
+    {
+      "type": "select",
+      "id": "focal_point",
+      "label": "Image focal point",
+      "default": "center center",
+      "options": [
+        { "value": "top left",     "label": "Top left" },
+        { "value": "top center",   "label": "Top center" },
+        { "value": "top right",    "label": "Top right" },
+        { "value": "center left",  "label": "Middle left" },
+        { "value": "center center","label": "Middle center" },
+        { "value": "center right", "label": "Middle right" },
+        { "value": "bottom left",  "label": "Bottom left" },
+        { "value": "bottom center","label": "Bottom center" },
+        { "value": "bottom right", "label": "Bottom right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay darkness (%)",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "default": 52
+    },
+
+    {
+      "type": "header",
+      "content": "Section Height"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Desktop min-height (px)",
+      "min": 320,
+      "max": 980,
+      "step": 20,
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "label": "Mobile min-height (px)",
+      "min": 280,
+      "max": 780,
+      "step": 20,
+      "default": 560
+    },
+
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow (small spaced text above heading)",
+      "default": "Zalène Maison"
+    },
+    {
+      "type": "textarea",
+      "id": "heading_text",
+      "label": "Main heading",
+      "default": "Quiet luxury.\nRedefined."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_text",
+      "label": "Subheading",
+      "default": "Curated pieces for the discerning few."
+    },
+
+    {
+      "type": "header",
+      "content": "Primary Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Explore the Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    },
+
+    {
+      "type": "header",
+      "content": "Secondary Button (optional)"
+    },
+    {
+      "type": "text",
+      "id": "button_secondary_label",
+      "label": "Secondary button label",
+      "info": "Leave blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "button_secondary_url",
+      "label": "Secondary button URL"
+    },
+
+    {
+      "type": "header",
+      "content": "Scroll Indicator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_cue",
+      "label": "Show animated scroll line",
+      "default": true
+    },
+
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_heading",
+      "label": "Heading font",
+      "default": "playfair_display_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "font_body",
+      "label": "Body / UI font",
+      "default": "cormorant_garamond_n4"
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (gold)",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "header",
+      "content": "Feature Strip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_feature_strip",
+      "label": "Show feature strip below hero",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "strip_bg",
+      "label": "Strip background color",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "strip_text_color",
+      "label": "Strip text color",
+      "default": "#E8DFC8"
+    },
+    {
+      "type": "text",
+      "id": "strip_item_1_icon",
+      "label": "Strip item 1 — icon/emoji",
+      "default": "✦"
+    },
+    {
+      "type": "text",
+      "id": "strip_item_1_label",
+      "label": "Strip item 1 — text",
+      "default": "Free shipping over £120"
+    },
+    {
+      "type": "text",
+      "id": "strip_item_2_icon",
+      "label": "Strip item 2 — icon/emoji",
+      "default": "✦"
+    },
+    {
+      "type": "text",
+      "id": "strip_item_2_label",
+      "label": "Strip item 2 — text",
+      "default": "14-day returns"
+    },
+    {
+      "type": "text",
+      "id": "strip_item_3_icon",
+      "label": "Strip item 3 — icon/emoji",
+      "default": "✦"
+    },
+    {
+      "type": "text",
+      "id": "strip_item_3_label",
+      "label": "Strip item 3 — text",
+      "default": "Secure checkout"
+    }
+
+  ],
+  "presets": [
+    {
+      "name": "ZM — Brand Hero",
+      "category": "Zalène Maison"
+    }
+  ]
+}
+{% endschema %}
