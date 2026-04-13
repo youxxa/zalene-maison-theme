@@ -4,48 +4,11 @@
   key variables: cart, settings.cart_upsell_products, settings.free_shipping_threshold
   ai_agent_edit_guide: Edit cart drawer layout, upsell placement, or helper forms here. Keep line item markup inside the cart-drawer-item snippet.
 {% endcomment %}
-<style>
-  .ghost-button-gold {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 40px;
-    font-size: 0.875rem;
-    font-family: var(--font-body);
-    font-weight: 500;
-    letter-spacing: 0.4rem;
-    color: var(--color-primary-accent);
-    background: transparent;
-    border: 0.75px solid var(--color-primary-accent);
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background-color var(--transition-medium), color var(--transition-medium);
-  }
-  .ghost-button-gold:hover {
-    background-color: var(--color-primary-accent);
-    color: var(--color-primary-dark);
-  }
-  .drawer__title {
-    letter-spacing: 0.5rem;
-    font-size: 1.5rem !important; /* Forces refined sizing */
-    text-transform: uppercase;
-  }
-  .drawer-text-tracking {
-    letter-spacing: 0.2rem;
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-  }
-  .drawer__body {
-    padding: var(--space-2) 0; /* Gallery spacing grid alignment */
-  }
-</style>
-
 <div id="CartDrawer" class="drawer" aria-hidden="true">
   <div class="drawer__overlay" data-drawer-overlay></div>
   <div class="drawer__panel scheme-dark text-light" data-drawer-panel>
     <div class="drawer__header">
-      <h2 class="drawer__title">BAG</h2>
+      <h2 class="drawer__title">{{ 'cart.drawer_heading' | t }}</h2>
       <button class="icon-button" type="button" data-drawer-close="CartDrawer" aria-label="{{ 'accessibility.close_cart' | t }}">
         {% render 'icon-close' %}
       </button>
@@ -54,36 +17,29 @@
     <div class="drawer__body">
       <div class="cart-drawer">
         {% if cart.item_count > 0 %}
-          <p class="drawer-text-tracking" style="margin-bottom: 24px;">Your selection.</p>
           {% for item in cart.items %}
             {% render 'cart-drawer-item', item: item %}
           {% endfor %}
         {% else %}
-          <div class="empty-state" style="text-align: center; padding: 48px 0;">
-            <p class="drawer-text-tracking" style="margin-bottom: 32px;">Your bag is empty.</p>
-            <a class="ghost-button-gold" href="{{ routes.all_products_collection_url }}">CONTINUE SHOPPING</a>
+          <div class="empty-state">
+            <p>{{ 'cart.empty' | t }}</p>
+            <a class="button button--secondary" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
           </div>
         {% endif %}
       </div>
 
       {% if cart.item_count > 0 %}
-      <div class="cart-drawer__helpers">
-        <details class="cart-drawer-details">
-          <summary>{{ 'cart.note' | t }}</summary>
-          <form class="cart-helper-form" data-cart-note-form>
-            <textarea class="form-field form-field--minimal" id="CartDrawerNote" name="note" placeholder="{{ 'cart.note_placeholder' | t }}" rows="2">{{ cart.note }}</textarea>
-            <button class="button button--secondary button--full" type="submit">{{ 'cart.update' | t }}</button>
-          </form>
-        </details>
+        <form class="search-form" data-cart-note-form>
+          <label for="CartDrawerNote">{{ 'cart.note' | t }}</label>
+          <input class="form-field" id="CartDrawerNote" type="text" name="note" value="{{ cart.note }}" placeholder="{{ 'cart.note_placeholder' | t }}">
+          <button class="button button--secondary" type="submit">{{ 'cart.update' | t }}</button>
+        </form>
 
-        <details class="cart-drawer-details">
-          <summary>{{ 'cart.discount' | t }}</summary>
-          <form class="cart-helper-form" data-discount-form>
-            <input class="form-field form-field--minimal" id="CartDrawerDiscount" type="text" name="discount" placeholder="{{ 'cart.discount_placeholder' | t }}">
-            <button class="button button--secondary button--full" type="submit">{{ 'cart.discount_apply' | t }}</button>
-          </form>
-        </details>
-      </div>
+        <form class="search-form" data-discount-form>
+          <label for="CartDrawerDiscount">{{ 'cart.discount' | t }}</label>
+          <input class="form-field" id="CartDrawerDiscount" type="text" name="discount" placeholder="{{ 'cart.discount_placeholder' | t }}">
+          <button class="button button--secondary" type="submit">{{ 'cart.discount_apply' | t }}</button>
+        </form>
 
         {% if settings.cart_upsell_products != blank %}
           <div>
@@ -100,16 +56,16 @@
       {% endif %}
     </div>
 
-    <div class="cart-drawer__footer" style="padding-top: var(--space-4);">
-      <p class="drawer-text-tracking" style="margin-bottom: var(--space-2);">Complimentary delivery on eligible orders.</p>
+    <div class="cart-drawer__footer">
+      <p>{{ 'cart.free_shipping_progress' | t: threshold: settings.free_shipping_threshold }}</p>
       {% render 'trust-badges' %}
       {% if cart.item_count > 0 %}
-        <div class="price" style="margin: var(--space-3) 0;">
-          <span class="drawer-text-tracking">{{ 'cart.subtotal' | t }}</span>
-          <strong style="font-family: var(--font-heading); font-size: 1.25rem;">{{ cart.total_price | money }}</strong>
+        <div class="price">
+          <span>{{ 'cart.subtotal' | t }}</span>
+          <strong>{{ cart.total_price | money }}</strong>
         </div>
-        <a class="ghost-button-gold" style="width: 100%; margin-bottom: 12px;" href="{{ routes.checkout_url }}">{{ 'general.checkout' | t }}</a>
-        <a class="ghost-button-gold" style="width: 100%; border-color: transparent;" href="{{ routes.cart_url }}">{{ 'header.view_cart' | t }}</a>
+        <a class="button button--primary" href="{{ routes.checkout_url }}">{{ 'general.checkout' | t }}</a>
+        <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'header.view_cart' | t }}</a>
       {% endif %}
     </div>
   </div>

@@ -1,161 +1,108 @@
-<style>
-  .hero {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-end; /* Bottom-left alignment by default */
-    overflow: hidden;
-  }
-  .hero--centered {
-    align-items: center;
-    justify-content: center;
-  }
-  .hero__media {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background-color: var(--color-background-dark);
-  }
-  .hero__media img,
-  .hero__media video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0.8; /* Subtle darkening for text readability */
-  }
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    padding: var(--space-4) var(--space-2);
-    width: 100%;
-    max-width: var(--container-width);
-    margin: 0 auto;
-    color: var(--color-primary-light);
-  }
-  .hero--centered .hero__content {
-    text-align: center;
-    padding: var(--space-5) var(--space-3);
-  }
-  .hero__title {
-    font-family: var(--font-heading);
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 1.1;
-    margin: 0 0 var(--space-2) 0;
-    font-weight: 400;
-  }
-  .hero__subtitle {
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    letter-spacing: 0.5rem;
-    text-transform: uppercase;
-    margin: 0 0 var(--space-3) 0;
-  }
-  .ghost-button-gold--hover-wash {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 44px;
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    letter-spacing: 0.4rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--color-primary-accent);
-    border: 0.75px solid var(--color-primary-accent);
-    background: transparent;
-    transition: background-color var(--transition-medium), color var(--transition-medium);
-  }
-  .ghost-button-gold--hover-wash:hover {
-    background-color: var(--color-gold-overlay);
-    color: var(--color-primary-light);
-  }
-</style>
-
-<div class="hero {% if section.settings.alignment == 'center' %}hero--centered{% endif %}">
-  <div class="hero__media">
-    {% if section.settings.video_url != blank %}
-      <video autoplay loop muted playsinline>
-        <source src="{{ section.settings.video_url }}" type="video/mp4">
-      </video>
-    {% elsif section.settings.image != blank %}
-      {{ section.settings.image | image_url: width: 3000 | image_tag: loading: 'eager', sizes: '100vw', widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000' }}
-    {% endif %}
-  </div>
-
-  <div class="hero__content fade-in-on-scroll">
-    {% if section.settings.title != blank %}
-      <h1 class="hero__title">{{ section.settings.title }}</h1>
-    {% endif %}
-    
-    {% if section.settings.subtitle != blank %}
-      <p class="hero__subtitle">{{ section.settings.subtitle }}</p>
-    {% endif %}
-
-    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="ghost-button-gold--hover-wash">
-        {{ section.settings.button_label }}
-      </a>
-    {% endif %}
-  </div>
-</div>
+{% comment %}
+  filename: sections/homepage-hero.liquid
+  purpose: Homepage hero with editable image or video background, minimal editorial copy, and primary call to action.
+  key variables: section.settings.heading, section.settings.subheading, section.settings.button_label, section.settings.hero_image, section.settings.hero_video
+  ai_agent_edit_guide: Edit hero structure, background media logic, or CTA placement here. Keep shared button styling and typography in CSS.
+{% endcomment %}
+{% if section.settings.show_section %}
+  <section class="hero section-shell {{ section.settings.background_scheme }} {{ section.settings.text_scheme }} section-spacing--top-{{ section.settings.padding_top }} section-spacing--bottom-{{ section.settings.padding_bottom }}">
+    <div class="hero__media">
+      {% if section.settings.hero_video != blank %}
+        {{
+          section.settings.hero_video
+          | video_tag:
+            autoplay: true,
+            loop: true,
+            muted: true,
+            controls: false,
+            image_size: '1600x',
+            class: 'hero__asset'
+        }}
+      {% elsif section.settings.hero_image != blank %}
+        {% render 'responsive-image',
+          image: section.settings.hero_image,
+          class: 'hero__asset',
+          alt: section.settings.heading,
+          sizes: '100vw',
+          loading: 'eager',
+          width: 1920
+        %}
+      {% endif %}
+    </div>
+    <div class="page-width">
+      <div class="hero__content">
+        <p class="hero__eyebrow">{{ section.settings.eyebrow }}</p>
+        <div class="section-intro__divider"></div>
+        <h1 class="section-intro__heading">{{ section.settings.heading }}</h1>
+        <p class="section-intro__subheading">{{ section.settings.subheading }}</p>
+        {% if section.settings.button_label != blank and section.settings.button_url != blank %}
+          <a class="button button--primary" href="{{ section.settings.button_url }}">{{ section.settings.button_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
 
 {% schema %}
 {
-  "name": "Homepage Hero",
+  "name": "Homepage hero",
   "settings": [
+    { "type": "checkbox", "id": "show_section", "label": "Show section", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Elegance Redefined" },
+    { "type": "text", "id": "heading", "label": "Heading text", "default": "The New Season of Quiet Luxury" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading text", "default": "Precision drape, luminous detail, and silhouettes shaped for modern modest dressing." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Explore the collection" },
+    { "type": "url", "id": "button_url", "label": "Button URL" },
+    { "type": "image_picker", "id": "hero_image", "label": "Image" },
+    { "type": "video", "id": "hero_video", "label": "Video" },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Hero Image"
-    },
-    {
-      "type": "url",
-      "id": "video_url",
-      "label": "Video URL (MP4)",
-      "info": "Paste a direct link to an MP4. Overrides image if set."
+      "type": "select",
+      "id": "background_scheme",
+      "label": "Background color",
+      "default": "scheme-dark",
+      "options": [
+        { "value": "scheme-light", "label": "Light" },
+        { "value": "scheme-dark", "label": "Dark" },
+        { "value": "scheme-mid", "label": "Mid" }
+      ]
     },
     {
       "type": "select",
-      "id": "alignment",
-      "label": "Content Alignment",
+      "id": "text_scheme",
+      "label": "Text color",
+      "default": "text-light",
       "options": [
-        { "value": "bottom_left", "label": "Bottom Left" },
-        { "value": "center", "label": "Center" }
-      ],
-      "default": "bottom_left"
+        { "value": "text-dark", "label": "Dark text" },
+        { "value": "text-light", "label": "Light text" }
+      ]
     },
     {
-      "type": "text",
-      "id": "title",
-      "label": "Headline",
-      "default": "L'Art de Vivre"
+      "type": "select",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": "space-xl",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
     },
     {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subheading",
-      "default": "A new collection of quiet luxury."
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
-      "default": "Explore"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
+      "type": "select",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": "space-xl",
+      "options": [
+        { "value": "space-sm", "label": "Small" },
+        { "value": "space-md", "label": "Medium" },
+        { "value": "space-lg", "label": "Large" },
+        { "value": "space-xl", "label": "Extra large" }
+      ]
     }
   ],
   "presets": [
-    {
-      "name": "Homepage Hero",
-      "category": "Curated Collections"
-    }
+    { "name": "Homepage hero" }
   ]
 }
 {% endschema %}

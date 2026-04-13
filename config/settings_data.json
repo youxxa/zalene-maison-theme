@@ -9,7 +9,7 @@
     "color_text": "#2C2C2C",
     "color_background_dark": "#0D0D0D",
     "color_gold_overlay": "rgba(212,175,55,0.15)",
-    "google_fonts_url": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap",
+    "google_fonts_url": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap",
     "heading_font_family": "'Playfair Display', serif",
     "body_font_family": "'Cinzel', serif",
     "button_radius": "rounded",
@@ -17,50 +17,7 @@
     "announcement_text": "Worldwide delivery for refined wardrobes.",
     "announcement_background": "#0D0D0D",
     "announcement_text_color": "#FFFFFF",
-    "free_shipping_threshold": "250",
-    "sections": {
-      "announcement-bar": {
-        "type": "announcement-bar",
-        "settings": {}
-      },
-      "header": {
-        "type": "header",
-        "settings": {
-          "desktop_menu": "main-menu",
-          "mobile_menu": "main-menu",
-          "scheme_style": "light",
-          "text_style": "dark"
-        }
-      },
-      "cart-drawer": {
-        "type": "cart-drawer",
-        "settings": {}
-      },
-      "main-404": {
-        "type": "main-404",
-        "settings": {}
-      },
-      "footer": {
-        "type": "footer",
-        "settings": {
-          "statement": "Luxury modest fashion shaped with restraint, light, and intention.",
-          "menu_one": "footer",
-          "menu_one_heading": "Shop",
-          "menu_two": "footer",
-          "menu_two_heading": "About",
-          "padding_top": "lg",
-          "padding_bottom": "lg"
-        }
-      }
-    },
-    "content_for_index": [],
-    "blocks": {
-      "1513253815146976218": {
-        "type": "shopify://apps/omnisend-email-marketing-sms/blocks/app-embed/44704aa2-794f-4c5d-8c8e-039c841158e9",
-        "disabled": false,
-        "settings": {}
-      }
-    }
+    "free_shipping_threshold": "250"
   },
   "presets": {
     "default": {

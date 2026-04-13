@@ -1,22 +1,82 @@
 {% comment %}
   filename: sections/footer.liquid
-  purpose: Quiet luxury footer with a single navigation axis and centered copyright line.
-  key variables: section.settings.collections_url, section.settings.journal_url, section.settings.legal_url, section.settings.contact_url
-  ai_agent_edit_guide: Keep the DOM flat and centered here. Edit quiet-luxury footer styling in assets/base.css and footer destinations in schema settings.
+  purpose: Global footer with brand statement, editable navigation menus, compact newsletter signup, localization controls, and social links.
+  key variables: section.settings.*, settings.social_*, localization
+  ai_agent_edit_guide: Edit footer structure, menu columns, or compact signup flow here. Keep social icon output in the social-links snippet.
 {% endcomment %}
-{% assign collections_url = section.settings.collections_url | default: routes.all_products_collection_url %}
-{% assign journal_url = section.settings.journal_url | default: '/blogs/news' %}
-{% assign legal_url = section.settings.legal_url | default: '/policies/privacy-policy' %}
-{% assign contact_url = section.settings.contact_url | default: '/pages/contact' %}
+<footer class="site-footer section-shell scheme-dark text-light section-spacing--top-{{ section.settings.padding_top }} section-spacing--bottom-{{ section.settings.padding_bottom }}">
+  <div class="page-width">
+    {% assign footer_statement = section.settings.statement %}
+    {% if footer_statement == blank %}
+      {% assign footer_statement = 'footer.statement' | t %}
+    {% endif %}
+    {% assign menu_one_heading = section.settings.menu_one_heading %}
+    {% if menu_one_heading == blank %}
+      {% assign menu_one_heading = 'footer.shop' | t %}
+    {% endif %}
+    {% assign menu_two_heading = section.settings.menu_two_heading %}
+    {% if menu_two_heading == blank %}
+      {% assign menu_two_heading = 'footer.about' | t %}
+    {% endif %}
+    {% assign current_year = 'now' | date: '%Y' %}
+    <div class="site-footer__layout">
+      <div class="footer-nav">
+        <a href="{{ routes.root_url }}" class="site-header__brand">
+          {% render 'brand-logo', inverted: true %}
+        </a>
+        <p class="rich-copy">{{ footer_statement }}</p>
+        {% render 'social-links' %}
+      </div>
 
-<footer class="site-footer" role="contentinfo">
-  <nav class="site-footer__nav" aria-label="Footer">
-    <a class="site-footer__link" href="{{ collections_url }}">COLLECTIONS</a>
-    <a class="site-footer__link" href="{{ journal_url }}">JOURNAL</a>
-    <a class="site-footer__link" href="{{ legal_url }}">LEGAL</a>
-    <a class="site-footer__link" href="{{ contact_url }}">CONTACT</a>
-  </nav>
-  <p class="site-footer__copyright">© 2026 ZALÈNE MAISON.</p>
+      <div class="footer-nav">
+        <p class="section-intro__eyebrow">{{ menu_one_heading }}</p>
+        {% for link in section.settings.menu_one.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="footer-nav">
+        <p class="section-intro__eyebrow">{{ menu_two_heading }}</p>
+        {% for link in section.settings.menu_two.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+      <div class="footer-nav">
+        <p class="section-intro__eyebrow">{{ 'footer.newsletter_heading' | t }}</p>
+        {% form 'customer', class: 'newsletter-strip__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input class="form-field" type="email" name="contact[email]" placeholder="{{ 'newsletter.placeholder' | t }}" required>
+          <button class="button button--primary" type="submit">{{ 'general.subscribe' | t }}</button>
+        {% endform %}
+      </div>
+    </div>
+
+    <div class="site-footer__meta">
+      <div class="price">
+        {% form 'localization' %}
+          <label class="visually-hidden" for="FooterCountry">{{ 'general.currency' | t }}</label>
+          <select class="quick-add__select" id="FooterCountry" name="country_code">
+            {% for country in localization.available_countries %}
+              <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                {{ country.name }} ({{ country.currency.iso_code }})
+              </option>
+            {% endfor %}
+          </select>
+          <label class="visually-hidden" for="FooterLanguage">{{ 'general.language' | t }}</label>
+          <select class="quick-add__select" id="FooterLanguage" name="locale_code">
+            {% for locale in localization.available_languages %}
+              <option value="{{ locale.iso_code }}" {% if locale.iso_code == localization.language.iso_code %}selected{% endif %}>
+                {{ locale.endonym_name | capitalize }}
+              </option>
+            {% endfor %}
+          </select>
+          <button class="button button--secondary" type="submit">{{ 'general.apply' | t }}</button>
+        {% endform %}
+      </div>
+      <p>{{ 'footer.copyright' | t: year: current_year }}</p>
+    </div>
+  </div>
 </footer>
 
 {% schema %}
@@ -24,24 +84,58 @@
   "name": "Footer",
   "settings": [
     {
-      "type": "url",
-      "id": "collections_url",
-      "label": "Collections link"
+      "type": "text",
+      "id": "statement",
+      "label": "Brand statement",
+      "default": "Luxury modest fashion shaped with restraint, light, and intention."
     },
     {
-      "type": "url",
-      "id": "journal_url",
-      "label": "Journal link"
+      "type": "link_list",
+      "id": "menu_one",
+      "label": "Primary footer menu",
+      "default": "footer"
     },
     {
-      "type": "url",
-      "id": "legal_url",
-      "label": "Legal link"
+      "type": "text",
+      "id": "menu_one_heading",
+      "label": "Primary footer heading",
+      "default": "Shop"
     },
     {
-      "type": "url",
-      "id": "contact_url",
-      "label": "Contact link"
+      "type": "link_list",
+      "id": "menu_two",
+      "label": "Secondary footer menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_two_heading",
+      "label": "Secondary footer heading",
+      "default": "About"
+    },
+    {
+      "type": "select",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": "lg",
+      "options": [
+        { "value": "sm", "label": "Small" },
+        { "value": "md", "label": "Medium" },
+        { "value": "lg", "label": "Large" },
+        { "value": "xl", "label": "Extra large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": "lg",
+      "options": [
+        { "value": "sm", "label": "Small" },
+        { "value": "md", "label": "Medium" },
+        { "value": "lg", "label": "Large" },
+        { "value": "xl", "label": "Extra large" }
+      ]
     }
   ]
 }

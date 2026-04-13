@@ -14,7 +14,8 @@
     "quantity": "Quantity",
     "size_guide": "Open size guide",
     "image": "Image",
-    "search": "Search products, collections, stories"
+    "search": "Search products, collections, stories",
+    "account": "My account"
   },
   "general": {
     "brand_name": "Zalène Maison",
@@ -99,6 +100,15 @@
     "empty": "No products match the current refinement.",
     "results": "{{ count }} products",
     "showing": "Showing {{ shown }} of {{ total }}"
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send message",
+    "success": "Thank you — your message has been received.",
+    "account": "Account"
   },
   "product": {
     "add_to_cart": "Add to cart",

@@ -8,13 +8,14 @@
   <div class="site-header__inner">
     <div class="site-header__top-row">
       <div class="site-header__utilities site-header__utilities--left">
-        <!-- Menu Toggle (Always visible, Top Left Edge) -->
         <button class="icon-button menu-toggle-btn" type="button" data-drawer-target="MobileMenuDrawer" aria-label="{{ 'accessibility.open_menu' | t }}">
           {% render 'icon-menu' %}
         </button>
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
+          {% render 'icon-account' %}
+        </a>
       </div>
 
-      <!-- Brand Logo (Absolute Centered Anchor) -->
       <div class="site-header__brand">
         <a href="{{ routes.root_url }}" aria-label="{{ settings.brand_display_name }}">
           {% render 'brand-logo', inverted: section.settings.scheme_style == 'dark' %}
@@ -22,17 +23,9 @@
       </div>
 
       <div class="site-header__utilities site-header__utilities--right">
-        <!-- Search -->
         <button class="icon-button" type="button" data-drawer-target="SearchDrawer" aria-label="{{ 'accessibility.open_search' | t }}">
           {% render 'icon-search' %}
         </button>
-
-        <!-- Account -->
-        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="icon-button" aria-label="{{ 'accessibility.account' | t }}">
-          {% render 'icon-account' %}
-        </a>
-
-        <!-- Cart -->
         <button class="icon-button" type="button" data-drawer-target="CartDrawer" aria-label="{{ 'accessibility.open_cart' | t }}">
           <span class="visually-hidden">{{ 'header.cart' | t }}</span>
           {% render 'icon-cart' %}

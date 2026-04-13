@@ -2,20 +2,128 @@
   filename: sections/main-page.liquid
   purpose: Default page presentation for editorial content such as about, care guide, contact, or journal landing pages.
   key variables: page.title, page.content
-  ai_agent_edit_guide: Edit the standard page layout or typography wrapper here. Keep actual editorial content in Shopify page resources.
+  ai_agent_edit_guide: Edit the standard page layout or typography wrapper here. Contact page uses a two-column layout with brand messaging and a contact form. Legal/generic pages use the default single-column layout.
 {% endcomment %}
-<section class="section-shell scheme-light text-dark section-spacing--top-space-lg section-spacing--bottom-space-xl">
-  <div class="page-width page-content">
-    <div>
-      <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
-      <h1 class="section-intro__heading">{{ page.title }}</h1>
-      <div class="section-intro__divider"></div>
+{% assign page_handle = page.handle | default: '' %}
+{% assign is_contact_page = false %}
+{% assign is_legal_page = false %}
+
+{% if page_handle contains 'contact' %}
+  {% assign is_contact_page = true %}
+{% endif %}
+
+{% if page_handle contains 'policy' or page_handle contains 'legal' or page_handle contains 'privacy' or page_handle contains 'terms' or page_handle contains 'refund' or page_handle contains 'shipping' or page_handle contains 'return' %}
+  {% assign is_legal_page = true %}
+{% endif %}
+
+{% if is_contact_page %}
+  <section class="section-shell scheme-light text-dark section-spacing--top-space-lg section-spacing--bottom-space-xl page-template page-template--contact">
+    <div class="page-width">
+
+      <div class="contact-intro">
+        <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
+        <h1 class="section-intro__heading">{{ page.title }}</h1>
+        <div class="section-intro__divider"></div>
+      </div>
+
+      <div class="contact-layout">
+
+        <div class="contact-brand">
+          <p class="contact-brand__tagline">Refined service<br>for a discerning clientele.</p>
+          <div class="contact-brand__details">
+            <div class="contact-brand__detail-item">
+              <span class="contact-brand__label">Email</span>
+              <a href="mailto:hello@zalenemaison.com" class="contact-brand__value">hello@zalenemaison.com</a>
+            </div>
+            <div class="contact-brand__detail-item">
+              <span class="contact-brand__label">Hours</span>
+              <span class="contact-brand__value">Mon – Fri, 9am – 6pm GMT</span>
+            </div>
+            <div class="contact-brand__detail-item">
+              <span class="contact-brand__label">Returns</span>
+              <span class="contact-brand__value">14-day returns on all orders</span>
+            </div>
+          </div>
+          {% if page.content != blank %}
+            <div class="contact-brand__copy rich-copy">{{ page.content }}</div>
+          {% endif %}
+        </div>
+
+        <div class="contact-form-panel">
+          {% form 'contact', id: 'ContactForm' %}
+            {% if form.posted_successfully? %}
+              <p class="contact-form__success">{{ 'contact.success' | t }}</p>
+            {% else %}
+              <div class="contact-form__fields">
+                <div class="contact-form__row contact-form__row--half">
+                  <div class="contact-form__field">
+                    <label class="contact-form__label" for="ContactForm-name">{{ 'contact.name' | t }}</label>
+                    <input
+                      class="form-field"
+                      id="ContactForm-name"
+                      type="text"
+                      name="contact[name]"
+                      value="{% if customer %}{{ customer.name }}{% endif %}"
+                      autocomplete="name"
+                    >
+                  </div>
+                  <div class="contact-form__field">
+                    <label class="contact-form__label" for="ContactForm-email">{{ 'contact.email' | t }}</label>
+                    <input
+                      class="form-field"
+                      id="ContactForm-email"
+                      type="email"
+                      name="contact[email]"
+                      value="{% if customer %}{{ customer.email }}{% endif %}"
+                      autocomplete="email"
+                      required
+                    >
+                  </div>
+                </div>
+                <div class="contact-form__field">
+                  <label class="contact-form__label" for="ContactForm-subject">{{ 'contact.subject' | t | default: 'Subject' }}</label>
+                  <input
+                    class="form-field"
+                    id="ContactForm-subject"
+                    type="text"
+                    name="contact[subject]"
+                  >
+                </div>
+                <div class="contact-form__field">
+                  <label class="contact-form__label" for="ContactForm-message">{{ 'contact.message' | t }}</label>
+                  <textarea
+                    class="form-field contact-form__textarea"
+                    id="ContactForm-message"
+                    name="contact[body]"
+                    rows="6"
+                  ></textarea>
+                </div>
+                <button class="button button--primary contact-form__submit" type="submit">
+                  {{ 'contact.send' | t }}
+                </button>
+              </div>
+            {% endif %}
+          {% endform %}
+        </div>
+
+      </div>
     </div>
-    <div class="page-content__body rich-copy">
-      {{ page.content }}
+  </section>
+
+{% else %}
+  <section class="section-shell scheme-light text-dark section-spacing--top-space-lg section-spacing--bottom-space-xl page-template{% if is_legal_page %} page-template--legal{% endif %}">
+    <div class="page-width page-content{% if is_legal_page %} page-content--legal{% endif %}">
+      <div class="page-template__intro{% if is_legal_page %} page-template__intro--legal{% endif %}">
+        <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
+        <h1 class="section-intro__heading">{{ page.title }}</h1>
+        <div class="section-intro__divider"></div>
+      </div>
+      <div class="page-content__body rich-copy">
+        {{ page.content }}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+{% endif %}
 
 {% schema %}
 {
