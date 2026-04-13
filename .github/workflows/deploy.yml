@@ -31,5 +31,4 @@ jobs:
             --store "$SHOPIFY_STORE" \
             --password "$SHOPIFY_CLI_THEME_TOKEN" \
             --path "." \
-            --unpublished \
-            --theme "zalene-maison-github"
+            --live
