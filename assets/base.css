@@ -275,8 +275,10 @@ button {
 }
 
 .menu-toggle-btn {
-  inline-size: auto;
-  padding: 0 16px;
+  inline-size: 48px;
+  block-size: 48px;
+  padding: 0;
+  margin: 0;
   gap: 8px;
 }
 .menu-label,
@@ -343,28 +345,39 @@ button {
 }
 
 .site-header__top-row {
-  display: grid !important;
-  grid-template-columns: 1fr auto 1fr !important;
+  display: flex !important;
   align-items: center !important;
+  justify-content: center;
   min-height: 80px;
   position: relative;
   width: 100%;
 }
 
 .site-header__utilities--left {
-  flex: 1 1 0%;
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  flex: none;
   display: flex !important;
   justify-content: flex-start;
   align-items: center;
-  gap: 32px;
+  gap: 0;
 }
 
 .site-header__utilities--right {
-  flex: 1 1 0%;
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  flex: none;
   display: flex !important;
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
+  min-width: max-content;
 }
 
 .site-header__brand {
@@ -377,6 +390,8 @@ button {
 
 /* Gold color for brand logo link */
 .site-header__brand a {
+  display: inline-flex;
+  align-items: center;
   color: var(--color-primary-accent);
   text-decoration: none;
 }
@@ -431,6 +446,14 @@ button {
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
+}
+
+.site-header__utilities .icon-button {
+  flex-shrink: 0;
+}
+
+.site-header__utilities svg {
+  display: block;
 }
 
 /* Cart badge is subtle but clearly readable */
@@ -1217,34 +1240,49 @@ button {
 
 /* Footer uses structured columns and quiet gold separators */
 .site-footer {
-  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.25);
+  background: #000000;
+  border-top: 0.5px solid #D4AF37;
+  padding: 32px 24px 20px;
+  text-align: center;
 }
 
-/* Footer layout stacks naturally on small screens */
-.site-footer__layout {
-  display: grid;
-  gap: 24px;
-}
-
-/* Footer navigation group keeps editorial spacing compact */
-.footer-nav {
-  display: grid;
-  gap: 10px;
-}
-
-/* Social list uses icon-only links with gold stroke assets */
-.social-links {
+/* Footer navigation is a single balanced luxury axis */
+.site-footer__nav {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 56px);
   flex-wrap: wrap;
-  gap: 10px;
 }
 
-/* Footer meta line sits quietly beneath main navigation */
-.site-footer__meta {
-  display: grid;
-  gap: 12px;
-  padding-top: 20px;
-  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  transition: color var(--transition-medium), opacity var(--transition-medium);
+}
+
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: #D4AF37;
+  opacity: 1;
+}
+
+.site-footer__copyright {
+  margin: 24px 0 0;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 4px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  text-transform: uppercase;
 }
 
 /* Utility rotation class supports directional icon reuse */
@@ -1315,8 +1353,7 @@ button {
 
   /* Collection and editorial grids expand into multiple columns */
   .collection-cards,
-  .values-grid,
-  .site-footer__layout {
+  .values-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1363,37 +1400,15 @@ button {
   .site-header__inner {
     width: 100%;
     margin-inline: 0;
-    padding-inline: 0;
+    padding-inline: 16px;
   }
 
   .site-header__top-row {
-    grid-template-columns: 1fr auto 1fr !important;
     min-height: 72px;
-    column-gap: 0;
   }
 
   .site-header__utilities--left {
-    gap: 0;
-    justify-content: flex-start;
-  }
-
-  .menu-toggle-btn {
-    inline-size: 48px;
-    block-size: 48px;
-    padding: 0;
-    margin: 0;
-  }
-
-  .site-header__brand {
-    justify-content: center;
-    padding-inline-start: 0;
-    min-width: auto;
-  }
-
-  .site-header__brand a {
-    display: inline-flex;
-    align-items: center;
-    min-width: auto;
+    inset-inline-start: 0;
   }
 
   .brand-mark {
@@ -1404,7 +1419,21 @@ button {
 
   .site-header__utilities--right {
     gap: 0;
-    padding-inline-end: 0;
+    inset-inline-end: 0;
+  }
+
+  .site-footer {
+    padding: 40px 24px;
+  }
+
+  .site-footer__nav {
+    display: grid;
+    gap: 40px;
+    justify-items: center;
+  }
+
+  .site-footer__copyright {
+    margin-top: 40px;
   }
 }
 
@@ -1446,8 +1475,4 @@ button {
     display: none;
   }
 
-  /* Footer opens into a four-column structure at desktop scale */
-  .site-footer__layout {
-    grid-template-columns: 1.35fr repeat(3, minmax(0, 1fr));
-  }
 }
