@@ -1,112 +1,16 @@
 {
   "sections": {
-    "zm-hero": {
+    "main": {
       "type": "zalene-maison-hero",
       "settings": {
         "eyebrow_text": "Zalène Maison",
-        "heading_text": "Quiet luxury. Redefined.",
-        "subheading_text": "Curated pieces for the discerning few."
-      }
-    },
-    "hero": {
-      "type": "homepage-hero",
-      "settings": {
-        "show_section": true,
-        "heading": "The New Season of Quiet Luxury",
-        "subheading": "Precision drape, luminous detail, and silhouettes shaped for modern modest dressing.",
-        "eyebrow": "Elegance Redefined",
-        "button_label": "Explore the collection",
-        "background_scheme": "scheme-dark",
-        "text_scheme": "text-light",
-        "padding_top": "space-xl",
-        "padding_bottom": "space-xl"
-      }
-    },
-    "collections": {
-      "type": "featured-collections-grid",
-      "settings": {
-        "show_section": true,
-        "heading": "Featured Collections",
-        "subheading": "A measured edit of signature silhouettes.",
-        "button_label": "Shop the edit",
-        "background_scheme": "scheme-light",
-        "text_scheme": "text-dark",
-        "padding_top": "space-lg",
-        "padding_bottom": "space-lg"
-      }
-    },
-    "story": {
-      "type": "brand-story-strip",
-      "settings": {
-        "show_section": true,
-        "heading": "A House of Intentional Luxury",
-        "subheading": "French discipline, Arabic grace, and craftsmanship without excess.",
-        "body": "Zalène Maison is built around precision, restraint, and beauty that unfolds in texture rather than noise. Every silhouette is considered for movement, modesty, and presence. Fabrics are selected for softness, depth, and longevity, while each finish is refined to feel discreetly exceptional. We design for women who value quiet confidence and garments that honour both occasion and everyday ritual. The result is a wardrobe shaped by calm structure, gentle light, and details that reveal themselves slowly.",
-        "button_label": "Read the story",
-        "background_scheme": "scheme-light",
-        "text_scheme": "text-dark",
-        "padding_top": "space-lg",
-        "padding_bottom": "space-lg"
-      }
-    },
-    "bestsellers": {
-      "type": "bestsellers-carousel",
-      "settings": {
-        "show_section": true,
-        "heading": "Bestsellers",
-        "subheading": "Signature pieces chosen again and again.",
-        "background_scheme": "scheme-dark",
-        "text_scheme": "text-light",
-        "padding_top": "space-lg",
-        "padding_bottom": "space-lg"
-      }
-    },
-    "values": {
-      "type": "care-values",
-      "settings": {
-        "show_section": true,
-        "heading": "Care and Values",
-        "subheading": "Luxury is preserved through intention.",
-        "background_scheme": "scheme-dark",
-        "text_scheme": "text-light",
-        "padding_top": "space-lg",
-        "padding_bottom": "space-lg"
-      }
-    },
-    "ugc": {
-      "type": "instagram-grid-placeholder",
-      "settings": {
-        "show_section": true,
-        "heading": "A Glimpse in Motion",
-        "subheading": "A curated grid for editorial and community imagery.",
-        "background_scheme": "scheme-light",
-        "text_scheme": "text-dark",
-        "padding_top": "space-lg",
-        "padding_bottom": "space-lg"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter-signup-strip",
-      "settings": {
-        "show_section": true,
-        "heading": "Stay Connected",
-        "subheading": "Stay connected. Discover new collections first.",
-        "button_label": "Subscribe",
-        "background_scheme": "scheme-dark",
-        "text_scheme": "text-light",
-        "padding_top": "space-lg",
-        "padding_bottom": "space-lg"
+        "heading_text": "Quiet Luxury Redefined",
+        "subheading_text": "Curated pieces for the discerning few",
+        "button_label": "Explore Collection"
       }
     }
   },
   "order": [
-    "zm-hero",
-    "hero",
-    "collections",
-    "story",
-    "bestsellers",
-    "values",
-    "ugc",
-    "newsletter"
+    "main"
   ]
 }
