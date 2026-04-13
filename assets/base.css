@@ -1363,7 +1363,51 @@ button {
   .site-header__inner {
     width: 100%;
     margin-inline: 0;
-    padding-inline: 16px;
+    padding-inline: 0;
+  }
+
+  .site-header__top-row {
+    grid-template-columns: 56px minmax(0, 1fr) auto !important;
+    min-height: 72px;
+    column-gap: 0;
+  }
+
+  .site-header__utilities--left {
+    gap: 0;
+    justify-self: start;
+  }
+
+  .menu-toggle-btn {
+    inline-size: 56px;
+    block-size: 56px;
+    padding: 0;
+    margin: 0;
+    justify-self: start;
+  }
+
+  .site-header__brand {
+    justify-content: flex-start;
+    padding-inline-start: 4px;
+    min-width: 0;
+  }
+
+  .site-header__brand a {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    font-size: 1rem;
+    letter-spacing: 0.32rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site-header__utilities--right {
+    gap: 0;
+    padding-inline-end: 8px;
   }
 }
 
