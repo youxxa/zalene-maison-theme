@@ -1069,7 +1069,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   padding: 14px 0;
   border-top: var(--border-hairline) solid rgba(212,175,55,0.18);
   border-bottom: var(--border-hairline) solid rgba(212,175,55,0.18);
@@ -1308,10 +1308,19 @@ button {
   gap: 14px;
 }
 
-/* Empty states preserve tone with spacious, measured messaging */
+/* Empty state is intentionally spacious — dead-centered with generous breathing room */
 .empty-state {
-  padding: 40px 0;
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  padding: 0;
   text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.38rem;
+  text-transform: uppercase;
+  color: var(--color-primary-accent);
+  font-weight: 600;
 }
 
 /* Footer uses structured columns and quiet gold separators */
@@ -1604,31 +1613,56 @@ a.contact-brand__value:hover {
   }
 }
 
-/* Mobile header: allow edge-to-edge controls so the hamburger sits at the far left */
+/* Mobile header: strict rules to prevent brand name colliding with icon groups */
 @media screen and (max-width: 749px) {
   .site-header__inner {
     width: 100%;
     margin-inline: 0;
-    padding-inline: 16px;
+    padding-inline: 12px;
   }
 
   .site-header__top-row {
-    min-height: 72px;
+    min-height: 64px;
   }
 
+  /* Shrink icon tap targets so they take less horizontal room */
+  .site-header__utilities .icon-button,
+  .site-header__utilities a.icon-button {
+    inline-size: 40px;
+    block-size: 40px;
+  }
+
+  /* Left group: hamburger + account, flush to left edge, tight gap */
   .site-header__utilities--left {
     inset-inline-start: 0;
+    gap: 2px;
   }
 
+  /* Right group: search + cart, flush to right edge, tight gap */
+  .site-header__utilities--right {
+    gap: 2px;
+    inset-inline-end: 0;
+  }
+
+  /* Brand name: drastically reduced so it clears both 2-icon groups */
+  /* Two icons × 40px = 80px per side. At 12px inner pad = usable center ≈ 166px */
   .brand-mark {
-    font-size: 1.125rem;
-    letter-spacing: 0.4rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1rem;
     white-space: nowrap;
   }
 
-  .site-header__utilities--right {
-    gap: 0;
-    inset-inline-end: 0;
+  /* Collection toolbar stacks count above controls on very small screens */
+  @media screen and (max-width: 480px) {
+    .collection-toolbar {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .collection-toolbar__controls {
+      width: 100%;
+      justify-content: flex-end;
+    }
   }
 
   .site-footer {
