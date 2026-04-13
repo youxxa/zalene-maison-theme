@@ -59,17 +59,19 @@
           subheading: collection.description | strip_html | truncate: 140 | default: section.settings.subheading
         %}
         <div class="collection-toolbar">
-          <p>{{ 'collection.results' | t: count: collection.products_count }}</p>
-          <button class="button button--secondary small-hide medium-hide" type="button" data-drawer-target="CollectionFiltersDrawer">{{ 'collection.filter_title' | t }}</button>
-          <form action="{{ collection.url }}" method="get">
-            <label class="visually-hidden" for="CollectionSort">{{ 'collection.sort_label' | t }}</label>
-            <select class="quick-add__select" id="CollectionSort" name="sort_by" onchange="this.form.submit()">
-              {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
-              {% for option in collection.sort_options %}
-                <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
-              {% endfor %}
-            </select>
-          </form>
+          <span class="collection-toolbar__count">{{ 'collection.results' | t: count: collection.products_count }}</span>
+          <div class="collection-toolbar__controls">
+            <button class="collection-toolbar__refine-btn small-hide medium-hide" type="button" data-drawer-target="CollectionFiltersDrawer">{{ 'collection.filter_title' | t }}</button>
+            <form action="{{ collection.url }}" method="get" class="collection-toolbar__sort-form">
+              <label class="visually-hidden" for="CollectionSort">{{ 'collection.sort_label' | t }}</label>
+              <select class="collection-toolbar__sort-select" id="CollectionSort" name="sort_by" onchange="this.form.submit()">
+                {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+                {% for option in collection.sort_options %}
+                  <option value="{{ option.value }}" {% if option.value == current_sort %}selected{% endif %}>{{ option.name }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </div>
         </div>
 
         <div class="collection-layout">

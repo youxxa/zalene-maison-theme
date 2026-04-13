@@ -363,7 +363,7 @@ button {
   display: flex !important;
   justify-content: flex-start;
   align-items: center;
-  gap: 0;
+  gap: 4px;
 }
 
 .site-header__utilities--right {
@@ -1063,13 +1063,89 @@ button {
   display: none;
 }
 
-/* Collection utility bar holds result count, sort, and filter controls */
+/* Collection utility bar — count left, controls right as a unified pill */
 .collection-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
+  padding: 14px 0;
+  border-top: var(--border-hairline) solid rgba(212,175,55,0.18);
+  border-bottom: var(--border-hairline) solid rgba(212,175,55,0.18);
+  margin-bottom: 32px;
+}
+
+/* Result count tracks products in the collection quietly */
+.collection-toolbar__count {
+  font-size: 0.7rem;
+  letter-spacing: 0.38rem;
+  text-transform: uppercase;
+  color: var(--color-primary-accent);
+  font-weight: 600;
+}
+
+/* Controls group keeps refine + sort visually bonded */
+.collection-toolbar__controls {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* Refine button mirrors sort select in height — no heavy button border */
+.collection-toolbar__refine-btn {
+  height: 40px;
+  padding: 0 20px;
+  font-size: 0.7rem;
+  letter-spacing: 0.34rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--font-body);
+  color: var(--color-primary-dark);
+  background: transparent;
+  border: var(--border-hairline) solid rgba(212,175,55,0.35);
+  border-right: none;
+  cursor: pointer;
+  transition: color var(--transition-medium), border-color var(--transition-medium);
+  white-space: nowrap;
+}
+
+.collection-toolbar__refine-btn:hover {
+  color: var(--color-primary-accent);
+  border-color: var(--color-primary-accent);
+}
+
+/* Sort form is flush with the refine button to form a single bar */
+.collection-toolbar__sort-form {
+  display: flex;
+}
+
+/* Sort select inherits the same bar height and type system */
+.collection-toolbar__sort-select {
+  height: 40px;
+  padding: 0 36px 0 16px;
+  font-size: 0.7rem;
+  letter-spacing: 0.34rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: var(--font-body);
+  color: var(--color-primary-dark);
+  background: transparent;
+  border: var(--border-hairline) solid rgba(212,175,55,0.35);
+  border-radius: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23D4AF37'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 9px;
+  min-width: max-content;
+}
+
+.collection-toolbar__sort-select:focus {
+  outline: none;
+  border-color: var(--color-primary-accent);
 }
 
 /* Filter list spacing prioritizes touch and legibility */
@@ -1318,6 +1394,139 @@ button {
 .page-content {
   display: grid;
   gap: 24px;
+}
+
+/* Contact page intro stays center-anchored above the two-column grid */
+.contact-page-intro {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+/* Contact layout is a two-column grid on tablet and up */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: start;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+@media screen and (min-width: 750px) {
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+
+/* Brand panel carries the identity and contact detail stack */
+.contact-brand {
+  display: grid;
+  gap: 32px;
+}
+
+/* Tagline uses the heading font for editorial weight */
+.contact-brand__tagline {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-primary-dark);
+}
+
+/* Detail stack is a flat list of label-value pairs */
+.contact-brand__details {
+  display: grid;
+  gap: 20px;
+}
+
+.contact-brand__detail-item {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 20px;
+  border-bottom: var(--border-hairline) solid rgba(212,175,55,0.22);
+}
+
+/* Labels use the brand's spaced-caps treatment */
+.contact-brand__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.38rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-primary-accent);
+}
+
+/* Values keep the normal body weight for readability contrast */
+.contact-brand__value {
+  font-size: 0.9375rem;
+  color: var(--color-primary-dark);
+  text-decoration: none;
+}
+
+a.contact-brand__value:hover {
+  color: var(--color-primary-accent);
+}
+
+/* Contact form panel floats within the grid column */
+.contact-form-panel {
+  display: grid;
+  gap: 0;
+}
+
+/* Fields stack vertically with generous gap */
+.contact-form__fields {
+  display: grid;
+  gap: 28px;
+}
+
+/* Half-width row for name + email on the same line */
+.contact-form__row--half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media screen and (max-width: 749px) {
+  .contact-form__row--half {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Each field is a label-input stack */
+.contact-form__field {
+  display: grid;
+  gap: 8px;
+}
+
+/* Form labels use the eyebrow type system for consistent hierarchy */
+.contact-form__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.32rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* Textarea scales vertically and uses the same underline border */
+.contact-form__textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+/* Submit button sits flush left inside the form panel */
+.contact-form__submit {
+  justify-self: start;
+  margin-top: 8px;
+}
+
+/* Success message uses the eyebrow accent style */
+.contact-form__success {
+  font-size: 0.8rem;
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+  color: var(--color-primary-accent);
+  padding: 20px 0;
 }
 
 /* 404 state mirrors the brand's spacious, reflective tone */
