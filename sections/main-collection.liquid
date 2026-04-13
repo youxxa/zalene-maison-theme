@@ -60,7 +60,7 @@
         %}
         <div class="collection-toolbar">
           <p>{{ 'collection.results' | t: count: collection.products_count }}</p>
-          <button class="button button--secondary" type="button" data-drawer-target="CollectionFiltersDrawer">{{ 'collection.filter_title' | t }}</button>
+          <button class="button button--secondary small-hide medium-hide" type="button" data-drawer-target="CollectionFiltersDrawer">{{ 'collection.filter_title' | t }}</button>
           <form action="{{ collection.url }}" method="get">
             <label class="visually-hidden" for="CollectionSort">{{ 'collection.sort_label' | t }}</label>
             <select class="quick-add__select" id="CollectionSort" name="sort_by" onchange="this.form.submit()">
@@ -84,7 +84,7 @@
                   {% render 'product-card', product: product, show_quick_add: true %}
                 </div>
               {% else %}
-                <div class="empty-state collection-empty-state">{{ 'collection.empty' | t }}</div>
+                <div class="empty-state">{{ 'collection.empty' | t }}</div>
               {% endfor %}
             </div>
 

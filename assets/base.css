@@ -12,26 +12,32 @@
   box-sizing: border-box;
 }
 
+/* Focus states use gold for clear accessibility without heavy shadows */
+:focus-visible {
+  outline: 1px solid var(--color-primary-accent);
+  outline-offset: 3px;
+}
+
+/* Global design constraints for luxury feel */
+:root {
+  --tracking-luxury: 7px;
+  --tracking-editorial: 5px;
+  --border-hairline: 0.75px;
+}
+
 /* Base element defaults for a calm, premium canvas */
 html,
 body {
   min-height: 100%;
 }
 
-/* Body typography, background, and rendering behavior */
 body {
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.7;
-  color: var(--color-text-primary);
+  line-height: 1.8;
+  color: #2C2C2C; /* Strict Charcoal */
+  background: var(--color-primary-light);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Focus states use gold for clear accessibility without heavy shadows */
-:focus-visible {
-  outline: 1px solid var(--color-primary-accent);
-  outline-offset: 3px;
 }
 
 /* Links inherit a restrained visual treatment */
@@ -72,10 +78,7 @@ button {
 
 /* Main content offset keeps sticky header overlap controlled */
 .main-content {
-  display: flex;
-  flex: 1 0 auto;
-  flex-direction: column;
-  min-height: 80vh;
+  display: block;
 }
 
 /* Reusable section shell handles padding and relative positioning */
@@ -84,10 +87,27 @@ button {
   overflow: clip;
 }
 
-/* Announcement bar uses its own configurable theme settings */
+/* Announcement bar carries the refined brand message with high letter spacing */
 .announcement-bar {
   background: var(--color-announcement-background);
   color: var(--color-announcement-text);
+  text-transform: uppercase;
+  letter-spacing: 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.announcement-bar .drawer-nav__link {
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+  display: inline-block;
 }
 
 /* Color schemes map section settings to root tokens */
@@ -195,53 +215,55 @@ button {
   width: 88px;
   height: var(--border-medium);
   background: var(--color-primary-accent);
+  margin-inline: auto;
 }
 
-/* Button treatment keeps gold reserved and tactile */
+/* Global Button Overhaul - STRICT GHOST ONLY */
 .button,
+.button--primary,
+.button--secondary,
 .shopify-payment-button__button,
 .shopify-challenge__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px;
   min-height: 48px;
-  padding: 14px 24px;
-  border: var(--border-thin) solid var(--color-primary-accent);
-  border-radius: var(--button-radius);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.32rem;
+  padding: 0 44px;
+  font-family: var(--font-body);
+  font-size: 0.75rem !important;
+  letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
-  transition:
-    background-color var(--transition-medium),
-    color var(--transition-medium),
-    border-color var(--transition-medium),
-    transform var(--transition-medium);
+  text-decoration: none;
+  background: transparent !important;
+  border: var(--border-hairline) solid var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Primary button uses the gold accent sparingly but decisively */
-.button--primary {
-  background: var(--color-primary-accent);
-  color: var(--color-primary-dark);
-}
-
-/* Secondary button preserves whitespace and border definition */
-.button--secondary {
-  background: transparent;
-  color: inherit;
-}
-
-/* Button hover adds a subtle lift without theatrical motion */
 .button:hover,
-.button:focus-visible,
-.shopify-payment-button__button:hover,
-.shopify-payment-button__button:focus-visible {
-  transform: translateY(-1px);
+.button--primary:hover,
+.button--secondary:hover,
+.shopify-payment-button__button:hover {
+  background-color: var(--color-primary-accent) !important;
+  color: var(--color-primary-light) !important;
+  transform: none !important;
+}
+
+/* Specific section overrides to catch residual solid styles */
+.section-intro .button,
+.cart-drawer .button,
+.not-found .button,
+.main-content .button {
+  background: transparent !important;
+  border: var(--border-hairline) solid var(--color-primary-accent) !important;
+  color: var(--color-primary-accent) !important;
 }
 
 /* Icon buttons meet tap target requirements across the theme */
 .icon-button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -250,6 +272,25 @@ button {
   border: var(--border-thin) solid transparent;
   color: inherit;
   transition: border-color var(--transition-medium), color var(--transition-medium);
+}
+
+.menu-toggle-btn {
+  inline-size: 48px;
+  block-size: 48px;
+  padding: 0;
+  margin: 0;
+  gap: 8px;
+}
+.menu-label,
+.header-text-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: opacity var(--transition-medium);
+}
+.header-text-link:hover {
+  opacity: 0.7;
 }
 
 /* Text links use an understated gold underline cue */
@@ -290,97 +331,113 @@ button {
 }
 
 /* Shrunk state tightens the header once the user scrolls */
-.site-header.is-condensed .site-header__top-row {
+.site-header.is-condensed .site-header__inner {
   min-height: 64px;
 }
 
-/* Header shell sets border and translucent backdrop */
+/* Header shell handles the stacked brand-centered architecture */
 .site-header__inner {
-  width: min(calc(100% - 24px), var(--container-width));
-  margin-inline: auto;
+  padding: 0 32px;
+  width: 100%;
+  margin: 0;
   transition: min-height var(--transition-medium);
-  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.24);
-  backdrop-filter: blur(12px);
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.15);
 }
 
 .site-header__top-row {
-  display: grid;
-  grid-template-columns: minmax(48px, auto) minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: 12px;
-  min-height: var(--header-height);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center;
+  min-height: 80px;
+  position: relative;
   width: 100%;
-}
-
-.site-header__utilities--left,
-.site-header__utilities--right {
-  display: inline-flex;
-  align-items: center;
 }
 
 .site-header__utilities--left {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  flex: none;
+  display: flex !important;
   justify-content: flex-start;
-  min-width: 48px;
+  align-items: center;
+  gap: 0;
 }
 
 .site-header__utilities--right {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  flex: none;
+  display: flex !important;
   justify-content: flex-end;
-  gap: 15px;
+  align-items: center;
+  gap: 8px;
   min-width: max-content;
 }
 
-/* Brand mark keeps spacing refined even without an uploaded image */
-.site-header .site-header__brand {
+.site-header__brand {
   display: flex;
-  align-items: center;
   justify-content: center;
-  justify-self: center;
-  width: 100%;
-  max-width: min(100%, clamp(168px, 24vw, 300px));
-  min-width: 0;
-  overflow: hidden;
-  text-align: center;
+  align-items: center;
+  z-index: 10;
+  pointer-events: auto;
 }
 
-.site-header .site-header__brand a {
+/* Gold color for brand logo link */
+.site-header__brand a {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
+  color: var(--color-primary-accent);
+  text-decoration: none;
 }
 
-.site-header .brand-logo__image {
-  width: min(100%, var(--logo-width));
-  height: auto;
-  max-height: 42px;
-  object-fit: contain;
+.site-header__nav {
+  position: relative;
+  display: block;
+  z-index: 5;
 }
 
-/* Brand text fallback uses the same premium tracking everywhere */
-.site-header .brand-mark {
+/* Hide on mobile viewports strictly */
+@media screen and (max-width: 989px) {
+  .site-header__nav {
+    display: none !important;
+  }
+}
+
+/* Hide on large (desktop) screens - utility class */
+@media screen and (min-width: 990px) {
+  .large-up-hide {
+    display: none !important;
+  }
+}
+
+/* Brand mark in centered position - STRICT GOLD */
+.brand-mark {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
-  gap: 0;
-  font-size: 0.95rem;
-  letter-spacing: 0.22rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.8rem;
   text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-family: var(--font-heading);
+  color: var(--color-primary-accent); /* #D4AF37 */
 }
 
-/* Gold rule beside the wordmark reinforces brand identity */
-.site-header .brand-mark::before {
-  display: none;
+@media screen and (max-width: 749px) {
+  .brand-mark {
+    font-size: 1.125rem;
+    letter-spacing: 0.4rem;
+  }
 }
 
-/* Navigation list remains centered with precise spacing */
+/* Navigation list styling */
 .site-header__nav {
-  display: none;
+  display: block;
 }
 
 /* Header utilities align menu, search, and cart actions */
@@ -388,7 +445,15 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 15px;
+  gap: 4px;
+}
+
+.site-header__utilities .icon-button {
+  flex-shrink: 0;
+}
+
+.site-header__utilities svg {
+  display: block;
 }
 
 /* Cart badge is subtle but clearly readable */
@@ -409,24 +474,30 @@ button {
   font-weight: 700;
 }
 
-/* Desktop navigation keeps links airy and highly legible */
+/* Desktop navigation keeps links airy and centered under the brand row */
 .mega-menu {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 48px;
 }
 
-/* Top-level nav items carry the brand's uppercase cadence */
+/* Top-level nav items carry the brand's uppercase cadence - 7px Tracking */
 .mega-menu__link {
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.38rem;
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: var(--tracking-luxury);
   text-transform: uppercase;
+  color: #2C2C2C;
+}
+
+.mega-menu__link:hover {
+  color: var(--color-primary-accent);
 }
 
 /* Gold active line stays delicate and intentional */
@@ -501,32 +572,42 @@ button {
   inset-block: 0;
   inset-inline-end: 0;
   width: min(100%, 440px);
-  padding: 24px 16px 32px;
+  padding: 32px 24px;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  gap: 20px;
+  gap: 24px;
   background: var(--color-background-dark);
   color: var(--color-primary-light);
-  border-inline-start: var(--border-thin) solid rgba(212, 175, 55, 0.3);
-  transform: translateX(100%);
-  transition: transform var(--transition-medium);
+  border-inline-start: var(--border-thin) solid transparent;
+  transform: translateX(10%);
+  opacity: 0;
+  transition: transform var(--transition-medium), opacity var(--transition-medium);
 }
 
 /* Menu and filter drawers can also slide from the left edge */
 .drawer__panel--left {
   inset-inline-start: 0;
   inset-inline-end: auto;
-  transform: translateX(-100%);
-  border-inline-end: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+  transform: translateX(-10%);
+  border-inline-end: var(--border-thin) solid transparent;
   border-inline-start: 0;
+}
+
+/* Right-side drawers mirror the base drawer so search can slide in from the right */
+.drawer__panel--right {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  transform: translateX(10%);
+  border-inline-start: var(--border-thin) solid transparent;
+  border-inline-end: 0;
 }
 
 /* Fullscreen drawer variant supports immersive mobile navigation */
 .drawer__panel--fullscreen {
   width: 100%;
-  transform: translateY(-100%);
+  transform: translateY(-5%);
   border-inline: 0;
-  border-block-end: var(--border-thin) solid rgba(212, 175, 55, 0.3);
+  border-block-end: var(--border-thin) solid transparent;
 }
 
 /* Drawers animate as a coordinated backdrop and panel system */
@@ -536,6 +617,12 @@ button {
 
 /* Open drawer panel returns to its resting position */
 .drawer.is-open .drawer__panel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Right-side drawers use the same open state but mirror the transform direction */
+.drawer.is-open .drawer__panel--right {
   transform: translateX(0);
 }
 
@@ -601,8 +688,11 @@ button {
 
 /* Search input treatment uses gold borders in place of shadows */
 .search-form {
-  display: grid;
-  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding-top: 20px;
 }
 
 /* Search field line height and spacing preserve premium readability */
@@ -610,10 +700,59 @@ button {
 .form-field {
   width: 100%;
   min-height: 52px;
-  padding: 14px 16px;
-  border: var(--border-thin) solid rgba(212, 175, 55, 0.55);
+  padding: 14px 0;
+  border: none;
+  border-bottom: var(--border-hairline) solid var(--color-primary-accent);
   background: transparent;
   color: inherit;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  transition: border-color var(--transition-medium);
+}
+
+.form-field:focus {
+  outline: none;
+  border-color: var(--color-primary-accent);
+}
+
+/* Minimal form field removes the boxy look for elegant forms */
+.form-field--minimal {
+  padding: 14px 0;
+  border: none;
+  border-bottom: var(--border-medium) solid rgba(212, 175, 55, 0.35);
+  border-radius: 0;
+}
+
+/* Cart drawer details hide cumbersome forms cleanly */
+.cart-drawer-details {
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.18);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.cart-drawer-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  transition: color var(--transition-medium);
+}
+
+.cart-drawer-details summary:hover {
+  color: var(--color-primary-accent);
+}
+
+.cart-helper-form {
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+/* Button utility for full width mobile spacing */
+.button--full {
+  width: 100%;
 }
 
 /* Search results list supports live predictive updates */
@@ -873,12 +1012,25 @@ button {
   border: var(--border-thin) solid rgba(212, 175, 55, 0.35);
 }
 
-/* Minimal geometric icons are drawn with borders only */
-.values-grid__icon {
-  width: 34px;
-  height: 34px;
-  border: var(--border-thin) solid var(--color-primary-accent);
-  transform: rotate(45deg);
+/* Inline trust badge icons scale elegantly without a hard box constraint */
+.trust-badges__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-accent);
+  flex-shrink: 0;
+}
+
+.trust-badges__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0;
+  font-size: 0.875rem;
+  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.12);
+}
+
+.trust-badges__item:last-child {
+  border-bottom: none;
 }
 
 /* Instagram grid shifts from two to three columns cleanly */
@@ -1088,41 +1240,49 @@ button {
 
 /* Footer uses structured columns and quiet gold separators */
 .site-footer {
-  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.25);
-  margin-top: auto;
+  background: #000000;
+  border-top: 0.5px solid #D4AF37;
+  padding: 32px 24px 20px;
+  text-align: center;
 }
 
-/* Footer layout stacks naturally on small screens */
-.site-footer__layout {
-  display: grid;
-  gap: 24px;
-}
-
-/* Footer navigation group keeps editorial spacing compact */
-.footer-nav {
-  display: grid;
-  gap: 10px;
-}
-
-/* Social list uses icon-only links with gold stroke assets */
-.social-links {
+/* Footer navigation is a single balanced luxury axis */
+.site-footer__nav {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 56px);
   flex-wrap: wrap;
-  gap: 10px;
 }
 
-/* Footer meta line sits quietly beneath main navigation */
-.site-footer__meta {
-  display: grid;
-  gap: 12px;
-  padding-top: 20px;
-  border-top: var(--border-thin) solid rgba(212, 175, 55, 0.18);
-  color: rgba(255, 255, 255, 0.86);
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  transition: color var(--transition-medium), opacity var(--transition-medium);
 }
 
-.site-footer__meta p {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.86);
+.site-footer__link:hover,
+.site-footer__link:focus-visible {
+  color: #D4AF37;
+  opacity: 1;
+}
+
+.site-footer__copyright {
+  margin: 24px 0 0;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 4px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  text-transform: uppercase;
 }
 
 /* Utility rotation class supports directional icon reuse */
@@ -1135,10 +1295,21 @@ button {
   transform: rotate(-90deg);
 }
 
-/* Mobile-only helpers hide elements from tablet and desktop */
-@media screen and (min-width: 750px) {
-  .small-hide,
+/* Responsive helpers for UI discipline */
+@media screen and (max-width: 749px) {
+  .small-hide {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 989px) {
   .medium-hide {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .large-up-hide {
     display: none !important;
   }
 }
@@ -1147,57 +1318,6 @@ button {
 .page-content {
   display: grid;
   gap: 24px;
-}
-
-.page-template__intro--contact,
-.page-template__intro--legal {
-  text-align: center;
-}
-
-.page-content--contact,
-.page-content--legal {
-  width: min(100%, 860px);
-  margin-inline: auto;
-}
-
-.page-content--contact {
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  text-align: center;
-}
-
-.page-content--contact .page-content__body,
-.page-content--legal .page-content__body {
-  margin-inline: auto;
-}
-
-.page-content--legal {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.page-content--legal .page-content__body,
-.page-content--legal .page-content__body :where(p, li, a, span, strong, em, small, blockquote, td, th, ul, ol) {
-  font-family: var(--font-legal);
-  font-size: 14px;
-  line-height: 1.7;
-  letter-spacing: 1px;
-}
-
-.template-policy .shopify-policy__container {
-  width: min(calc(100% - 32px), 900px);
-  margin-inline: auto;
-}
-
-.template-policy .shopify-policy__title {
-  text-align: center;
-}
-
-.template-policy .shopify-policy__body,
-.template-policy .shopify-policy__body :where(p, li, a, span, strong, em, small, blockquote, td, th, ul, ol) {
-  font-family: var(--font-legal);
-  font-size: 14px;
-  line-height: 1.7;
-  letter-spacing: 1px;
 }
 
 /* 404 state mirrors the brand's spacious, reflective tone */
@@ -1221,19 +1341,19 @@ button {
   }
 
   /* Desktop header dedicates separate columns to brand, nav, and utilities */
-  .site-header__top-row {
-    column-gap: 24px;
+  .site-header__inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
   }
 
   /* Desktop nav replaces the mobile-only menu trigger */
   .site-header__nav {
-    display: none;
+    display: block;
   }
 
   /* Collection and editorial grids expand into multiple columns */
   .collection-cards,
-  .values-grid,
-  .site-footer__layout {
+  .values-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1245,11 +1365,6 @@ button {
   .page-content {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
-  }
-
-  .page-content--contact,
-  .page-content--legal {
-    grid-template-columns: minmax(0, 1fr);
   }
 
   /* Carousel tiles shrink slightly as more space becomes available */
@@ -1277,6 +1392,48 @@ button {
   .product-gallery__thumbs {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Mobile header: allow edge-to-edge controls so the hamburger sits at the far left */
+@media screen and (max-width: 749px) {
+  .site-header__inner {
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 16px;
+  }
+
+  .site-header__top-row {
+    min-height: 72px;
+  }
+
+  .site-header__utilities--left {
+    inset-inline-start: 0;
+  }
+
+  .brand-mark {
+    font-size: 1.125rem;
+    letter-spacing: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .site-header__utilities--right {
+    gap: 0;
+    inset-inline-end: 0;
+  }
+
+  .site-footer {
+    padding: 40px 24px;
+  }
+
+  .site-footer__nav {
+    display: grid;
+    gap: 40px;
+    justify-items: center;
+  }
+
+  .site-footer__copyright {
+    margin-top: 40px;
   }
 }
 
@@ -1318,257 +1475,4 @@ button {
     display: none;
   }
 
-  /* Footer opens into a four-column structure at desktop scale */
-  .site-footer__layout {
-    grid-template-columns: 1.35fr repeat(3, minmax(0, 1fr));
-  }
 }
-
-@media screen and (max-width: 749px) {
-  .site-header__inner {
-    width: min(calc(100% - 20px), var(--container-width));
-  }
-
-  /* Two icons on each side = ~96px per group. Give brand a safe lane. */
-  .site-header__top-row {
-    column-gap: 4px;
-    grid-template-columns: minmax(96px, auto) minmax(0, 1fr) minmax(96px, auto);
-  }
-
-  .site-header__utilities--left,
-  .site-header__utilities--right {
-    gap: 0;
-  }
-
-  .site-header .site-header__brand {
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  .site-header .brand-mark {
-    font-size: 0.72rem;
-    letter-spacing: 0.08rem;
-  }
-
-  .site-header .brand-logo__image {
-    max-height: 30px;
-    width: auto;
-    max-width: 100%;
-  }
-
-  /* Icon buttons tighten on very small screens */
-  .icon-button {
-    inline-size: 44px;
-    block-size: 44px;
-  }
-}
-
-/* Collection toolbar — cohesive bar with border and balanced spacing */
-.collection-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: nowrap;
-  padding: 10px 14px;
-  border: var(--border-thin) solid rgba(212, 175, 55, 0.28);
-  margin-bottom: 24px;
-}
-
-/* Product count is muted and left-anchored */
-.collection-toolbar > p {
-  margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.2rem;
-  text-transform: uppercase;
-  opacity: 0.6;
-  flex-shrink: 0;
-}
-
-/* Sort select inherits toolbar sizing */
-.collection-toolbar .quick-add__select {
-  min-height: 38px;
-  padding: 8px 10px;
-  font-size: 0.75rem;
-  letter-spacing: 0.18rem;
-}
-
-/* Refine button is compact inside the toolbar */
-.collection-toolbar .button--secondary {
-  min-height: 38px;
-  padding: 8px 14px;
-  font-size: 0.7rem;
-  letter-spacing: 0.2rem;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-@media screen and (max-width: 600px) {
-  /* On very small screens, allow toolbar to wrap to two rows */
-  .collection-toolbar {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .collection-toolbar > p {
-    flex: 1 0 100%;
-  }
-}
-
-/* Empty collection state is centred within the grid column */
-.collection-empty-state {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 40vh;
-  text-align: center;
-  font-size: 0.875rem;
-  letter-spacing: 0.28rem;
-  text-transform: uppercase;
-  opacity: 0.55;
-}
-
-/* ── Contact Page ─────────────────────────────────────────── */
-
-/* Page-level heading block above the two columns */
-.contact-intro {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 48px;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-}
-
-/* Two-column split: brand copy left, form right */
-.contact-layout {
-  display: grid;
-  gap: 48px;
-}
-
-/* Brand copy column */
-.contact-brand {
-  display: grid;
-  gap: 28px;
-  align-content: start;
-}
-
-/* Editorial tagline */
-.contact-brand__tagline {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.25;
-  color: var(--color-primary-dark);
-}
-
-/* Detail list (email, hours, returns) */
-.contact-brand__details {
-  display: grid;
-  gap: 16px;
-}
-
-/* Each detail row */
-.contact-brand__detail-item {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 12px;
-  align-items: baseline;
-  padding-bottom: 12px;
-  border-bottom: var(--border-thin) solid rgba(212, 175, 55, 0.22);
-}
-
-.contact-brand__label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.26rem;
-  text-transform: uppercase;
-  color: var(--color-primary-accent);
-}
-
-.contact-brand__value {
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
-
-/* Extra copy from page.content */
-.contact-brand__copy {
-  font-size: 0.9rem;
-  line-height: 1.8;
-  opacity: 0.78;
-}
-
-/* Form panel */
-.contact-form-panel {
-  display: grid;
-  align-content: start;
-}
-
-/* Fields wrapper */
-.contact-form__fields {
-  display: grid;
-  gap: 16px;
-}
-
-/* Half-width row for name + email side by side */
-.contact-form__row--half {
-  display: grid;
-  gap: 16px;
-}
-
-/* Individual field stack */
-.contact-form__field {
-  display: grid;
-  gap: 6px;
-}
-
-/* Elegant uppercase label */
-.contact-form__label {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.24rem;
-  text-transform: uppercase;
-  color: var(--color-primary-dark);
-  opacity: 0.7;
-}
-
-/* Textarea extends naturally */
-.contact-form__textarea {
-  resize: vertical;
-  min-height: 140px;
-}
-
-/* Submit button takes full width at the bottom */
-.contact-form__submit {
-  justify-self: start;
-  margin-top: 8px;
-}
-
-/* Success message */
-.contact-form__success {
-  display: grid;
-  place-items: center;
-  min-height: 200px;
-  font-size: 0.875rem;
-  letter-spacing: 0.24rem;
-  text-transform: uppercase;
-  color: var(--color-primary-accent);
-}
-
-/* Desktop: two equal columns for the contact layout */
-@media screen and (min-width: 750px) {
-  .contact-layout {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 64px;
-    align-items: start;
-  }
-
-  .contact-form__row--half {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-

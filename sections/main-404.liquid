@@ -4,15 +4,56 @@
   key variables: section.settings.*
   ai_agent_edit_guide: Edit the 404 presentation or recovery CTA here. Keep copy localized and reusable.
 {% endcomment %}
-<section class="section-shell scheme-light text-dark section-spacing--top-space-xl section-spacing--bottom-space-xl">
+<style>
+  .ghost-button-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 40px;
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 0.4rem;
+    color: var(--color-primary-accent);
+    background: transparent;
+    border: 0.75px solid var(--color-primary-accent);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color var(--transition-medium), color var(--transition-medium);
+  }
+  .ghost-button-gold:hover {
+    background-color: var(--color-primary-accent);
+    color: var(--color-primary-dark);
+  }
+  .not-found-spacing {
+    padding-top: 20vh;
+    padding-bottom: 25vh;
+  }
+  .brand-serif-gold {
+    font-family: var(--font-heading);
+    color: var(--color-primary-accent);
+    font-size: 1.25rem;
+    letter-spacing: 0.5rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+  }
+</style>
+
+<section class="section-shell scheme-light text-dark not-found-spacing">
   <div class="page-width">
     <div class="not-found">
-      <div class="section-intro">
-        <p class="section-intro__eyebrow">{{ settings.brand_display_name }}</p>
-        <h1 class="section-intro__heading">{{ 'page_404.heading' | t }}</h1>
-        <div class="section-intro__divider"></div>
-        <p class="section-intro__subheading">{{ 'page_404.subheading' | t }}</p>
-        <a class="button button--primary" href="{{ routes.root_url }}">{{ 'page_404.button_label' | t }}</a>
+      <div class="section-intro" style="text-align: center; max-width: 100%; padding: 0 var(--space-2);">
+        <p class="brand-serif-gold" style="font-family: var(--font-heading); color: var(--color-primary-accent); letter-spacing: 0.5rem; text-transform: uppercase; margin-bottom: 32px; font-size: 1.1rem;">{{ settings.brand_display_name }}</p>
+        <h1 class="section-intro__heading" style="font-family: var(--font-heading); font-size: clamp(3rem, 10vw, 80px); font-weight: 300; margin: 0 auto; color: #1a1a1a; line-height: 1.1;">{{ section.settings.heading }}</h1>
+        <div style="margin: 48px auto; height: 1px; background: var(--color-primary-accent); width: 60px; opacity: 0.6;"></div>
+        <p style="font-family: var(--font-body); letter-spacing: 0.45rem; margin-bottom: 64px; font-size: 0.75rem; color: #666; text-transform: uppercase;">{{ 'page_404.subheading' | t | default: 'THE PAGE YOU WERE LOOKING FOR COULD NOT BE FOUND.' }}</p>
+        <a href="{{ routes.root_url }}" 
+           style="display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 48px; font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.5rem; text-transform: uppercase; text-decoration: none; color: var(--color-primary-accent); background: transparent; border: 0.75px solid var(--color-primary-accent); transition: all 0.4s ease-in-out;"
+           onmouseover="this.style.backgroundColor='rgba(212,175,55,0.1)';this.style.color='#1a1a1a';" 
+           onmouseout="this.style.backgroundColor='transparent';this.style.color='var(--color-primary-accent)';">
+           {{ section.settings.button_label }}
+        </a>
       </div>
     </div>
   </div>
@@ -21,6 +62,19 @@
 {% schema %}
 {
   "name": "Main 404",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A page of quiet absence."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "RETURN TO THE MAISON"
+    }
+  ]
 }
 {% endschema %}

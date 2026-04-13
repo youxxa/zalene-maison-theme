@@ -1,13 +1,5 @@
 [
   {
-    "name": "Theme information",
-    "theme_name": "Zalène Maison",
-    "theme_version": "1.0.0",
-    "theme_author": "OpenAI Codex",
-    "theme_documentation_url": "https://shopify.dev/docs/themes",
-    "theme_support_url": "https://shopify.dev/docs/themes"
-  },
-  {
     "name": "Brand identity",
     "settings": [
       {
@@ -89,10 +81,10 @@
     "name": "Typography",
     "settings": [
       {
-        "type": "url",
+        "type": "text",
         "id": "google_fonts_url",
         "label": "Google Fonts stylesheet URL",
-        "default": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+        "default": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
       },
       {
         "type": "text",
